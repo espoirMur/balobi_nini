@@ -9,11 +9,8 @@ Some interesting topics we could do are :
 
 - Sentiment analysis of comment to a particular topic.
 - Content analysis , with this I mean trying to understand what Congelese are talking about on social media.
-- Disease prevention using social media analysis.
+- Disease prevention using social media analysis. (Basically using time series analysis to predict ebola outbreak in a region.)
 - Another interesting will be to use the streaming api to fetch data daily and retrieve what people are talking about.
-
-- Basically using time series analysis to predict ebola outbreak in a region.
-
 
 I will be sharing more topics with time.
 
