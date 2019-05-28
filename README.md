@@ -11,6 +11,8 @@ Some interesting topics we could do are :
 - Content analysis , with this I mean trying to understand what Congelese are talking about on social media.
 - Disease prevention using social media analysis. (Basically using time series analysis to predict ebola outbreak in a region.)
 - Another interesting will be to use the streaming api to fetch data daily and retrieve what people are talking about.
+- We can use twitter data to find what are the most popular Influencer (persons or businesses) on twitter
+- Using twitter data to visualize the most hashtags used by Congoleses
 
 I will be sharing more topics with time.
 
