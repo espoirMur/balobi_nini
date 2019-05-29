@@ -70,4 +70,3 @@ if __name__ == '__main__':
     query_fname = ' '.join(query) # string
     auth = get_twitter_auth()
     get_tweets(query_fname, timedelta(minutes=30))
-    
