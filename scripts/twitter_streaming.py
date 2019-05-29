@@ -6,7 +6,6 @@ from tweepy import Stream
 from tweepy.streaming import StreamListener
 from twitter_client import get_twitter_auth
 from datetime import datetime, timedelta
-from threading import Timer
 
 
 class CustomListener(StreamListener):
@@ -66,7 +65,7 @@ def get_tweets(query_fname, max_time):
 
 
 if __name__ == '__main__':
-    query = sys.argv[1:] # list of CLI arguments
-    query_fname = ' '.join(query) # string
+    query = sys.argv[1:]  # list of CLI arguments
+    query_fname = ' '.join(query)  # string
     auth = get_twitter_auth()
     get_tweets(query_fname, timedelta(minutes=30))
