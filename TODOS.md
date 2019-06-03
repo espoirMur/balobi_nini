@@ -5,9 +5,13 @@ TO DO TOMMOROW :
 - [x] WORK ON TOPIC MODELING
 - [ ] EMBEDED IT REAL TIME PROCESS WITH A DATABASE
 - [x] Learn about topic modeling and write the first draft of that blog post
-- [] Refractor the twitter to collect geograhpical data about the blog
+- [x] Refractor the twitter to collect geograhpical data about the blog
 - [] refractor the blog post and put in a publishable state.
 - [] find a way to run the streaming code at midnight and collect tweets for one date
+- [] ask question on SO about how to retrieve data about the country
+- [] other step for cleaning
+- Remove one word or 2 words strings and chararcteres
+- Remove kinshasa
 
 ### DRC Coordinates
 
