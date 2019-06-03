@@ -27,7 +27,7 @@ def get_twitter_auth():
         access_secret = credentials['TWITTER_ACCESS_SECRET']
     except KeyError:
         sys.stderr.write("TWITTER_*  not found\n")
-        sys.exit(1)    
+        sys.exit(1)
     auth = OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(access_token, access_secret)
     return auth

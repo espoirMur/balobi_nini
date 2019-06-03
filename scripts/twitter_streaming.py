@@ -4,7 +4,8 @@ import string
 import time
 from tweepy import Stream
 from tweepy.streaming import StreamListener
-from twitter_client import get_twitter_auth
+from twitter_client import get_twitter_auth, get_twitter_client
+from twitter_query_data import get_location
 from datetime import datetime, timedelta
 
 
@@ -21,6 +22,7 @@ class CustomListener(StreamListener):
         try:
             print('fetching data ==')
             with open('data/{}'.format(self.outfile), 'a') as f:
+                print('======> getting')
                 f.write(data)
                 return True
         except BaseException as e:
@@ -57,15 +59,19 @@ def convert_valid(one_char):
         return '_'
 
 
-def get_tweets(query_fname, max_time):
+def get_tweets(query_fname, auth, max_time, location=None):
     stop = datetime.now() + max_time
+    twitter_stream = Stream(auth, CustomListener(query_fname))
     while datetime.now() < stop:
-        twitter_stream = Stream(auth, CustomListener(query_fname))
-        twitter_stream.filter(track=query, is_async=True)
+        if location:
+            twitter_stream.filter(locations=[11.94,-13.64,30.54,5.19], is_async=True)
+        else:
+            twitter_stream.filter(track=query, is_async=True)
 
 
 if __name__ == '__main__':
     query = sys.argv[1:]  # list of CLI arguments
     query_fname = ' '.join(query)  # string
     auth = get_twitter_auth()
-    get_tweets(query_fname, timedelta(minutes=30))
+    location = get_location(get_twitter_client(), 'Congo')
+    get_tweets(query_fname, auth,  timedelta(minutes=30), location=location)

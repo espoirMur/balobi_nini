@@ -5,15 +5,30 @@ from twitter_client import get_twitter_client
 from datetime import datetime, timedelta
 
 
-def query_tweet(client, query, max_tweets):
+def get_location(client, country):
+    """
+    return geolocation  of a country passed in param from tweet client api
+    """
+    places = client.geo_search(query=country, granularity="country")
+    place_id = places[0].id
+    query = "place:{}".format(place_id)
+    return query
+
+
+def query_tweet(client, query=[], max_tweets=2000, country=None):
     """
     query tweets using the query list pass in parameter
     """
-    query = ' OR '.join(query)
+    name = ''
+    if country:
+        query = get_location(client, country)
+        name = 'by_country_coordinate_'
+    else:
+        query = ' OR '.join(query)
+        name = 'by_hashtags_'
     now = datetime.now()
     today = now.strftime("%d-%m-%Y-%H-%M")
-    with open('data/query_drc_{}.jsonl'.format(today), 'w') as f:
-        print(query)
+    with open('data/query_drc_{}_{}.jsonl'.format(name, today), 'w') as f:
         for status in Cursor(
                 client.search,
                 q=query,
@@ -35,6 +50,6 @@ def get_home_timeline(client):
 if __name__ == '__main__':
     client = get_twitter_client()
     try:
-        query_tweet(client, ["DRC", "RDC", "DRCongo", "RDCongo"], 2000)
+        query_tweet(client, max_tweets=2000, query=['RDC', 'RDCongo', 'DRC', 'DRCongo', 'Kinshasa'])
     except TweepError as e:
         print(e, '====')
