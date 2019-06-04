@@ -6,7 +6,7 @@ import preprocessor as tweet_preprocessor
 import pandas as pd
 from io import BytesIO
 from csv import writer
-from functions import process_text, words_to_remove, read_tweets_file
+from .functions import process_text, get_words_to_remove, read_tweets_file
 from utils.emoticons import emoticons
 from datetime import datetime
 
@@ -22,11 +22,11 @@ tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
                                tweet_preprocessor.OPT.MENTION)
 
 
-class TweetCleaner:
+class TweetsCleaner:
 
     def __init__(self, path):
         self.TWEETS_PATH = path
-        self.words_to_remove = words_to_remove().union(emoticons)
+        self.words_to_remove = get_words_to_remove().union(emoticons)
         self.emoji_patterns = re.compile("["
                                          u"\U0001F600-\U0001F64F"  # emoticons
                                          u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -71,7 +71,7 @@ class TweetCleaner:
                 r'[\u0020-\u007F\u00A0-\u00FF\u0100-\u017F\u0180-\u024F]+',
                 text))
         # remove emojis from tweet
-        text = self.emoji_pattern.sub(r'', text)
+        text = self.emoji_patterns.sub(r'', text)
         return text
 
     def stematise_token(self, tokens):
@@ -101,7 +101,7 @@ class TweetCleaner:
         text = text.replace("_", "")
         text = re.sub(r"\b\w{1}\b", "", text)
         text = re.sub(r"\b\w{2}\b", "", text)
-        text = remove_emoji(text)
+        text = self.remove_emoji(text)
         tokens = process_text(text=text, words_to_remove=self.words_to_remove)
         tokens = self.stematise_token(tokens)
         return tokens
@@ -120,4 +120,5 @@ class TweetCleaner:
             tweets_df.loc[tweet.get('id')] = [
                 ' '.join(self.prepocess_tweet(tweet))]
         tweets_df.to_csv(output_file_name)
+        tweets_df.dropna(inplace=True)
         return tweets_df

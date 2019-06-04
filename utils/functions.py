@@ -5,11 +5,13 @@ import json
 import matplotlib.dates as mdates
 import pandas as pd
 import numpy as np
+import many_stop_words
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 from collections import Counter, defaultdict
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
+
 from datetime import datetime
 
 
@@ -121,10 +123,13 @@ def get_words_to_remove():
         'drc',
         'drcongo',
         'tshisekedi'}
-    return set(words_to_remove).union(congo_words)
+    words_to_remove = set(words_to_remove).union(congo_words)
+    words_to_remove = words_to_remove.union(
+        set(many_stop_words.get_stop_words('FR')))
+    return words_to_remove
 
 
-def get_most_common_words(path=TWEETS_PATH, number, words_to_remove):
+def get_most_common_words(number, words_to_remove, path=TWEETS_PATH):
     """
     find the most common words in a corpus of tweets
     Args:
