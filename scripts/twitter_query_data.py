@@ -50,6 +50,14 @@ def get_home_timeline(client):
 if __name__ == '__main__':
     client = get_twitter_client()
     try:
-        query_tweet(client, max_tweets=2000, query=['RDC', 'RDCongo', 'DRC', 'DRCongo', 'Kinshasa'])
+        query_tweet(
+            client,
+            max_tweets=2000,
+            query=[
+                'RDC',
+                'RDCongo',
+                'DRC',
+                'DRCongo',
+                'Kinshasa'])
     except TweepError as e:
         print(e, '====')

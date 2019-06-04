@@ -9,9 +9,10 @@ TO DO TOMMOROW :
 - [] refractor the blog post and put in a publishable state.
 - [] find a way to run the streaming code at midnight and collect tweets for one date
 - [] ask question on SO about how to retrieve data about the country
-- [] other step for cleaning
+- [x] other step for cleaning
 - Remove one word or 2 words strings and chararcteres
 - Remove kinshasa
+- [x] [for each word in a topic plot the distribution]
 
 ### DRC Coordinates
 

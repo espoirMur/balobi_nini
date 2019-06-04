@@ -64,7 +64,9 @@ def get_tweets(query_fname, auth, max_time, location=None):
     twitter_stream = Stream(auth, CustomListener(query_fname))
     while datetime.now() < stop:
         if location:
-            twitter_stream.filter(locations=[11.94,-13.64,30.54,5.19], is_async=True)
+            twitter_stream.filter(
+                locations=[
+                    11.94, -13.64, 30.54, 5.19], is_async=True)
         else:
             twitter_stream.filter(track=query, is_async=True)
 
@@ -74,4 +76,4 @@ if __name__ == '__main__':
     query_fname = ' '.join(query)  # string
     auth = get_twitter_auth()
     location = get_location(get_twitter_client(), 'Congo')
-    get_tweets(query_fname, auth,  timedelta(minutes=30), location=location)
+    get_tweets(query_fname, auth, timedelta(minutes=30), location=location)
