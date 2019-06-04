@@ -4,29 +4,53 @@ from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.decomposition import NMF
 
 
-def create_topic_model(tweet_df, number_of_topics):
+def vectorize_tweets(tweets_df,):
     """
-    train an LDA model
-
+    Return a vecotorize version of tweets
     Args:
-        tweet_df (dataframe): cleaned tweets to use while training
-        number_of_topics (int): number of topics to use in the model
-
-    Returns:
-        LDAModel : trained lda model
-        np array : features names
+        tweest_df ([type]): [description]
+    Returns :
+    np array : features names
+    np array : transformed_tweet tweet transformed
+    np array : count vectorizer for the cleanned tweets
     """
     vectorizer = CountVectorizer(
         max_df=0.95,
         min_df=5,
         token_pattern=r'\w+|\$[\d\.]+|\S+')
-    transfromed_tweets = vectorizer.fit_transform(
+    transformed_tweets = vectorizer.fit_transform(
         tweets_df.get('cleanned_tweet'))
     tf_feature_names = vectorizer.get_feature_names()
-    topic_modeling_model = LatentDirichletAllocation(
-        n_components=number_of_topics, random_state=0, max_iter=200)
-    topic_modeling_model.fit(transfromed_tweets)
-    return topic_modeling_model, tf_feature_names
+    return tf_feature_names, transformed_tweets, vectorizer
+
+
+def create_topic_model(transformed_tweets, number_of_topics, is_lda=True):
+    """
+    train an LDA model
+
+    Args:
+        transformed_tweets (np.array): matrix document and world count
+        number_of_topics (int): number of topics to use in the model
+        is_lda (boolean) default True: the model to use
+
+    Returns:
+        Model : trained lda model
+    """
+    model = None
+    if is_lda:
+        topic_modeling_model = LatentDirichletAllocation(
+            n_components=number_of_topics, random_state=0, max_iter=200)
+        topic_modeling_model.fit(transformed_tweets)
+        model = topic_modeling_model
+    else:
+        topic_model_nmf = NMF(
+            n_components=number_of_topics,
+            random_state=0,
+            alpha=.1,
+            l1_ratio=.5)
+        topic_model_nmf.fit(transformed_tweets)
+        model = topic_model_nmf
+    return model
 
 
 def display_topics(model, feature_names, no_top_words):
@@ -54,9 +78,9 @@ def generate_visualization(lda_model, transfromed_tweets, vectorizer):
     generate topic visualisation
 
     Args:
-        lda_model ([type]):
-        transfromed_tweets ([type]): [description]
-        vectorizer ([type]): [description]
+        lda_model (LDA model): model to genrate a visualization for
+        transfromed_tweets (np array): tweet matrix
+        vectorizer (): [description]
     """
     import pyLDAvis.sklearn
     pyLDAvis.enable_notebook()
@@ -64,6 +88,5 @@ def generate_visualization(lda_model, transfromed_tweets, vectorizer):
         lda_model,
         transfromed_tweets,
         vectorizer,
-        mds='tsne',
-        sort=False)
+        mds='tsne')
     return panel
