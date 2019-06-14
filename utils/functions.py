@@ -121,8 +121,7 @@ def get_words_to_remove():
         'rdc',
         'rdcongo',
         'drc',
-        'drcongo',
-        'tshisekedi'}
+        'drcongo', }
     words_to_remove = set(words_to_remove).union(congo_words)
     words_to_remove = words_to_remove.union(
         set(many_stop_words.get_stop_words('FR')))

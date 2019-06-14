@@ -6,9 +6,9 @@ from sklearn.decomposition import NMF
 
 def vectorize_tweets(tweets_df,):
     """
-    Return a vecotorize version of tweets
+    Return a vectorize version of tweets
     Args:
-        tweest_df ([type]): [description]
+        tweest_df (dataframe): a dataframe  of cleanned tweets
     Returns :
     np array : features names
     np array : transformed_tweet tweet transformed
