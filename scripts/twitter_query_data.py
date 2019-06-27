@@ -3,6 +3,8 @@ import json
 from tweepy import Cursor, TweepError
 from twitter_client import get_twitter_client
 from datetime import datetime, timedelta
+from itertools import chain
+from mongo_db_client import insert_tweet
 
 
 def get_location(client, country):
@@ -11,29 +13,25 @@ def get_location(client, country):
     """
     places = client.geo_search(query=country, granularity="country")
     place_id = places[0].id
-    query = "place:{}".format(place_id)
-    return query
+    coordinates = places[0].bounding_box.coordinates[0]
+    coordinates = list(set((chain.from_iterable(coordinates))))
+    return {'place': "place:{}".format(place_id), 'coordinates': coordinates}
 
 
 def query_tweet(client, query=[], max_tweets=2000, country=None):
     """
     query tweets using the query list pass in parameter
     """
-    name = ''
     if country:
-        query = get_location(client, country)
-        name = 'by_country_coordinate_'
+        query = get_location(client, country).get('place')
     else:
         query = ' OR '.join(query)
-        name = 'by_hashtags_'
-    now = datetime.now()
-    today = now.strftime("%d-%m-%Y-%H-%M")
-    with open('data/query_drc_{}_{}.jsonl'.format(name, today), 'w') as f:
-        for status in Cursor(
-                client.search,
-                q=query,
-                include_rts=True).items(max_tweets):
-            f.write(json.dumps(status._json) + "\n")
+        print('query', query)
+    for status in Cursor(
+            client.search,
+            q=query,
+            include_rts=True).items(max_tweets):
+        insert_tweet(status._json)
 
 
 def get_home_timeline(client):
@@ -58,6 +56,6 @@ if __name__ == '__main__':
                 'RDCongo',
                 'DRC',
                 'DRCongo',
-                'Kinshasa'])
+            ])
     except TweepError as e:
         print(e, '====')

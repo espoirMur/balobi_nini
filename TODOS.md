@@ -14,8 +14,10 @@ TO DO LIST :
 - [x]Remove kinshasa
 - [x] [for each word in a topic plot the distribution]
 - [] Real Aspitel project and check how she implemented it
-- [] create the django or flask project and plan the depolyemnt
-- [] write unnittest for project
+- [] create the django or flask project and plan the deployment
+- [] write unittest for project
+- [] get geocode location for all cities in DRC
+- [x] fix the issue of retrieving tweets by date
 
 ### DRC Coordinates
 
