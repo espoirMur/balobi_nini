@@ -1,6 +1,5 @@
 # Twitter-Analysis-For-DRC
 
-
 I really don't know how to name this project , I just want to work on something related to social media data analysis for DRCongo.
 
 Basically, In this project the ideas is to collect tweet related to DRC analyze and check what we can do with them.
@@ -21,3 +20,24 @@ Some resources I'm using are :
 - [This One](https://www.researchgate.net/publication/303127692_SOCIAL_MEDIA_MINING_FOR_PUBLIC_HEALTH_MONITORING_AND_SURVEILLANCE)
 - [And this One](https://www.ncbi.nlm.nih.gov/pubmed/26042846)
 - [chap 1 and Chap 2 of This Book](https://www.amazon.com/Mastering-Social-Media-Mining-Python-ebook/dp/B01BFD2Z2Q)
+
+#### How to run the project
+
+After cloning this repository , cd to the project folder in your local pc
+Make sure you have :
+
+- python 3.6 with pip and virtualenv installed in your local
+  laptop
+
+- Mongodb client installed in your laptop. You can refer to [this tutorial](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3) to install it on Macbook and [this](https://hevodata.com/blog/install-mongodb-on-ubuntu/) to install it on ubuntu. For windows users you can just google it ! Lool!!
+
+- Create a virtual environment by running :
+  `virtualenv -p /usr/local/bin/python3.7 .venv`
+
+- activate it by running
+
+`source .venv/bin/activate`
+
+- install requirement by doing :
+
+`pip install -r requirements.txt`
