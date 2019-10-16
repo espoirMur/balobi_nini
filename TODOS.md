@@ -3,15 +3,15 @@ TO DO LIST :
 - [ ] COLLECT MORE TWEET FOR MORE ANALYSIS
 - [x] REFRACTOR PREPROCESSING STEP
 - [x] WORK ON TOPIC MODELING
-- [ ] EMBEDED IT REAL TIME PROCESS WITH A DATABASE
+- [ ] EMBEDED IT REAL TIME PROCESS WITH A DATABASE (check apache airflow)
 - [x] Learn about topic modeling and write the first draft of that blog post
 - [x] Refractor the twitter to collect geograhpical data about the blog
 - [] refractor the blog post and put in a publishable state.
 - [] find a way to run the streaming code at midnight and collect tweets for one date
 - [x] ask question on SO about how to retrieve data about the country
 - [x] other step for cleaning
-- [x]Remove one word or 2 words strings and charcteres
-- [x]Remove kinshasa
+- [x] Remove one word or 2 words strings and charcteres
+- [x] Remove kinshasa
 - [x] [for each word in a topic plot the distribution]
 - [] Real Aspitel project and check how she implemented it
 - [] create the django or flask project and plan the deployment

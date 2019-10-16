@@ -41,3 +41,7 @@ Make sure you have :
 - install requirement by doing :
 
 `pip install -r requirements.txt`
+
+- To query the data run the following script :
+
+`python scripts/twitter_query_data.py`

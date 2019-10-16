@@ -1,4 +1,3 @@
-# Chap02-03/twitter_client.py
 import os
 import sys
 import json
