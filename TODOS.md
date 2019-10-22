@@ -18,6 +18,7 @@ TO DO LIST :
 - [] write unittest for project
 - [] get geocode location for all cities in DRC
 - [x] fix the issue of retrieving tweets by date
+- [ ] use apache airflow to run cron jobs and data retrieval task at a specific time in a day
 
 ### DRC Coordinates
 
