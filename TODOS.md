@@ -13,7 +13,7 @@ TO DO LIST :
 - [x] Remove one word or 2 words strings and charcteres
 - [x] Remove kinshasa
 - [x] [for each word in a topic plot the distribution]
-- [] Real Aspitel project and check how she implemented it
+- [] Read Aspitel project and check how she implemented it
 - [] create the django or flask project and plan the deployment
 - [] write unittest for project
 - [] get geocode location for all cities in DRC

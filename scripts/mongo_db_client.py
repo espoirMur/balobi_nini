@@ -53,8 +53,7 @@ def get_tweets(start_date, end_date):
         end_date = datetime.strptime(end_date, "%d-%m-%Y")
         db = get_database()
         tweets = db.tweet
-        results = tweets.find(
-            {'created_at': {'$lte': end_date, '$gte': start_date}})
+        results = tweets.find()
         return results
     except Exception as ex:
         print(ex, '=====')
