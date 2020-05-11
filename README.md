@@ -45,3 +45,8 @@ Make sure you have :
 - To query the data run the following script :
 
 `python scripts/twitter_query_data.py`
+
+- the open a jupyter notebook instance in the root of the project:
+  `jupyter notebook`
+- Naviguate to the notebooks and open the following file:
+  `tweets-entities-analysis.ipynb`
