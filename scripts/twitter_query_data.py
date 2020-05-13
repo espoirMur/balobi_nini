@@ -1,10 +1,10 @@
 # Chap02-03/twitter_get_home_timeline.py
 import json
 from tweepy import Cursor, TweepError
-from twitter_client import get_twitter_client
+from scripts.twitter_client import get_twitter_client
 from datetime import datetime, timedelta
 from itertools import chain
-from mongo_db_client import insert_tweet
+from scripts.mongo_db_client import insert_tweet
 
 
 def get_location(client, country):
@@ -31,7 +31,7 @@ def query_tweet(client, query=[], max_tweets=2000, country=None):
             client.search,
             q=query,
             include_rts=True).items(max_tweets):
-        insert_tweet(status._json)
+        yield status
 
 
 def get_home_timeline(client):
@@ -43,19 +43,3 @@ def get_home_timeline(client):
             for status in page:
                 # Process a single status
                 f.write(json.dumps(status._json) + "\n")
-
-
-if __name__ == '__main__':
-    client = get_twitter_client()
-    try:
-        query_tweet(
-            client,
-            max_tweets=2000,
-            query=[
-                'RDC',
-                'RDCongo',
-                'DRC',
-                'DRCongo',
-            ])
-    except TweepError as e:
-        print(e, '====')

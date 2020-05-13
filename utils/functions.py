@@ -118,7 +118,6 @@ def get_words_to_remove():
         'drc',
         '-',
         'https',
-        'rdc',
         'rdcongo',
         'drc',
         'drcongo', }

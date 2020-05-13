@@ -3,3 +3,6 @@
 credentials.json
 *-checkpoint.ipynb
 *.pyc
+.env
+.env.production
+.env.test

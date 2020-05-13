@@ -6,7 +6,7 @@ import preprocessor as tweet_preprocessor
 import pandas as pd
 from io import BytesIO
 from csv import writer
-from .functions import process_text, get_words_to_remove, read_tweets_file
+from utils.functions import process_text, get_words_to_remove, read_tweets_file
 from utils.emoticons import emoticons
 from datetime import datetime
 
@@ -93,7 +93,7 @@ class TweetsCleaner:
         Returns:
             list : list of tokens from the tweet
         """
-        text = tweet_preprocessor.clean(tweet.get('text'))
+        text = tweet_preprocessor.clean(tweet.text)
         text = text.replace('#', '')
         text = text.replace('-', '')
         text = text.replace("«", "")
