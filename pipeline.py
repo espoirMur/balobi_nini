@@ -28,6 +28,7 @@ if __name__ == "__main__":
             cleaner = TweetsCleaner('.')
             cleaned_tweet = cleaner.prepocess_tweet(tweet)
             tweet_date = tweet.created_at,
+            # TODO This can be done as a celery task
             cleaned_tweet_model = CleannedTweet(id=tweet.id, text=" ".join(cleaned_tweet), created_at=tweet_date)
             db.session.add(cleaned_tweet_model)
         db.session.commit()
