@@ -4,7 +4,6 @@ from tweepy import Cursor, TweepError
 from scripts.twitter_client import get_twitter_client
 from datetime import datetime, timedelta
 from itertools import chain
-from scripts.mongo_db_client import insert_tweet
 
 
 def get_location(client, country):
