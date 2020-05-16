@@ -3,6 +3,7 @@ import json
 from tweepy import Cursor, TweepError
 from datetime import datetime, timedelta
 from itertools import chain
+from random import randint
 
 
 def get_location(client, country):
@@ -16,7 +17,7 @@ def get_location(client, country):
     return {'place': "place:{}".format(place_id), 'coordinates': coordinates}
 
 
-def query_tweet(client, query=[], max_tweets=2000, country=None):
+def query_tweets(client, query=[], max_tweets=2000, country=None):
     """
     query tweets using the query list pass in parameter
     """
@@ -29,16 +30,24 @@ def query_tweet(client, query=[], max_tweets=2000, country=None):
             client.search,
             q=query,
             include_rts=True).items(max_tweets):
-        tweet = {"text": status.text, "created_at": status.created_at}
+        print('data_received =====>')
+        tweet = {"text": status.text,
+                 "created_at": datetime.timestamp(status.created_at), 
+                 "id": status.id}
         yield tweet
 
 
-def get_home_timeline(client):
-    with open('../data/home_timeline.jsonl', 'w') as f:
-        for page in Cursor(
-                client.home_timeline,
-                count=200,
-                include_rts=True).pages(4):
-            for status in page:
-                # Process a single status
-                f.write(json.dumps(status._json) + "\n")
+def query_fake_tweets(client, query=[], max_tweets=2000, country=None):
+    """
+    query tweets using the query list pass in parameter
+    """
+    if country:
+        query = get_location(client, country).get('place')
+    else:
+        query = ' OR '.join(query)
+        print('query', query)
+    for status in range(randint(9, 11), randint(14, 20)):
+        tweet = {"text": "Fake test",
+                 "created_at": datetime.timestamp(datetime.now()), 
+                 "id": randint(1000, 2000)}
+        yield tweet

@@ -1,17 +1,18 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
-from tweets_queries.twitter_query_data import query_tweet
+from tweets_queries.twitter_query_data import query_tweets, query_fake_tweets
 from tweets_queries.twitter_client import get_twitter_client
 from tweepy import TweepError
 from tweets_cleaner.TweetsCleaner import TweetsCleaner
 from app.model import CleannedTweet
+from datetime import timedelta, datetime
 
 
 def get_tweets(**context):
     # Pull
     client = get_twitter_client()
-    tweets = query_tweet(client, max_tweets=2000, query=['RDC', 'RDCongo', 'DRC', 'DRCongo'])
+    tweets = query_tweets(client, max_tweets=2000, query=['RDC', 'RDCongo', 'DRC', 'DRCongo'])
     context['task_instance'].xcom_push(key='tweets',
                                        value=list(tweets))
 
@@ -24,16 +25,20 @@ def clean_save_to_db(**context):
 
 default_args = {
     "owner": "airflow",
-    "depend_on_past": True,
+    "depend_on_past": False,
     "email": "espoir.mur@gmail.com",
-    "start_date": datetime(2020, 5, 15),
-    "email_on_failure": True
+    "start_date": datetime(2020, 5, 14),
+    "email_on_failure": False,
+    "wait_for_downstream": False,
+    "retries": 1,
+    "retry_delay": timedelta(minutes=5)
 }
 
 dag = DAG(
-    'collect_tweets',
+    dag_id='collect_tweets',
     default_args=default_args,
-    schedule_interval='@hourly')
+    schedule_interval='*/60 * * * *',  # every  60 minutes
+    catchup=False)
 
 
 get_tweets = PythonOperator(

@@ -114,8 +114,8 @@ class TweetsCleaner:
             tweets ([type]): [description]
         """
         for tweet in tweets:
-            cleaned_tweet = self.prepocess_tweet(tweet)
-            tweet_date = tweet.created_at,
+            cleaned_tweet = self.prepocess_tweet(tweet.get('text'))
+            tweet_date = datetime.fromtimestamp(tweet.get('created_at')),
             cleaned_tweet_model = CleannedTweet(
-                id=tweet.id, text=" ".join(cleaned_tweet), created_at=tweet_date)
+                id=tweet.get('id'), text=" ".join(cleaned_tweet), created_at=tweet_date)
             cleaned_tweet_model.save_to_database()

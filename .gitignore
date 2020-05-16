@@ -7,3 +7,4 @@ credentials.json
 .env.production
 .env.test
 logs/
+airflow-webserver*
