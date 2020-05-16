@@ -12,7 +12,8 @@ def get_term_count():
     return a dictionary of term and the count of they occurrences
     """
     term_counts = Counter()
-    cleanned_tweets = CleannedTweet.query.filter(CleannedTweet.created_at.cast(Date)==date.today())
+    cleanned_tweets = CleannedTweet.query.filter(
+        CleannedTweet.created_at.cast(Date) == date.today())
     for tweet in cleanned_tweets:
         text = tweet.text
         tokens = text.split(' ')
