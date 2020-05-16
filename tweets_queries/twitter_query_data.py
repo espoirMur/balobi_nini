@@ -1,7 +1,6 @@
 # Chap02-03/twitter_get_home_timeline.py
 import json
 from tweepy import Cursor, TweepError
-from scripts.twitter_client import get_twitter_client
 from datetime import datetime, timedelta
 from itertools import chain
 
@@ -30,7 +29,8 @@ def query_tweet(client, query=[], max_tweets=2000, country=None):
             client.search,
             q=query,
             include_rts=True).items(max_tweets):
-        yield status
+        tweet = {"text": status.text, "created_at": status.created_at}
+        yield tweet
 
 
 def get_home_timeline(client):

@@ -10,3 +10,10 @@ class CleannedTweet(db.Model):
 
     def __repr__(self):
         return '<id {} {}>'.format(self.id, self.text)
+    
+    def save_to_database(self):
+        """
+        save the instance to the database
+        """
+        db.session.add(self)
+        db.session.commit()

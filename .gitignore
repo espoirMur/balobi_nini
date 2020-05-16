@@ -6,3 +6,4 @@ credentials.json
 .env
 .env.production
 .env.test
+logs/

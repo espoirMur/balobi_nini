@@ -9,6 +9,7 @@ from csv import writer
 from utils.functions import process_text, get_words_to_remove, read_tweets_file
 from utils.emoticons import emoticons
 from datetime import datetime
+from app.model import CleannedTweet
 
 
 french_stematiser = spacy.load('fr')
@@ -83,7 +84,7 @@ class TweetsCleaner:
         doc = french_stematiser(' '.join(tokens))
         return [token.lemma_ for token in doc]
 
-    def prepocess_tweet(self, tweet):
+    def prepocess_tweet(self, tweet_text):
         """
         Apply all the preprocessing process on a tweet and return the tweet as a text and tweet as list of tokens
 
@@ -91,9 +92,9 @@ class TweetsCleaner:
             tweet (object): tweet object to process
 
         Returns:
-            list : list of tokens from the tweet
+            list : list of tokens from the tweet_text
         """
-        text = tweet_preprocessor.clean(tweet.text)
+        text = tweet_preprocessor.clean(tweet_text)
         text = text.replace('#', '')
         text = text.replace('-', '')
         text = text.replace("«", "")
@@ -106,19 +107,15 @@ class TweetsCleaner:
         tokens = self.stematise_token(tokens)
         return tokens
 
-    def create_cleaned_tweet(self):
+    def save_clean_tweets(self, tweets):
+        """get raw tweets , clean them
+           and return cleaned tweets
+        Args:
+            tweets ([type]): [description]
         """
-        apply the whole cleaning pipeline
-        Returns :
-        dataframe : cleanned tweets
-        """
-        now = datetime.now()
-        today = now.strftime("%d-%m-%Y-%H-%M")
-        output_file_name = '../data/cleanned_tweets_{}.csv'.format(today)
-        tweets_df = pd.DataFrame(columns=['cleanned_tweet'])
-        for tweet in read_tweets_file(self.TWEETS_PATH):
-            tweets_df.loc[tweet.get('id')] = [
-                ' '.join(self.prepocess_tweet(tweet))]
-        tweets_df.to_csv(output_file_name)
-        tweets_df.dropna(inplace=True)
-        return tweets_df
+        for tweet in tweets:
+            cleaned_tweet = self.prepocess_tweet(tweet)
+            tweet_date = tweet.created_at,
+            cleaned_tweet_model = CleannedTweet(
+                id=tweet.id, text=" ".join(cleaned_tweet), created_at=tweet_date)
+            cleaned_tweet_model.save_to_database()
