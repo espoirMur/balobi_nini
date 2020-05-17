@@ -7,4 +7,3 @@ app = Flask(__name__)
 app.config.from_object(app_config.get(os.environ.get('APP_SETTINGS')))
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
-from app.views import *

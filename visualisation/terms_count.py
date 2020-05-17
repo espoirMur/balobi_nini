@@ -1,6 +1,6 @@
 from app.model import CleannedTweet
 from collections import Counter
-from datetime import date
+from datetime import date, timedelta
 from sqlalchemy import Date
 
 
@@ -13,7 +13,7 @@ def get_term_count():
     """
     term_counts = Counter()
     cleanned_tweets = CleannedTweet.query.filter(
-        CleannedTweet.created_at.cast(Date) == date.today())
+        CleannedTweet.created_at.cast(Date) == date.today() - timedelta(days=1))
     for tweet in cleanned_tweets:
         text = tweet.text
         tokens = text.split(' ')

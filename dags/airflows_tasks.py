@@ -37,7 +37,7 @@ default_args = {
 dag = DAG(
     dag_id='collect_tweets',
     default_args=default_args,
-    schedule_interval='*/60 * * * *',  # every  60 minutes
+    schedule_interval='@hourly',  # every  60 minutes
     catchup=False)
 
 

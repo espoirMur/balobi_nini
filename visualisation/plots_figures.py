@@ -6,7 +6,10 @@ import matplotlib.colors as colors
 import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from datetime import datetime
-
+from pathlib import Path
+import cartopy.crs as ccrs
+from cartopy.io import shapereader
+from geopandas import read_file
 
 drc_flag_color_map = colors.LinearSegmentedColormap.from_list("", ["#0080FF",
                                                                    "#0080FF",
@@ -100,3 +103,17 @@ def plot_word_cloud(word_cloud, path):
     plt.savefig(__path__)
     plt.axis("off")
     plt.show()
+
+
+def plot_drc_map():
+    """
+    generate drc shape
+    """
+    resolution = '10m'
+    category = 'cultural'
+    name = 'admin_0_countries'
+
+    shpfilename = shapereader.natural_earth(resolution, category, name)
+    df = read_file(shpfilename)
+    borders = df.loc[df['ADMIN'] == 'Democratic Republic of the Congo']['geometry'].values[0]
+    return shpfilename
