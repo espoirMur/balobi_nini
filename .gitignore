@@ -8,3 +8,4 @@ credentials.json
 .env.test
 logs/
 airflow-webserver*
+data/

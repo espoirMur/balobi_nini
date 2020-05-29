@@ -1,0 +1,67 @@
+version: "3"
+services:
+  redis:
+    image: "redis:5.0.5"
+  postgres:
+    image: postgres:12.1-alpine
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    ports:
+      - 5432:5432
+  webserver:
+    image: puckel/docker-airflow:1.10.9
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./.env
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    ports:
+      - "8080:8080"
+    command: webserver
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+  flower:
+    image: puckel/docker-airflow:1.10.9
+    restart: always
+    depends_on:
+      - redis
+    environment:
+      - EXECUTOR=Celery
+    ports:
+      - "5555:5555"
+    env_file:
+      - ./.env
+    command: flower
+  scheduler:
+    image: puckel/docker-airflow:1.10.9
+    restart: always
+    depends_on:
+      - webserver
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Celery
+    env_file:
+      - ./.env
+    command: scheduler
+  worker:
+    image: puckel/docker-airflow:1.10.9
+    restart: always
+    depends_on:
+      - scheduler
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    environment:
+      - EXECUTOR=Celery
+    env_file:
+      - ./.env
+    command: worker
