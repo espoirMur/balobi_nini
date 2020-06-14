@@ -11,7 +11,7 @@ services:
     ports:
       - 5432:5432
   webserver:
-    image: puckel/docker-airflow:1.10.9
+    build: .
     restart: always
     depends_on:
       - postgres
@@ -22,26 +22,31 @@ services:
       - ./dags:/usr/local/airflow/dags
     ports:
       - "8080:8080"
-    command: webserver
+    command: airflow webserver
     healthcheck:
       test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
       interval: 30s
       timeout: 30s
       retries: 3
+    environment:
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
   flower:
-    image: puckel/docker-airflow:1.10.9
+    build: .
     restart: always
     depends_on:
       - redis
     environment:
       - EXECUTOR=Celery
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
     ports:
       - "5555:5555"
     env_file:
       - ./.env
     command: flower
   scheduler:
-    image: puckel/docker-airflow:1.10.9
+    build: .
     restart: always
     depends_on:
       - webserver
@@ -50,11 +55,13 @@ services:
     environment:
       - LOAD_EX=n
       - EXECUTOR=Celery
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
     env_file:
       - ./.env
-    command: scheduler
+    command: airflow scheduler
   worker:
-    image: puckel/docker-airflow:1.10.9
+    build: .
     restart: always
     depends_on:
       - scheduler
@@ -62,6 +69,8 @@ services:
       - ./dags:/usr/local/airflow/dags
     environment:
       - EXECUTOR=Celery
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
     env_file:
       - ./.env
-    command: worker
+    command: airflow worker

@@ -1,11 +1,8 @@
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
-from datetime import datetime, timedelta
-from tweets_queries.twitter_query_data import query_tweets, query_fake_tweets
+from tweets_queries.twitter_query_data import query_tweets
 from tweets_queries.twitter_client import get_twitter_client
-from tweepy import TweepError
 from tweets_cleaner.TweetsCleaner import TweetsCleaner
-from app.model import CleannedTweet
 from datetime import timedelta, datetime
 
 

@@ -3,9 +3,6 @@ import unicodedata
 import many_stop_words
 import spacy
 import preprocessor as tweet_preprocessor
-import pandas as pd
-from io import BytesIO
-from csv import writer
 from utils.functions import process_text, get_words_to_remove, read_tweets_file
 from utils.emoticons import emoticons
 from datetime import datetime

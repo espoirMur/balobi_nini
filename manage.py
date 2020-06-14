@@ -7,7 +7,6 @@ from app.config import app_config
 from app.model import CleannedTweet
 
 config_name = app_config.get(os.environ.get('APP_SETTINGS'))
-print(config_name.SQLALCHEMY_DATABASE_URI, 10 * "===")
 app.config.from_object(config_name)
 migrate = Migrate(app, db)
 manager = Manager(app)

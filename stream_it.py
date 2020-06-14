@@ -1,9 +1,5 @@
 import streamlit as st
-import numpy as np
-import pandas as pd
 from visualisation.terms_count import get_term_count
-from wordcloud import WordCloud
-import matplotlib.colors as colors
 import matplotlib.pyplot as plt
 from visualisation.plots_figures import generate_word_cloud, drc_flag_color_map
 
