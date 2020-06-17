@@ -11,7 +11,10 @@ services:
     ports:
       - 5432:5432
   webserver:
-    build: .
+    image: airflow-for-tweets
+    build:
+      context: .
+      dockerfile: Dockerfile
     restart: always
     depends_on:
       - postgres
@@ -31,8 +34,9 @@ services:
     environment:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
   flower:
-    build: .
+    image: airflow-for-tweets
     restart: always
     depends_on:
       - redis
@@ -40,13 +44,14 @@ services:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
     ports:
       - "5555:5555"
     env_file:
       - ./.env
     command: flower
   scheduler:
-    build: .
+    image: airflow-for-tweets
     restart: always
     depends_on:
       - webserver
@@ -56,12 +61,12 @@ services:
       - LOAD_EX=n
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
-      - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
     env_file:
       - ./.env
     command: airflow scheduler
   worker:
-    build: .
+    image: airflow-for-tweets
     restart: always
     depends_on:
       - scheduler
@@ -71,6 +76,7 @@ services:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
     env_file:
       - ./.env
     command: airflow worker

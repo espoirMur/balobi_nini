@@ -42,17 +42,19 @@ RUN set -ex \
 
 RUN useradd --create-home es.py
 ENV WORKING_DIR=/home/es.py/
-WORKDIR ${WORKING_DIR}
-
-USER es.py
+COPY . ${WORKING_DIR}
 RUN chown -R es.py: ${WORKING_DIR}
+RUN chmod 755 ${WORKING_DIR}/logs
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 COPY requirements.txt /
 RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
-COPY . ${WORKING_DIR}
+RUN python -m spacy download fr_core_news_sm
+RUN python -m spacy download fr
 
+WORKDIR ${WORKING_DIR}
+USER es.py
 EXPOSE 8080 5555 8793
 
 

@@ -4,6 +4,10 @@ from tweets_queries.twitter_query_data import query_tweets
 from tweets_queries.twitter_client import get_twitter_client
 from tweets_cleaner.TweetsCleaner import TweetsCleaner
 from datetime import timedelta, datetime
+from dotenv import load_dotenv
+
+
+load_dotenv()
 
 
 def get_tweets(**context):

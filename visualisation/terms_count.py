@@ -6,15 +6,15 @@ from sqlalchemy import Date
 
 def get_term_count():
     """
-    preporcess and return terms count from a file of tweets.
+    pre process and return terms count from a file of tweets.
     Parm :
     path:  string : the path of the tweet files
     return a dictionary of term and the count of they occurrences
     """
     term_counts = Counter()
-    cleanned_tweets = CleannedTweet.query.filter(
+    cleaned_tweets = CleannedTweet.query.filter(
         CleannedTweet.created_at.cast(Date) == date.today() - timedelta(days=1))
-    for tweet in cleanned_tweets:
+    for tweet in cleaned_tweets:
         text = tweet.text
         tokens = text.split(' ')
         term_counts.update(tokens)
