@@ -23,30 +23,10 @@ Some resources I'm using are :
 
 #### How to run the project
 
-After cloning this repository , cd to the project folder in your local pc
-Make sure you have :
+We have decided to use docker to build and have the project running...
 
-- python 3.6 with pip and virtualenv installed in your local
-  laptop
+Make sure you have docker installed and running and docker-compose and then go inside the project directory and run :
 
-- Mongodb client installed in your laptop. You can refer to [this tutorial](https://gist.github.com/nrollr/9f523ae17ecdbb50311980503409aeb3) to install it on Macbook and [this](https://hevodata.com/blog/install-mongodb-on-ubuntu/) to install it on ubuntu. For windows users you can just google it ! Lool!!
+`docker-compose up -d --build`
 
-- Create a virtual environment by running :
-  `virtualenv -p /usr/local/bin/python3.7 .venv`
-
-- activate it by running
-
-`source .venv/bin/activate`
-
-- install requirement by doing :
-
-`pip install -r requirements.txt`
-
-- To query the data run the following script :
-
-`python scripts/twitter_query_data.py`
-
-- the open a jupyter notebook instance in the root of the project:
-  `jupyter notebook`
-- Naviguate to the notebooks and open the following file:
-  `tweets-entities-analysis.ipynb`
+Then chill until I get motivation to finish this readme

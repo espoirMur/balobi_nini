@@ -7,8 +7,6 @@ import matplotlib.dates as mdates
 import matplotlib.pyplot as plt
 from datetime import datetime
 from pathlib import Path
-import cartopy.crs as ccrs
-from cartopy.io import shapereader
 from geopandas import read_file
 
 drc_flag_color_map = colors.LinearSegmentedColormap.from_list("", ["#0080FF",

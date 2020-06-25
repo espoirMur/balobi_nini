@@ -47,6 +47,8 @@ RUN chown -R es.py: ${WORKING_DIR}
 RUN chmod 755 ${WORKING_DIR}/logs
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
+ENV PYTHONPATH /usr/bin/python
+ENV PYTHONPATH "${PYTHONPATH}:${WORKING_DIR}"
 COPY requirements.txt /
 RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt

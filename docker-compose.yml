@@ -80,3 +80,17 @@ services:
     env_file:
       - ./.env
     command: airflow worker
+  streamlit-instance:
+    image: airflow-for-tweets
+    restart: always
+    depends_on:
+      - worker
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    environment:
+      - AIRFLOW_HOME=/home/es.py/
+    env_file:
+      - ./.env
+    ports:
+      - "8501:8501"
+    command: streamlit run stream_it.py
