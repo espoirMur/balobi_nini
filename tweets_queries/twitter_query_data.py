@@ -26,15 +26,21 @@ def query_tweets(client, query=[], max_tweets=2000, country=None):
     else:
         query = ' OR '.join(query)
         print('query', query)
-    for status in Cursor(
+
+    try:
+        for status in Cursor(
             client.search,
             q=query,
             include_rts=True).items(max_tweets):
-        print('data_received =====>')
-        tweet = {"text": status.text,
-                 "created_at": datetime.timestamp(status.created_at), 
-                 "id": status.id}
-        yield tweet
+            print('data_received =====>')
+            tweet = {"text": status.text,
+                    "created_at": datetime.timestamp(status.created_at), 
+                    "id": status.id}
+            yield tweet
+    except Exception as exec:
+        print(exec, '===========')
+        pass
+    
 
 
 def query_fake_tweets(client, query=[], max_tweets=2000, country=None):

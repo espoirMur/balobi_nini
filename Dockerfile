@@ -54,6 +54,7 @@ RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
 RUN python -m spacy download fr_core_news_sm
 RUN python -m spacy download fr
+RUN python -m nltk.downloader stopwords
 
 WORKDIR ${WORKING_DIR}
 USER es.py

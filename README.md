@@ -30,3 +30,7 @@ Make sure you have docker installed and running and docker-compose and then go i
 `docker-compose up -d --build`
 
 Then chill until I get motivation to finish this readme
+
+Update the database using this command :
+
+`docker-compose exec streamlit-instance python manage.py db upgrade`

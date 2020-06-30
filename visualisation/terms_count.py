@@ -13,7 +13,7 @@ def get_term_count():
     """
     term_counts = Counter()
     cleaned_tweets = CleannedTweet.query.filter(
-        CleannedTweet.created_at.cast(Date) == date.today() - timedelta(days=1))
+        CleannedTweet.created_at.cast(Date) == date.today())
     for tweet in cleaned_tweets:
         text = tweet.text
         tokens = text.split(' ')
