@@ -113,5 +113,6 @@ def plot_drc_map():
 
     shpfilename = shapereader.natural_earth(resolution, category, name)
     df = read_file(shpfilename)
-    borders = df.loc[df['ADMIN'] == 'Democratic Republic of the Congo']['geometry'].values[0]
+    borders = df.loc[df['ADMIN'] ==
+                     'Democratic Republic of the Congo']['geometry'].values[0]
     return shpfilename

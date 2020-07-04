@@ -29,18 +29,17 @@ def query_tweets(client, query=[], max_tweets=2000, country=None):
 
     try:
         for status in Cursor(
-            client.search,
-            q=query,
-            include_rts=True).items(max_tweets):
+                client.search,
+                q=query,
+                include_rts=True).items(max_tweets):
             print('data_received =====>')
             tweet = {"text": status.text,
-                    "created_at": datetime.timestamp(status.created_at), 
-                    "id": status.id}
+                     "created_at": datetime.timestamp(status.created_at),
+                     "id": status.id}
             yield tweet
     except Exception as exec:
         print(exec, '===========')
         pass
-    
 
 
 def query_fake_tweets(client, query=[], max_tweets=2000, country=None):
@@ -54,6 +53,6 @@ def query_fake_tweets(client, query=[], max_tweets=2000, country=None):
         print('query', query)
     for status in range(randint(9, 11), randint(14, 20)):
         tweet = {"text": "Fake test",
-                 "created_at": datetime.timestamp(datetime.now()), 
+                 "created_at": datetime.timestamp(datetime.now()),
                  "id": randint(1000, 2000)}
         yield tweet

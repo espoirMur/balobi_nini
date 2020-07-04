@@ -114,5 +114,7 @@ class TweetsCleaner:
             cleaned_tweet = self.prepocess_tweet(tweet.get('text'))
             tweet_date = datetime.fromtimestamp(tweet.get('created_at')),
             cleaned_tweet_model = CleannedTweet(
-                id=tweet.get('id'), text=" ".join(cleaned_tweet), created_at=tweet_date)
+                id=tweet.get('id'),
+                text=" ".join(cleaned_tweet),
+                created_at=tweet_date)
             cleaned_tweet_model.save_to_database()
