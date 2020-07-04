@@ -49,12 +49,14 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONPATH /usr/bin/python
 ENV PYTHONPATH "${PYTHONPATH}:${WORKING_DIR}"
+ENV NLTK_DATA ${WORKING_DIR}nltk_data
 COPY requirements.txt /
 RUN pip install --upgrade pip
 RUN pip install -r /requirements.txt
 RUN python -m spacy download fr_core_news_sm
 RUN python -m spacy download fr
-RUN python -m nltk.downloader stopwords
+RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords
+
 
 WORKDIR ${WORKING_DIR}
 USER es.py
