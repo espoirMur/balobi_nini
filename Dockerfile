@@ -1,3 +1,4 @@
+# syntax = docker/dockerfile:experimental
 FROM python:3.6
 LABEL maintainer="es.py"
 
@@ -52,7 +53,7 @@ ENV PYTHONPATH "${PYTHONPATH}:${WORKING_DIR}"
 ENV NLTK_DATA ${WORKING_DIR}nltk_data
 COPY requirements.txt /
 RUN pip install --upgrade pip
-RUN pip install -r /requirements.txt
+RUN --mount=type=cache,mode=0777,target=/root/.cache/pip pip install -r /requirements.txt
 RUN python -m spacy download fr_core_news_sm
 RUN python -m spacy download fr
 RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords
