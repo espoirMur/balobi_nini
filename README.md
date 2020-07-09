@@ -1,4 +1,6 @@
-# Twitter-Analysis-For-DRC
+# Balobi Nini
+
+_What did they say? or What are they talking about in Lingala_
 
 I really don't know how to name this project , I just want to work on something related to social media data analysis for DRCongo.
 

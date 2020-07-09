@@ -20,6 +20,7 @@ TO DO LIST :
 - [x] fix the issue of retrieving tweets by date
 - [x] use apache airflow to run cron jobs and data retrieval task at a specific time in a day
 - [ ] Deploy everything to DO
+- [] Improve the processing by removing Congolese names from stematization
 - [x] Add a job that tweet the word count everyday after getting it
 - [ ] Create a job that goes to every tweet and collect all the replies about it
 
