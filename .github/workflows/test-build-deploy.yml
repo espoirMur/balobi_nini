@@ -50,15 +50,15 @@ jobs:
           echo TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }} >> .env
           echo TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }} >> .env
           echo TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_KEY }} >> .env
-      - name: Add the private SSH key to the ssh-agent
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      - name: save ssh keys
+        uses: webfactory/ssh-agent@v0.4.0
+        with:
+          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
+      - name: try to copy ssh keys
         run: |
-          mkdir -p ~/.ssh
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
-          cat ~/.ssh/known_hosts
+          ssh-keyscan ${{secrets.DIGITAL_OCEAN_IP_ADDRESS}} >> ~/.ssh/known_hosts
+          ssh-keygen -R root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
+          (yes) | ssh-copy-id -f root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
       - name: Build and deploy images on DigitalOcean
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
