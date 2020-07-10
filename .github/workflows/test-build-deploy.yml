@@ -58,9 +58,13 @@ jobs:
           ssh-agent -a $SSH_AUTH_SOCK > /dev/null
           ssh-keyscan github.com >> ~/.ssh/known_hosts
           ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
+          cat ~/.ssh/known_hosts
       - name: Build and deploy images on DigitalOcean
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
+          echo ${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
+          export DOCKER_BUILDKIT=1
+          export COMPOSE_DOCKER_CLI_BUILD=1
           export DOCKER_HOST=ssh://root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
           docker-compose up -d --build
