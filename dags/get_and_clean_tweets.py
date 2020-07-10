@@ -6,7 +6,6 @@ from tweets_cleaner.TweetsCleaner import TweetsCleaner
 from datetime import timedelta, datetime
 
 
-
 def get_tweets(**context):
     # Pull
     client = get_twitter_client()
