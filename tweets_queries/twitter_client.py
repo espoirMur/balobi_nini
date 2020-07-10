@@ -3,14 +3,10 @@ import sys
 import json
 from tweepy import API
 from tweepy import OAuthHandler
+from dotenv import load_dotenv
 
 
-def read_credential(filename):
-    """
-    read json file with twitter credentials into a python dictionary
-    """
-    with open(filename) as f_in:
-        return(json.load(f_in))
+load_dotenv()
 
 
 def get_twitter_auth():
@@ -19,11 +15,10 @@ def get_twitter_auth():
     Return: tweepy.OAuthHandler object
     """
     try:
-        credentials = read_credential('credentials.json')
-        consumer_key = credentials['TWITTER_CONSUMER_KEY']
-        consumer_secret = credentials['TWITTER_CONSUMER_SECRET']
-        access_token = credentials['TWITTER_ACCESS_TOKEN']
-        access_secret = credentials['TWITTER_ACCESS_SECRET']
+        consumer_key = os.getenv('TWITTER_CONSUMER_KEY')
+        consumer_secret = os.getenv('TWITTER_CONSUMER_SECRET')
+        access_token = os.getenv('TWITTER_ACCESS_TOKEN')
+        access_secret = os.getenv('TWITTER_ACCESS_SECRET')
     except KeyError:
         sys.stderr.write("TWITTER_*  not found\n")
         sys.exit(1)

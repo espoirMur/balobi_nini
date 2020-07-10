@@ -10,7 +10,7 @@ def tweet_words_count(client, word_count_path):
     message = """
     Here are the most used words by Congolese on twitter today...
     Voici les mots qui ont été utilisé par les Congolais sur twitter aujourd'hui
-    #RDC DRC RDCongo
+    #RDC #DRC #RDCongo
     """
     client.update_with_media(word_count_path, message)
 
