@@ -1,0 +1,103 @@
+version: "3"
+services:
+  redis:
+    image: "redis:5.0.5"
+    shm_size: "64m"
+  postgres:
+    image: postgres:12.1-alpine
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
+    env_file:
+      - ./.env
+    ports:
+      - 5432:5432
+    shm_size: "64m"
+  webserver:
+    image: airflow-for-tweets
+    build:
+      context: .
+      dockerfile: Dockerfile-Prod
+    restart: always
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./.env
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    ports:
+      - "8080:8080"
+    command: airflow webserver
+    healthcheck:
+      test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
+      interval: 30s
+      timeout: 30s
+      retries: 3
+    environment:
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
+    shm_size: "64m"
+  flower:
+    image: airflow-for-tweets
+    restart: always
+    depends_on:
+      - redis
+    environment:
+      - EXECUTOR=Celery
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
+    ports:
+      - "5555:5555"
+    env_file:
+      - ./.env
+    command: flower
+    shm_size: "64m"
+  scheduler:
+    image: airflow-for-tweets
+    restart: always
+    depends_on:
+      - webserver
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    environment:
+      - LOAD_EX=n
+      - EXECUTOR=Celery
+      - LC_ALL="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
+    env_file:
+      - ./.env
+    command: airflow scheduler
+    shm_size: "64m"
+  worker:
+    image: airflow-for-tweets
+    restart: always
+    depends_on:
+      - scheduler
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    environment:
+      - EXECUTOR=Celery
+      - LC_ALL="en_US.UTF-8"
+      - LC_CTYPE="en_US.UTF-8"
+      - AIRFLOW_HOME=/home/es.py/
+    env_file:
+      - ./.env
+    command: airflow worker
+    shm_size: "64m"
+  streamlit-instance:
+    image: airflow-for-tweets
+    restart: always
+    depends_on:
+      - worker
+    volumes:
+      - ./dags:/usr/local/airflow/dags
+    environment:
+      - AIRFLOW_HOME=/home/es.py/
+    env_file:
+      - ./.env
+    ports:
+      - "8501:8501"
+    command: streamlit run stream_it.py
+    shm_size: "64m"

@@ -1,29 +1,64 @@
-# Balobi Nini
+[![Contributors][contributors-shield]][contributors-url]
+[![Forks][forks-shield]][forks-url]
+[![Stargazers][stars-shield]][stars-url]
+[![Issues][issues-shield]][issues-url]
+[![MIT License][license-shield]][license-url]
+[![LinkedIn][linkedin-shield]][linkedin-url]
+
+## Table of Contents
+
+- [About the Project](#about-the-project)
+- [Built With](#built-with)
+- [Getting Started](#getting-started)
+- [Roadmap](#roadmap)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+- [Acknowledgements](#acknowledgements)
+
+<!-- ABOUT THE PROJECT -->
+
+## About The Project
 
 _What did they say? or What are they talking about in Lingala_
 
-I really don't know how to name this project , I just want to work on something related to social media data analysis for DRCongo.
+Finally this project is taking shape , I finally found what I am building....
 
-Basically, In this project the ideas is to collect tweet related to DRC analyze and check what we can do with them.
+Among multiple concepts I am testing on this project!
 
-Some interesting topics we could do are :
+Here are some feature that are working in this repository:
 
-- Sentiment analysis of comment to a particular topic.
-- Content analysis , with this I mean trying to understand what Congelese are talking about on social media.
-- Disease prevention using social media analysis. (Basically using time series analysis to predict ebola outbreak in a region.)
-- Another interesting will be to use the streaming api to fetch data daily and retrieve what people are talking about.
-- We can use twitter data to find what are the most popular Influencer (persons or businesses) on twitter
-- Using twitter data to visualize the most hashtags used by Congoleses
+- This project use Tweepy alongside with Apache Airflow to collect all tweets containing the words RDC and DRC on a hourly basis.
 
-I will be sharing more topics with time.
+- Once those tweets are collected I apply some cleaning on them and generate a WordCloud to display the most used word by Congolese on Social Media on a given day.
 
-Some resources I'm using are :
+- Again I use Airflow and Celery as scheduler to tweet that WordCloud generated on a daily basis...
 
-- [This One](https://www.researchgate.net/publication/303127692_SOCIAL_MEDIA_MINING_FOR_PUBLIC_HEALTH_MONITORING_AND_SURVEILLANCE)
-- [And this One](https://www.ncbi.nlm.nih.gov/pubmed/26042846)
-- [chap 1 and Chap 2 of This Book](https://www.amazon.com/Mastering-Social-Media-Mining-Python-ebook/dp/B01BFD2Z2Q)
+- I used StreamIt to display that WordCloud as an image on a web page.
 
-#### How to run the project
+The other feature I will be implementing next time are :
+
+- Using Topic Modeling to identify the different topic used in those tweets.
+- Using Sentiment analysis and display the sentiment in the congolese tweets.
+
+- Once I got those results I will be updating the StreamLit dashboard...
+
+<!-- Build with -->
+
+## Built With
+
+- [Python](https://www.python.org/)
+- [Tweepy](https://github.com/tweepy/tweepy)
+- [Airflow](https://github.com/joeynmt/joeynmt)
+- [NLTK](https://www.nltk.org/)
+- [Github Actions](https://github.com/features/actions)
+- [streamlit](https://streamlit.io/)
+
+<!-- GETTING STARTED -->
+
+## Getting started
+
+Clone the project to have a local copy in your machine.
 
 We have decided to use docker to build and have the project running...
 
@@ -36,3 +71,60 @@ Then chill until I get motivation to finish this readme
 Update the database using this command :
 
 `docker-compose exec streamlit-instance python manage.py db upgrade`
+
+<!-- road map -->
+
+## Roadmap
+
+Anytime I learn something new I would like to apply it on this project.
+
+I made a Todo list about item I will work on on this project.
+
+It depend on my motivation and my mood and how I feel when working on this project ...
+
+But the Todo can be found [here](./TODOS.md)...
+
+<!-- CONTRIBUTING -->
+
+## Contributing
+
+Contributions are what make the open source community such an amazing place to be learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+<!-- LICENSE -->
+
+## License
+
+Distributed under my personal open source licence. See [`LICENSE`](./LICENSE.md) for more information.
+
+<!-- CONTACT -->
+
+## Contact
+
+Espoir Murhabazi - [@olobi_nini](https://twitter.com/olobi_nini) - espoir.mur on gmail
+
+Project Link: [https://github.com/espoirMur/balobi_nini](https://github.com/espoirMur/balobi_nini)
+
+<!-- ACKNOWLEDGEMENTS -->
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/othneildrew/Best-README-Template.svg?style=flat-square
+[contributors-url]: https://github.com/espoirMur/balobi_nini/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/othneildrew/Best-README-Template.svg?style=flat-square
+[forks-url]: https://github.com/espoirMur/balobi_nini/network/members
+[stars-shield]: https://img.shields.io/github/stars/othneildrew/Best-README-Template.svg?style=flat-square
+[stars-url]: https://github.com/espoirMur/balobi_nini/stargazers
+[issues-shield]: https://img.shields.io/github/issues/othneildrew/Best-README-Template.svg?style=flat-square
+[issues-url]: https://github.com/espoirMur/balobi_nini/issues
+[license-shield]: https://img.shields.io/github/license/othneildrew/Best-README-Template.svg?style=flat-square
+[license-url]: https://github.com/espoirMur/balobi_nini/blob/master/LICENSE.md
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=flat-square&logo=linkedin&colorB=555
+[linkedin-url]: https://www.linkedin.com/in/murhabazi-buzina-espoir-7849b1b1/
+[product-screenshot]: images/screenshot.png
