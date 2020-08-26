@@ -4,6 +4,7 @@ from tweets_queries.twitter_query_data import query_tweets
 from tweets_queries.twitter_client import get_twitter_client
 from tweets_cleaner.TweetsCleaner import TweetsCleaner
 from datetime import timedelta, datetime
+from dags import default_args
 
 
 def get_tweets(**context):
@@ -22,17 +23,6 @@ def clean_save_to_db(**context):
     cleaner = TweetsCleaner('.')
     cleaner.save_clean_tweets(tweets)
 
-
-default_args = {
-    "owner": "airflow",
-    "depend_on_past": False,
-    "email": "espoir.mur@gmail.com",
-    "start_date": datetime(2020, 5, 14),
-    "email_on_failure": False,
-    "wait_for_downstream": False,
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5)
-}
 
 dag = DAG(
     dag_id='collect_tweets',
