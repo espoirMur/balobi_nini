@@ -68,3 +68,5 @@ jobs:
           export COMPOSE_DOCKER_CLI_BUILD=1
           export DOCKER_HOST=ssh://root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
           docker-compose up -d --build
+          docker-compose -f docker-compose-prod.yml exec worker python manage.py db migrate
+          docker-compose -f docker-compose-prod.yml exec worker airflow initdb

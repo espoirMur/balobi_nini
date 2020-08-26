@@ -3,7 +3,7 @@ from airflow.operators.python_operator import PythonOperator
 from utils.wordcloud import generate_today_word_cloud
 from tweets_queries.twitter_client import get_twitter_client
 from tweets_queries.tweets_actions import tweet_words_count
-from dags.airflows_tasks import default_args
+from dags import default_args
 
 
 def generate_image(**context):
