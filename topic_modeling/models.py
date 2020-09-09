@@ -6,13 +6,13 @@ from sklearn.decomposition import NMF
 
 def vectorize_tweets(tweets_df,):
     """
-    Return a vectorize version of tweets
+    Return a vectorized version of tweets
     Args:
-        tweest_df (dataframe): a dataframe  of cleanned tweets
+        tweet_df (dataframe): a dataframe  of cleanned tweets
     Returns :
     np array : features names
     np array : transformed_tweet tweet transformed
-    np array : count vectorizer for the cleanned tweets
+    np array : count vectorized for the cleanned tweets
     """
     vectorizer = CountVectorizer(
         max_df=0.95,

@@ -35,7 +35,7 @@ def plot_term_frequency(term_counts, path):
 
 def plot_tweet_time(tweet_path, images_path):
     """
-    generate time serie plot for all tweets
+    generate time series plot for all tweets
     Args:
         tweet_path (string): path of the tweet files
         image_path (str, required): path where we need to save the file.
@@ -78,14 +78,16 @@ def generate_word_cloud(term_counts, color_map):
     Returns:
         wordCould: an worldcould
     """
-    return WordCloud(
+    world_cloud = WordCloud(
         width=900,
         height=500,
         max_words=500,
         max_font_size=100,
         relative_scaling=0.5,
         colormap=color_map,
-        normalize_plurals=True).generate_from_frequencies(term_counts)
+        normalize_plurals=True)
+    world_cloud_image = world_cloud.generate_from_frequencies(term_counts)
+    return world_cloud_image
 
 
 def plot_word_cloud(word_cloud, path):
@@ -101,18 +103,3 @@ def plot_word_cloud(word_cloud, path):
     plt.savefig(__path__)
     plt.axis("off")
     plt.show()
-
-
-def plot_drc_map():
-    """
-    generate drc shape
-    """
-    resolution = '10m'
-    category = 'cultural'
-    name = 'admin_0_countries'
-
-    shpfilename = shapereader.natural_earth(resolution, category, name)
-    df = read_file(shpfilename)
-    borders = df.loc[df['ADMIN'] ==
-                     'Democratic Republic of the Congo']['geometry'].values[0]
-    return shpfilename
