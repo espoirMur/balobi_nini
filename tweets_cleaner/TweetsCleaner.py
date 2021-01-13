@@ -9,7 +9,7 @@ from datetime import datetime
 from app.model import CleannedTweet
 
 
-french_stematiser = spacy.load('fr')
+french_lematizer = spacy.load('fr_core_news_md')
 
 tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
                                tweet_preprocessor.OPT.EMOJI,
@@ -72,13 +72,14 @@ class TweetsCleaner:
         text = self.emoji_patterns.sub(r'', text)
         return text
 
-    def stematise_token(self, tokens):
+    def lematize_token(self, tokens):
         """
         replace word in token list  with his lemma:
-        example : appelais  will become appele, plural will be replaced by their singular version, etc
+        example : appelais  will become appele,
+         plural will be replaced by their singular version, etc
         """
 
-        doc = french_stematiser(' '.join(tokens))
+        doc = french_lematizer(' '.join(tokens))
         return [token.lemma_ for token in doc]
 
     def prepocess_tweet(self, tweet_text):
@@ -101,7 +102,7 @@ class TweetsCleaner:
         text = re.sub(r"\b\w{2}\b", "", text)
         text = self.remove_emoji(text)
         tokens = process_text(text=text, words_to_remove=self.words_to_remove)
-        tokens = self.stematise_token(tokens)
+        tokens = self.lematize_token(tokens)
         return tokens
 
     def save_clean_tweets(self, tweets):

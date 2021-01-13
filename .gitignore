@@ -6,6 +6,8 @@ credentials.json
 .env
 .env.production
 .env.test
+.env.dev
 logs/
 airflow-webserver*
 data/
+tweets_analysis.dump

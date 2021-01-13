@@ -49,7 +49,7 @@ The other feature I will be implementing next time are :
 
 - [Python](https://www.python.org/)
 - [Tweepy](https://github.com/tweepy/tweepy)
-- [Airflow](https://github.com/joeynmt/joeynmt)
+- [Airflow](https://github.com/apache/airflow)
 - [NLTK](https://www.nltk.org/)
 - [Github Actions](https://github.com/features/actions)
 - [streamlit](https://streamlit.io/)
