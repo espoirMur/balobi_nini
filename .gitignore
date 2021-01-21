@@ -9,5 +9,6 @@ credentials.json
 .env.dev
 logs/
 airflow-webserver*
-data/
+data/**
 tweets_analysis.dump
+models/
