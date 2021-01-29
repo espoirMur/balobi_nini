@@ -45,6 +45,16 @@ class DynamicNMF:
         self.windows_groups = self.data.groupby(pd.Grouper(key="created_at",
                                                            freq=freq))
         self.windows_data = [df for time, df in self.windows_groups if not df.empty]
+
+    def get_top_terms_per_model(self, H, terms, top_terms=15):
+        '''
+        given an H matrix and the terms return n tops terms
+        in for each topic in the matrix in
+        '''
+        top_indices = np.flip(np.argsort(H))
+        terms_array = np.array(terms, dtype=np.str)
+        top_terms = np.take(terms_array, top_indices)[::-1, :top_terms]
+        return top_terms
     
     def create_topic_model(self, windows_doc):
         """
@@ -205,8 +215,6 @@ class DynamicNMF:
                      xy=(best_k, ymax),
                      xytext=(best_k, ymax),
                      textcoords="offset points", fontsize=16)
-        # show the plot
-        plt.show()
 
     def plot_all_coherences(self, all_coherences_k):
         """
