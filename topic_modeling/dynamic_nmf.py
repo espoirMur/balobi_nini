@@ -3,27 +3,29 @@ this package hold the code for the dynamic topic modeling with the nmf
 """
 import pandas as pd
 import numpy as np
+import pickle
 from pathlib import Path
 from gensim.models.fasttext import FastText as FT_gensim
 from gensim.test.utils import datapath
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.decomposition import NMF
+from topic_modeling.topic_modeling import TopicModelNMF
 from itertools import combinations
+
 import matplotlib
 import matplotlib.pyplot as plt
 plt.style.use("ggplot")
-from topic_modeling.topic_modeling import TopicModelNMF
 matplotlib.rcParams.update({"font.size": 14})
 
 
 class DynamicNMF:
-    def __init__(self):
-        self.read_data()
+    def __init__(self, dataset_name='cleanned_tweets_2021.csv'):
+        self.read_data(dataset_name)
         self.min_date = self.data.created_at.min().strftime('%d-%b-%Y')
         self.max_date = self.data.created_at.max().strftime('%d-%b-%Y')
         self.split_into_windows_docs()
 
-    def read_data(self, dataset_name='cleanned_tweets_2021.csv'):
+    def read_data(self, dataset_name):
         """
         read the dataset and return it in a pandas dataframe
 
@@ -91,3 +93,16 @@ class DynamicNMF:
             all_topic_matrix.append(top_terms)
         self.B_matrix = np.concatenate(all_topic_matrix, axis=0)
 
+    def save_model(self):
+        """
+        use the pickle module to save the model objectsms
+        """
+        with open(Path().cwd().joinpath('data', 'model')) as file:
+            pickle.dump(self, file)
+
+    def load_model(self):
+        """
+        loads the saved model
+        """
+        with open(Path().cwd().joinpath('data', 'model')) as file:
+            pickle.load(file)
