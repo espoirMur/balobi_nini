@@ -139,7 +139,7 @@ pycodestyle==2.5.0
 pycparser==2.20
 pydeck==0.3.1
 pyflakes==2.1.1
-Pygments==2.4.2
+Pygments==2.7.4
 PyJWT==1.7.1
 pyLDAvis==2.1.2
 pymongo==3.8.0
