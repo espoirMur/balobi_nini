@@ -1,6 +1,10 @@
 name: Continuous Integration and Delivery
 
-on: [push]
+on:
+  push:
+    branches:
+      - master
+      - deploy-to-new-server
 jobs:
   test:
     # The type of runner that the job will run on
@@ -37,36 +41,23 @@ jobs:
         uses: actions/checkout@v1
       - name: Add environment variables to .env
         run: |
-          echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
-          echo POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}} >> .env
-          echo POSTGRES_DB=${{ secrets.POSTGRES_DB}} >> .env
-          echo POSTGRES_HOST=${{ secrets.POSTGRES_HOST }} >> .env
-          echo APP_SETTINGS=${{ secrets.APP_SETTINGS }} >> .env
-          echo SECRET_KEY=${{ secrets.SECRET_KEY }} >> .env
-          echo FERNET_KEY=${{ secrets.FERNET_KEY }} >> .env
-          echo LC_CTYPE=en_US.UTF-8 >> .env
-          echo AIRFLOW__CORE__SQL_ALCHEMY_CONN=${{ secrets.AIRFLOW__CORE__SQL_ALCHEMY_CONN }} >> .env
-          echo TWITTER_ACCESS_TOKEN=${{ secrets.TWITTER_ACCESS_TOKEN }} >> .env
-          echo TWITTER_ACCESS_SECRET=${{ secrets.TWITTER_ACCESS_SECRET }} >> .env
-          echo TWITTER_CONSUMER_KEY=${{ secrets.TWITTER_CONSUMER_KEY }} >> .env
-          echo TWITTER_CONSUMER_SECRET=${{ secrets.TWITTER_CONSUMER_KEY }} >> .env
-      - name: save ssh keys
-        uses: webfactory/ssh-agent@v0.4.0
-        with:
-          ssh-private-key: ${{ secrets.PRIVATE_KEY }}
-      - name: try to copy ssh keys
+          echo '''${{ secrets.DOT_ENV_FILE }}''' >> .env
+      - name: Add the private SSH key to the ssh-agent
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          ssh-keyscan ${{secrets.DIGITAL_OCEAN_IP_ADDRESS}} >> ~/.ssh/known_hosts
-          ssh-keygen -R root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
-          (yes) | ssh-copy-id -f root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
+          mkdir -p ~/.ssh
+          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+          ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
       - name: Build and deploy images on DigitalOcean
         env:
           SSH_AUTH_SOCK: /tmp/ssh_agent.sock
         run: |
-          echo ${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
+          echo ${{secrets.HOST_IP_ADDRESS}}
           export DOCKER_BUILDKIT=1
           export COMPOSE_DOCKER_CLI_BUILD=1
-          export DOCKER_HOST=ssh://root@${{secrets.DIGITAL_OCEAN_IP_ADDRESS}}
+          export DOCKER_HOST=ssh://${{secrets.HOST_USERNAME}}@${{secrets.HOST_IP_ADDRESS}}
           docker-compose up -d --build
           docker-compose -f docker-compose-prod.yml exec worker python manage.py db migrate
           docker-compose -f docker-compose-prod.yml exec worker airflow initdb
