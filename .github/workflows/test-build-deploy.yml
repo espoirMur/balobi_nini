@@ -42,22 +42,32 @@ jobs:
       - name: Add environment variables to .env
         run: |
           echo '''${{ secrets.DOT_ENV_FILE }}''' >> .env
-      - name: Add the private SSH key to the ssh-agent
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
         env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          mkdir -p ~/.ssh
-          ssh-agent -a $SSH_AUTH_SOCK > /dev/null
-          ssh-keyscan github.com >> ~/.ssh/known_hosts
-          ssh-add - <<< "${{ secrets.PRIVATE_KEY }}"
-      - name: Build and deploy images on DigitalOcean
-        env:
-          SSH_AUTH_SOCK: /tmp/ssh_agent.sock
-        run: |
-          echo ${{secrets.HOST_IP_ADDRESS}}
-          export DOCKER_BUILDKIT=1
-          export COMPOSE_DOCKER_CLI_BUILD=1
-          export DOCKER_HOST=ssh://${{secrets.HOST_USERNAME}}@${{secrets.HOST_IP_ADDRESS}}
-          docker-compose up -d --build
-          docker-compose -f docker-compose-prod.yml exec worker python manage.py db migrate
-          docker-compose -f docker-compose-prod.yml exec worker airflow initdb
+          HOST: ${{ secrets.HOST_IP_ADDRESS }}
+          USERNAME: ${{ secrets.HOST_USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.PRIVATE_KEY }}
+        with:
+          source: "."
+          target: "/Projects/balobi_nini"
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP_ADDRESS  }}
+          USERNAME: ${{ secrets.HOST_USERNAME  }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.PRIVATE_KEY }}
+          script: ls
+      #- name: Build and deploy images on DigitalOcean
+      #  env:
+      #    SSH_AUTH_SOCK: /tmp/ssh_agent.sock
+      #  run: |
+      #    echo ${{secrets.HOST_IP_ADDRESS}}
+      #    export DOCKER_BUILDKIT=1
+      #    export COMPOSE_DOCKER_CLI_BUILD=1
+      #    export DOCKER_HOST=ssh://${{secrets.HOST_USERNAME}}@${{secrets.HOST_IP_ADDRESS}}
+      #    docker-compose up -d --build
+      #    docker-compose -f docker-compose-prod.yml exec worker python manage.py db migrate
+      #    docker-compose -f docker-compose-prod.yml exec worker airflow initdb
