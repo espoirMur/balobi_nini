@@ -18,6 +18,7 @@ ENV PYTHONUNBUFFERED=1 \
     PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH" \
     NLTK_DATA=/usr/share/nltk_data
 
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 FROM base AS python-deps
 RUN apt-get update \
@@ -26,7 +27,7 @@ RUN apt-get update \
         build-essential
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.1.7
+ENV POETRY_VERSION=1.1.8
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 
 # We copy our Python requirements here to cache them
