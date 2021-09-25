@@ -50,7 +50,7 @@ COPY --from=python-deps $PYSETUP_PATH $PYSETUP_PATH
 
 
 RUN useradd --create-home es.py
-ENV WORKING_DIR=/home/es.py/
+ENV WORKING_DIR=/home/es.py
 COPY . ${WORKING_DIR}
 WORKDIR ${WORKING_DIR}
 USER es.py
