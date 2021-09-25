@@ -40,5 +40,5 @@ jobs:
             export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
             docker-compose -f docker-compose-prod.yml up -d --build
-            docker-compose -f docker-compose-prod.yml exec worker python manage.py db migrate
-            docker-compose -f docker-compose-prod.yml exec worker airflow initdb
+            docker-compose -f docker-compose-prod.yml exec -T worker python manage.py db migrate
+            docker-compose -f docker-compose-prod.yml exec -T worker airflow initdb
