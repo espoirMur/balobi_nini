@@ -1,3 +1,5 @@
+# an improvement to this workflow could be to deploy the container to the registry and then pull the image in the registry from the vps
+
 name: Continuous Integration and Delivery
 on:
   push:
@@ -31,6 +33,8 @@ jobs:
           USERNAME: ${{ secrets.HOST_USERNAME  }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.PRIVATE_KEY }}
+          TIMEOUT: 30m
+          COMMAND_TIMEOUT: 30m
           script: |
             cd /Projects/balobi_nini
             export DOCKER_BUILDKIT=1

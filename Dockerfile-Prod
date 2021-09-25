@@ -1,4 +1,4 @@
-FROM python:3.6 as base
+FROM python:3.7 as base
 LABEL maintainer="Espoir Murhabazi<espoir.mur [] gmail>"
 
 
@@ -24,7 +24,8 @@ FROM base AS python-deps
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
-        build-essential
+        build-essential\
+        software-properties-common
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
 ENV POETRY_VERSION=1.1.8
