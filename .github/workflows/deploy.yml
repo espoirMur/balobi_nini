@@ -1,0 +1,40 @@
+name: Continuous Integration and Delivery
+on:
+  push:
+    branches:
+      - master
+      - deploy-to-new-server
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Personal host
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+      - name: Add environment variables to .env
+        run: |
+          echo '''${{ secrets.DOT_ENV_FILE }}''' >> .env
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOST_IP_ADDRESS }}
+          USERNAME: ${{ secrets.HOST_USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.PRIVATE_KEY }}
+        with:
+          source: "."
+          target: "/Projects/balobi_nini"
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP_ADDRESS  }}
+          USERNAME: ${{ secrets.HOST_USERNAME  }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.PRIVATE_KEY }}
+          script: |
+            cd /Projects/balobi_nini
+            export DOCKER_BUILDKIT=1
+            export COMPOSE_DOCKER_CLI_BUILD=1
+            docker-compose up -d --build
+            docker-compose -f docker-compose-prod.yml exec worker python manage.py db migrate
+            docker-compose -f docker-compose-prod.yml exec worker airflow initdb
