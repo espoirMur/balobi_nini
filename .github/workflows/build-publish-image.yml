@@ -57,5 +57,7 @@ jobs:
           context: .
           file: Dockerfile-Prod
           push: true
+          cache-from: type=registry,ref=${{ steps.generate-image-tag.outputs.image-tag }}
+          cache-to: type=inline
           tags: |
             ${{ steps.generate-image-tag.outputs.image-tag }}
