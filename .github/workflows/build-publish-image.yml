@@ -15,7 +15,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: ghtoken_product_demo
+  IMAGE_NAME: airflow-for-tweets
 
 jobs:
   # Push image to GitHub Packages.
@@ -28,15 +28,36 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+        # https://github.com/docker/setup-buildx-action
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: create  docker cache
+        uses: actions/cache@v1
+        with:
+          path: ${{ github.workspace }}/cache
+          key: ${{ runner.os }}-docker-${{ hashfiles('cache/**') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
 
       - name: Build image
-        run: docker build . --file Dockerfile-Prod --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+        run: |
+          docker buildx build \
+           -f Dockerfile-Prod \
+           --progress=plain \
+           --cache-from "type=local,src=$GITHUB_WORKSPACE/cache" \
+           --cache-to "type=local,dest=$GITHUB_WORKSPACE/cache" \
+           --tag $IMAGE_NAME \
+           --label "runnumber=${GITHUB_RUN_ID}" .
 
       - name: Log in to registry
         # This is where you will update the PAT to GITHUB_TOKEN
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: Push image
+        id: push-image
         run: |
           IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
 
@@ -52,3 +73,8 @@ jobs:
           echo VERSION=$VERSION
           docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
           docker push $IMAGE_ID:$VERSION
+          echo "::set-output name=image-name::$IMAGE_ID:$VERSION"
+      - name: write the image name to the docker compose --file
+        run:
+          sed -i '' 's/BASE-IMAGE-NAME/${{ steps.push-image.outputs.image-name }}/g' docker-compose-prod.yml
+          cat docker-compose-prod.yml
