@@ -18,7 +18,7 @@ services:
     environment:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/
+      - AIRFLOW_HOME=/home/es.py/balobi_nini
   flower:
     image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
@@ -26,7 +26,7 @@ services:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/
+      - AIRFLOW_HOME=/home/es.py/balobi_nini
     env_file:
       - ./.env
     command: flower
@@ -42,7 +42,7 @@ services:
       - LOAD_EX=n
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/
+      - AIRFLOW_HOME=/home/es.py/balobi_nini/
     env_file:
       - ./.env
     command: airflow scheduler
@@ -58,7 +58,7 @@ services:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/
+      - AIRFLOW_HOME=/home/es.py/balobi_nini
     env_file:
       - ./.env
     command: airflow celery worker
@@ -71,7 +71,7 @@ services:
     volumes:
       - ./dags:/usr/local/airflow/dags
     environment:
-      - AIRFLOW_HOME=/home/es.py/
+      - AIRFLOW_HOME=/home/es.py/balobi_nini
     env_file:
       - ./.env
     command: streamlit run stream_it.py
