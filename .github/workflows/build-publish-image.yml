@@ -44,13 +44,7 @@ jobs:
 
       - name: Build image
         run: |
-          docker buildx build \
-           -f Dockerfile-Prod \
-           --progress=plain \
-           --cache-from "type=local,src=$GITHUB_WORKSPACE/cache" \
-           --cache-to "type=local,dest=$GITHUB_WORKSPACE/cache" \
-           --tag $IMAGE_NAME \
-           --label "runnumber=${GITHUB_RUN_ID}" .
+          docker build . --file Dockerfile-Prod --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
 
       - name: Log in to registry
         # This is where you will update the PAT to GITHUB_TOKEN
