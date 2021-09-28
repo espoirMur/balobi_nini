@@ -44,7 +44,7 @@ vine = ">=1.1.3,<5.0.0a1"
 
 [[package]]
 name = "apache-airflow"
-version = "1.10.10"
+version = "1.10.15"
 description = "Programmatically author, schedule and monitor data pipelines"
 category = "main"
 optional = false
@@ -53,45 +53,51 @@ python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*"
 [package.dependencies]
 alembic = ">=1.0,<2.0"
 argcomplete = ">=1.10,<2.0"
-attrs = ">=19.3,<20.0"
+attrs = ">=20.0,<21.0"
 cached-property = ">=1.5,<2.0"
-cattrs = ">=0.9,<1.0"
+cattrs = {version = ">=1.0,<2.0", markers = "python_version > \"3.6\""}
 colorlog = "4.0.2"
 configparser = ">=3.5.0,<3.6.0"
 croniter = ">=0.3.17,<0.4"
+cryptography = {version = ">=0.9.3", markers = "python_version >= \"3.0\""}
 dill = ">=0.2.2,<0.4"
+email-validator = "*"
 flask = ">=1.1.0,<2.0"
 flask-admin = "1.5.4"
 flask-appbuilder = {version = ">=2.2,<3.0", markers = "python_version >= \"3.6\""}
 flask-caching = ">=1.3.3,<1.4.0"
 flask-login = ">=0.3,<0.5"
-flask-swagger = "0.2.13"
+flask-swagger = ">=0.2.13,<0.3"
 flask-wtf = ">=0.14.2,<0.15"
 funcsigs = ">=1.0.0,<2.0.0"
 future = ">=0.16.0,<0.19"
 graphviz = ">=0.12"
-gunicorn = ">=19.5.0,<20.0"
+gunicorn = ">=19.5.0,<21.0"
+importlib-metadata = {version = ">=2.0,<3.0", markers = "python_version < \"3.9\""}
+importlib-resources = ">=1.4,<2.0"
 iso8601 = ">=0.1.12"
-jinja2 = ">=2.10.1,<2.11.0"
+jinja2 = ">=2.10.1,<2.12.0"
 json-merge-patch = "0.2"
 jsonschema = ">=3.0,<4.0"
-lazy-object-proxy = ">=1.3,<2.0"
+lazy-object-proxy = "<1.5.0"
 markdown = ">=2.5.2,<3.0"
-pandas = ">=0.17.1,<1.0.0"
+marshmallow-sqlalchemy = {version = ">=0.16.1,<0.24.0", markers = "python_version >= \"3.6\""}
+packaging = "*"
+pandas = ">=0.17.1,<2.0"
 pendulum = "1.4.4"
 psutil = ">=4.2.0,<6.0.0"
 pygments = ">=2.0.1,<3.0"
-python-daemon = ">=2.1.1,<2.2"
+python-daemon = ">=2.1.1"
 python-dateutil = ">=2.3,<3"
-requests = ">=2.20.0,<3"
+python-nvd3 = ">=0.15.0,<0.16.0"
+python-slugify = ">=3.0.0,<5.0"
+requests = {version = ">=2.20.0,<2.24.0", markers = "python_version >= \"3.0\""}
 setproctitle = ">=1.1.8,<2"
 sqlalchemy = ">=1.3,<2.0"
 sqlalchemy-jsonfield = {version = ">=0.9,<1.0", markers = "python_version >= \"3.5\""}
 tabulate = ">=0.7.5,<0.9"
 tenacity = "4.12.0"
-termcolor = "1.1.0"
-text-unidecode = "1.2"
-thrift = ">=0.9.2"
+thrift = ">=0.11.0"
 typing-extensions = {version = ">=3.7.4", markers = "python_version < \"3.8\""}
 tzlocal = ">=1.4,<2.0.0"
 unicodecsv = ">=0.14.1"
@@ -99,57 +105,73 @@ werkzeug = "<1.0.0"
 "zope.deprecation" = ">=4.0,<5.0"
 
 [package.extras]
-all = ["cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "hmsclient (>=0.1.0)", "pyhive (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)", "atlasclient (>=0.1.2)", "boto3 (>=1.10,<2.0)", "azure-storage (>=0.34.0)", "azure-storage-blob (<12.0)", "azure-mgmt-containerinstance (>=1.5.0)", "azure-cosmos (>=3.0.1)", "azure-datalake-store (>=0.0.45azure-mgmt-datalake-store)", "azure-mgmt-resource (>=2.2.0)", "celery (>=4.3,<5.0)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "cgroupspy (>=0.1.4)", "cryptography (>=0.9.3)", "datadog (>=0.14.0)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "ipdb", "jira", "mongomock", "moto (>=1.3.14,<2.0.0)", "parameterized", "paramiko", "pre-commit", "pysftp", "pytest", "pytest-cov", "pytest-instafail", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "docker (>=3.0,<4.0)", "elasticsearch (>=5.0.0,<6.0.0)", "elasticsearch-dsl (>=5.0.0,<6.0.0)", "pyopenssl", "google-api-python-client (>=1.6.0,<2.0.0dev)", "google-auth (>=1.0.0,<2.0.0dev)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0)", "google-cloud-container (>=0.1.1)", "google-cloud-dlp (>=0.11.0)", "google-cloud-language (>=1.1.1)", "google-cloud-secret-manager (>=0.2.0)", "google-cloud-spanner (>=1.10.0)", "google-cloud-speech (>=0.36.3)", "google-cloud-storage (>=1.16)", "google-cloud-texttospeech (>=0.4.0)", "google-cloud-translate (>=1.3.3)", "google-cloud-videointelligence (>=1.7.0)", "google-cloud-vision (>=0.35.2)", "grpcio-gcp (>=0.2.2)", "httplib2 (>=0.15,<1.0)", "pandas-gbq", "grpcio (>=1.15.0)", "hvac (>=0.10,<1.0)", "JPype1 (==0.7.1)", "jaydebeapi (>=1.1.1)", "python-jenkins (>=1.0.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "thrift-sasl (>=0.2.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0)", "ldap3 (>=2.5.1)", "cx-Oracle (>=5.1.2)", "papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "redis (>=3.2,<4.0)", "pysmbclient (>=0.1.3)", "analytics-python (>=1.2.9)", "sendgrid (>=5.2.0,<6)", "blinker (>=1.1)", "sentry-sdk (>=0.8.0)", "slackclient (>=1.0.0,<2.0.0)", "snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)", "paramiko (>=2.1.1)", "pysftp (>=0.2.9)", "sshtunnel (>=0.1.4,<0.2)", "virtualenv", "hdfs[kerberos,avro,dataframe] (>=2.0.4)", "zdesk", "kombu (==4.6.3)", "sphinx (==1.8.5)", "mock", "contextdecorator", "sphinx (>=2.1.2)"]
-all_dbs = ["cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "snakebite (>=2.7.8)", "hmsclient (>=0.1.0)", "pyhive (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)"]
+all = ["cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0,<3.11.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)", "atlasclient (>=0.1.2)", "boto3 (>=1.10,<2.0)", "azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-mgmt-containerinstance (>=1.5.0,<2)", "azure-cosmos (>=3.0.1,<4)", "azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "docutils (>=0.14,<0.16)", "ecdsa (<0.15)", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "gitpython", "idna (<2.9)", "ipdb", "jira", "mongomock", "moto (==1.3.14)", "packaging", "parameterized", "paramiko", "pipdeptree", "pre-commit", "pysftp", "pytest (<6.0.0)", "pytest-cov", "pytest-instafail", "pytest-timeouts", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "vine (>=1.3,<2.0)", "datadog (>=0.14.0)", "docker (>=3.0,<4.0)", "elasticsearch (>=5.0.0,<6.0.0)", "elasticsearch-dsl (>=5.0.0,<6.0.0)", "google-api-python-client (>=1.6.0,<2.0.0)", "google-auth (>=1.0.0,<2.0.0)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0,<2.0.0)", "google-cloud-container (>=0.1.1,<2.0.0)", "google-cloud-dlp (>=0.11.0,<2.0.0)", "google-cloud-language (>=1.1.1,<2.0.0)", "google-cloud-secret-manager (>=0.2.0,<2.0.0)", "google-cloud-spanner (>=1.10.0,<2.0.0)", "google-cloud-speech (>=0.36.3,<2.0.0)", "google-cloud-storage (>=1.16,<2.0.0)", "google-cloud-texttospeech (>=0.4.0,<2)", "google-cloud-translate (>=1.3.3,<2.0.0)", "google-cloud-videointelligence (>=1.7.0,<2.0.0)", "google-cloud-vision (>=0.35.2,<2.0.0)", "grpcio-gcp (>=0.2.2)", "pandas-gbq", "grpcio (>=1.15.0)", "hvac (>=0.10,<1.0)", "JPype1 (==0.7.1)", "jaydebeapi (>=1.1.1)", "python-jenkins (>=1.0.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "ldap3 (>=2.5.1)", "papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)", "pyarrow (<1.0.0)", "amqp (<5.0.0)", "redis (>=3.2,<4.0)", "pysmbclient (>=0.1.3)", "analytics-python (>=1.2.9)", "sendgrid (>=5.2.0,<6)", "blinker (>=1.1)", "sentry-sdk (>=0.8.0)", "slackclient (>=1.0.0,<2.0.0)", "websocket-client (<0.55.0)", "boto3 (<1.11)", "snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)", "paramiko (>=2.1.1)", "pysftp (>=0.2.9)", "sshtunnel (>=0.1.4,<0.2)", "virtualenv", "hdfs[dataframe,avro,kerberos] (>=2.0.4)", "zdesk", "snakebite (>=2.7.8)", "cffi (<1.14.0)", "pyrsistent (<=0.16.0)", "sphinx (==1.8.5)", "celery (==4.3.1)", "kombu (==4.6.3)", "cryptography (>=0.9.3,<3.0)", "PyOpenSSL (<20.0.0)", "thrift-sasl (>=0.2.0,<0.4.1)", "cx-Oracle (>=5.1.2,<8.0)", "mock", "contextdecorator", "azure-storage-blob (<12.0.0)", "importlib-metadata (>=2.0,<3.0)", "fsspec (<0.8.0)", "snakebite-py3", "pyrsistent", "sphinx (>=2.1.2)", "celery (>=4.3,<5.0)", "cryptography (>=0.9.3)", "pyopenssl", "thrift-sasl (>=0.2.0)", "cx-Oracle (>=5.1.2)", "azure-storage-blob", "sphinx-copybutton", "black (==20.8b0)"]
+celery = ["celery (>=4.3,<5.0)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "vine (>=1.3,<2.0)", "celery (==4.3.1)", "kombu (==4.6.3)"]
+all_dbs = ["cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0,<3.11.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)", "snakebite (>=2.7.8)", "snakebite-py3"]
+amazon = ["boto3 (>=1.10,<2.0)"]
+"apache.atlas" = ["atlasclient (>=0.1.2)"]
+"apache.cassandra" = ["cassandra-driver (>=3.13.0,<3.21.0)"]
+"apache.druid" = ["pydruid (>=0.4.1,<=0.5.8)"]
+"apache.hdfs" = ["snakebite (>=2.7.8)", "snakebite-py3"]
+"apache.hive" = ["hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)"]
+"apache.pinot" = ["pinotdb (==0.1.1)"]
+"apache.presto" = ["presto-python-client (>=0.7.0,<0.8)"]
+"apache.webhdfs" = ["hdfs[dataframe,avro,kerberos] (>=2.0.4)"]
 async = ["eventlet (>=0.9.7)", "gevent (>=0.13)", "greenlet (>=0.4.9)"]
 atlas = ["atlasclient (>=0.1.2)"]
 aws = ["boto3 (>=1.10,<2.0)"]
-azure = ["azure-storage (>=0.34.0)", "azure-storage-blob (<12.0)", "azure-mgmt-containerinstance (>=1.5.0)", "azure-cosmos (>=3.0.1)", "azure-datalake-store (>=0.0.45azure-mgmt-datalake-store)", "azure-mgmt-resource (>=2.2.0)"]
-azure_blob_storage = ["azure-storage (>=0.34.0)", "azure-storage-blob (<12.0)"]
-azure_container_instances = ["azure-mgmt-containerinstance (>=1.5.0)"]
-azure_cosmos = ["azure-cosmos (>=3.0.1)"]
-azure_data_lake = ["azure-datalake-store (>=0.0.45azure-mgmt-datalake-store)", "azure-mgmt-resource (>=2.2.0)"]
+azure = ["azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-mgmt-containerinstance (>=1.5.0,<2)", "azure-cosmos (>=3.0.1,<4)", "azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)", "cffi (<1.14.0)", "azure-storage-blob (<12.0.0)", "azure-storage-blob"]
+azure_blob_storage = ["azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-storage-blob (<12.0.0)", "azure-storage-blob"]
+azure_container_instances = ["azure-mgmt-containerinstance (>=1.5.0,<2)"]
+azure_cosmos = ["azure-cosmos (>=3.0.1,<4)"]
+azure_data_lake = ["azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "cffi (<1.14.0)"]
+azure_secrets = ["azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)"]
 cassandra = ["cassandra-driver (>=3.13.0,<3.21.0)"]
-celery = ["celery (>=4.3,<5.0)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "kombu (==4.6.3)"]
+devel_ci = ["hvac (>=0.10,<1.0)", "cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0,<3.11.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)", "atlasclient (>=0.1.2)", "boto3 (>=1.10,<2.0)", "azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-mgmt-containerinstance (>=1.5.0,<2)", "azure-cosmos (>=3.0.1,<4)", "azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "docutils (>=0.14,<0.16)", "ecdsa (<0.15)", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "gitpython", "idna (<2.9)", "ipdb", "jira", "mongomock", "moto (==1.3.14)", "packaging", "parameterized", "paramiko", "pipdeptree", "pre-commit", "pysftp", "pytest (<6.0.0)", "pytest-cov", "pytest-instafail", "pytest-timeouts", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "vine (>=1.3,<2.0)", "datadog (>=0.14.0)", "docker (>=3.0,<4.0)", "elasticsearch (>=5.0.0,<6.0.0)", "elasticsearch-dsl (>=5.0.0,<6.0.0)", "google-api-python-client (>=1.6.0,<2.0.0)", "google-auth (>=1.0.0,<2.0.0)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0,<2.0.0)", "google-cloud-container (>=0.1.1,<2.0.0)", "google-cloud-dlp (>=0.11.0,<2.0.0)", "google-cloud-language (>=1.1.1,<2.0.0)", "google-cloud-secret-manager (>=0.2.0,<2.0.0)", "google-cloud-spanner (>=1.10.0,<2.0.0)", "google-cloud-speech (>=0.36.3,<2.0.0)", "google-cloud-storage (>=1.16,<2.0.0)", "google-cloud-texttospeech (>=0.4.0,<2)", "google-cloud-translate (>=1.3.3,<2.0.0)", "google-cloud-videointelligence (>=1.7.0,<2.0.0)", "google-cloud-vision (>=0.35.2,<2.0.0)", "grpcio-gcp (>=0.2.2)", "pandas-gbq", "grpcio (>=1.15.0)", "JPype1 (==0.7.1)", "jaydebeapi (>=1.1.1)", "python-jenkins (>=1.0.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "ldap3 (>=2.5.1)", "papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)", "pyarrow (<1.0.0)", "amqp (<5.0.0)", "redis (>=3.2,<4.0)", "pysmbclient (>=0.1.3)", "analytics-python (>=1.2.9)", "sendgrid (>=5.2.0,<6)", "blinker (>=1.1)", "sentry-sdk (>=0.8.0)", "slackclient (>=1.0.0,<2.0.0)", "websocket-client (<0.55.0)", "boto3 (<1.11)", "snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)", "paramiko (>=2.1.1)", "pysftp (>=0.2.9)", "sshtunnel (>=0.1.4,<0.2)", "virtualenv", "hdfs[dataframe,avro,kerberos] (>=2.0.4)", "zdesk", "snakebite (>=2.7.8)", "cffi (<1.14.0)", "pyrsistent (<=0.16.0)", "sphinx (==1.8.5)", "celery (==4.3.1)", "kombu (==4.6.3)", "cryptography (>=0.9.3,<3.0)", "PyOpenSSL (<20.0.0)", "thrift-sasl (>=0.2.0,<0.4.1)", "cx-Oracle (>=5.1.2,<8.0)", "mock", "contextdecorator", "azure-storage-blob (<12.0.0)", "importlib-metadata (>=2.0,<3.0)", "fsspec (<0.8.0)", "snakebite-py3", "pyrsistent", "sphinx (>=2.1.2)", "celery (>=4.3,<5.0)", "cryptography (>=0.9.3)", "pyopenssl", "thrift-sasl (>=0.2.0)", "cx-Oracle (>=5.1.2)", "azure-storage-blob", "sphinx-copybutton", "black (==20.8b0)"]
 cgroups = ["cgroupspy (>=0.1.4)"]
 cloudant = ["cloudant (>=0.5.9,<2.0)"]
-crypto = ["cryptography (>=0.9.3)"]
+"cncf.kubernetes" = ["cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)"]
+crypto = ["cryptography (>=0.9.3,<3.0)", "cryptography (>=0.9.3)"]
 dask = ["distributed (>=1.17.1,<2)"]
 databricks = ["requests (>=2.20.0,<3)"]
 datadog = ["datadog (>=0.14.0)"]
-devel = ["boto3 (>=1.10,<2.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "ipdb", "jira", "mongomock", "moto (>=1.3.14,<2.0.0)", "parameterized", "paramiko", "pre-commit", "pysftp", "pytest", "pytest-cov", "pytest-instafail", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0)", "mysqlclient (>=1.3.6,<1.4)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "sphinx (==1.8.5)", "mock", "contextdecorator", "sphinx (>=2.1.2)"]
-devel_azure = ["azure-cosmos (>=3.0.1)", "azure-datalake-store (>=0.0.45azure-mgmt-datalake-store)", "azure-mgmt-resource (>=2.2.0)", "boto3 (>=1.10,<2.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "ipdb", "jira", "mongomock", "moto (>=1.3.14,<2.0.0)", "parameterized", "paramiko", "pre-commit", "pysftp", "pytest", "pytest-cov", "pytest-instafail", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0)", "mysqlclient (>=1.3.6,<1.4)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "sphinx (==1.8.5)", "mock", "contextdecorator", "sphinx (>=2.1.2)"]
-devel_ci = ["cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "hmsclient (>=0.1.0)", "pyhive (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)", "atlasclient (>=0.1.2)", "boto3 (>=1.10,<2.0)", "azure-storage (>=0.34.0)", "azure-storage-blob (<12.0)", "azure-mgmt-containerinstance (>=1.5.0)", "azure-cosmos (>=3.0.1)", "azure-datalake-store (>=0.0.45azure-mgmt-datalake-store)", "azure-mgmt-resource (>=2.2.0)", "celery (>=4.3,<5.0)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "cgroupspy (>=0.1.4)", "cryptography (>=0.9.3)", "datadog (>=0.14.0)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "ipdb", "jira", "mongomock", "moto (>=1.3.14,<2.0.0)", "parameterized", "paramiko", "pre-commit", "pysftp", "pytest", "pytest-cov", "pytest-instafail", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "docker (>=3.0,<4.0)", "elasticsearch (>=5.0.0,<6.0.0)", "elasticsearch-dsl (>=5.0.0,<6.0.0)", "pyopenssl", "google-api-python-client (>=1.6.0,<2.0.0dev)", "google-auth (>=1.0.0,<2.0.0dev)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0)", "google-cloud-container (>=0.1.1)", "google-cloud-dlp (>=0.11.0)", "google-cloud-language (>=1.1.1)", "google-cloud-secret-manager (>=0.2.0)", "google-cloud-spanner (>=1.10.0)", "google-cloud-speech (>=0.36.3)", "google-cloud-storage (>=1.16)", "google-cloud-texttospeech (>=0.4.0)", "google-cloud-translate (>=1.3.3)", "google-cloud-videointelligence (>=1.7.0)", "google-cloud-vision (>=0.35.2)", "grpcio-gcp (>=0.2.2)", "httplib2 (>=0.15,<1.0)", "pandas-gbq", "grpcio (>=1.15.0)", "hvac (>=0.10,<1.0)", "JPype1 (==0.7.1)", "jaydebeapi (>=1.1.1)", "python-jenkins (>=1.0.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "thrift-sasl (>=0.2.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0)", "ldap3 (>=2.5.1)", "cx-Oracle (>=5.1.2)", "papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "redis (>=3.2,<4.0)", "pysmbclient (>=0.1.3)", "analytics-python (>=1.2.9)", "sendgrid (>=5.2.0,<6)", "blinker (>=1.1)", "sentry-sdk (>=0.8.0)", "slackclient (>=1.0.0,<2.0.0)", "snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)", "paramiko (>=2.1.1)", "pysftp (>=0.2.9)", "sshtunnel (>=0.1.4,<0.2)", "virtualenv", "hdfs[kerberos,avro,dataframe] (>=2.0.4)", "zdesk", "kombu (==4.6.3)", "sphinx (==1.8.5)", "mock", "contextdecorator", "sphinx (>=2.1.2)"]
-devel_hadoop = ["boto3 (>=1.10,<2.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "ipdb", "jira", "mongomock", "moto (>=1.3.14,<2.0.0)", "parameterized", "paramiko", "pre-commit", "pysftp", "pytest", "pytest-cov", "pytest-instafail", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0)", "mysqlclient (>=1.3.6,<1.4)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "snakebite (>=2.7.8)", "hmsclient (>=0.1.0)", "pyhive (>=0.6.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "snakebite[kerberos] (>=2.7.8)", "thrift-sasl (>=0.2.0)", "presto-python-client (>=0.7.0,<0.8)", "hdfs[kerberos,avro,dataframe] (>=2.0.4)", "sphinx (==1.8.5)", "mock", "contextdecorator", "sphinx (>=2.1.2)"]
-doc = ["sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "sphinx (==1.8.5)", "sphinx (>=2.1.2)"]
+devel = ["boto3 (>=1.10,<2.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "docutils (>=0.14,<0.16)", "ecdsa (<0.15)", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "gitpython", "idna (<2.9)", "ipdb", "jira", "mongomock", "moto (==1.3.14)", "packaging", "parameterized", "paramiko", "pipdeptree", "pre-commit", "pysftp", "pytest (<6.0.0)", "pytest-cov", "pytest-instafail", "pytest-timeouts", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)", "mysqlclient (>=1.3.6,<1.4)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "pyrsistent (<=0.16.0)", "sphinx (==1.8.5)", "mock", "contextdecorator", "importlib-metadata (>=2.0,<3.0)", "pyrsistent", "sphinx (>=2.1.2)", "sphinx-copybutton"]
+devel_all = ["cassandra-driver (>=3.13.0,<3.21.0)", "cloudant (>=0.5.9,<2.0)", "pydruid (>=0.4.1,<=0.5.8)", "hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)", "dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0,<3.11.0)", "pymssql (>=2.1.1,<2.2.0)", "mysqlclient (>=1.3.6,<1.4)", "pinotdb (==0.1.1)", "psycopg2-binary (>=2.7.4)", "presto-python-client (>=0.7.0,<0.8)", "vertica-python (>=0.5.1)", "atlasclient (>=0.1.2)", "boto3 (>=1.10,<2.0)", "azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-mgmt-containerinstance (>=1.5.0,<2)", "azure-cosmos (>=3.0.1,<4)", "azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "docutils (>=0.14,<0.16)", "ecdsa (<0.15)", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "gitpython", "idna (<2.9)", "ipdb", "jira", "mongomock", "moto (==1.3.14)", "packaging", "parameterized", "paramiko", "pipdeptree", "pre-commit", "pysftp", "pytest (<6.0.0)", "pytest-cov", "pytest-instafail", "pytest-timeouts", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "flower (>=0.7.3,<1.0)", "tornado (>=4.2.0,<6.0)", "vine (>=1.3,<2.0)", "datadog (>=0.14.0)", "docker (>=3.0,<4.0)", "elasticsearch (>=5.0.0,<6.0.0)", "elasticsearch-dsl (>=5.0.0,<6.0.0)", "google-api-python-client (>=1.6.0,<2.0.0)", "google-auth (>=1.0.0,<2.0.0)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0,<2.0.0)", "google-cloud-container (>=0.1.1,<2.0.0)", "google-cloud-dlp (>=0.11.0,<2.0.0)", "google-cloud-language (>=1.1.1,<2.0.0)", "google-cloud-secret-manager (>=0.2.0,<2.0.0)", "google-cloud-spanner (>=1.10.0,<2.0.0)", "google-cloud-speech (>=0.36.3,<2.0.0)", "google-cloud-storage (>=1.16,<2.0.0)", "google-cloud-texttospeech (>=0.4.0,<2)", "google-cloud-translate (>=1.3.3,<2.0.0)", "google-cloud-videointelligence (>=1.7.0,<2.0.0)", "google-cloud-vision (>=0.35.2,<2.0.0)", "grpcio-gcp (>=0.2.2)", "pandas-gbq", "grpcio (>=1.15.0)", "hvac (>=0.10,<1.0)", "JPype1 (==0.7.1)", "jaydebeapi (>=1.1.1)", "python-jenkins (>=1.0.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "ldap3 (>=2.5.1)", "papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)", "pyarrow (<1.0.0)", "amqp (<5.0.0)", "redis (>=3.2,<4.0)", "pysmbclient (>=0.1.3)", "analytics-python (>=1.2.9)", "sendgrid (>=5.2.0,<6)", "blinker (>=1.1)", "sentry-sdk (>=0.8.0)", "slackclient (>=1.0.0,<2.0.0)", "websocket-client (<0.55.0)", "boto3 (<1.11)", "snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)", "paramiko (>=2.1.1)", "pysftp (>=0.2.9)", "sshtunnel (>=0.1.4,<0.2)", "virtualenv", "hdfs[dataframe,avro,kerberos] (>=2.0.4)", "zdesk", "snakebite (>=2.7.8)", "cffi (<1.14.0)", "pyrsistent (<=0.16.0)", "sphinx (==1.8.5)", "celery (==4.3.1)", "kombu (==4.6.3)", "cryptography (>=0.9.3,<3.0)", "PyOpenSSL (<20.0.0)", "thrift-sasl (>=0.2.0,<0.4.1)", "cx-Oracle (>=5.1.2,<8.0)", "mock", "contextdecorator", "azure-storage-blob (<12.0.0)", "importlib-metadata (>=2.0,<3.0)", "fsspec (<0.8.0)", "snakebite-py3", "pyrsistent", "sphinx (>=2.1.2)", "celery (>=4.3,<5.0)", "cryptography (>=0.9.3)", "pyopenssl", "thrift-sasl (>=0.2.0)", "cx-Oracle (>=5.1.2)", "azure-storage-blob", "sphinx-copybutton", "black (==20.8b0)"]
+devel_azure = ["azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-mgmt-containerinstance (>=1.5.0,<2)", "azure-cosmos (>=3.0.1,<4)", "azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)", "boto3 (>=1.10,<2.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "docutils (>=0.14,<0.16)", "ecdsa (<0.15)", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "gitpython", "idna (<2.9)", "ipdb", "jira", "mongomock", "moto (==1.3.14)", "packaging", "parameterized", "paramiko", "pipdeptree", "pre-commit", "pysftp", "pytest (<6.0.0)", "pytest-cov", "pytest-instafail", "pytest-timeouts", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)", "mysqlclient (>=1.3.6,<1.4)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "cffi (<1.14.0)", "pyrsistent (<=0.16.0)", "sphinx (==1.8.5)", "mock", "contextdecorator", "azure-storage-blob (<12.0.0)", "importlib-metadata (>=2.0,<3.0)", "pyrsistent", "sphinx (>=2.1.2)", "azure-storage-blob", "sphinx-copybutton"]
+devel_hadoop = ["boto3 (>=1.10,<2.0)", "cgroupspy (>=0.1.4)", "beautifulsoup4 (>=4.7.1,<4.8.0)", "click (==6.7)", "coverage", "docutils (>=0.14,<0.16)", "ecdsa (<0.15)", "flake8 (>=3.6.0)", "flake8-colors", "flaky", "freezegun", "gitpython", "idna (<2.9)", "ipdb", "jira", "mongomock", "moto (==1.3.14)", "packaging", "parameterized", "paramiko", "pipdeptree", "pre-commit", "pysftp", "pytest (<6.0.0)", "pytest-cov", "pytest-instafail", "pytest-timeouts", "pywinrm", "qds-sdk (>=1.9.6)", "requests-mock", "yamllint", "mypy (==0.720)", "sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)", "mysqlclient (>=1.3.6,<1.4)", "bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)", "hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)", "pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "presto-python-client (>=0.7.0,<0.8)", "hdfs[dataframe,avro,kerberos] (>=2.0.4)", "pyrsistent (<=0.16.0)", "sphinx (==1.8.5)", "snakebite (>=2.7.8)", "thrift-sasl (>=0.2.0,<0.4.1)", "mock", "contextdecorator", "importlib-metadata (>=2.0,<3.0)", "pyrsistent", "sphinx (>=2.1.2)", "snakebite-py3", "thrift-sasl (>=0.2.0)", "sphinx-copybutton"]
+doc = ["sphinx-argparse (>=0.1.13)", "sphinx-autoapi (==1.0.0)", "sphinx-jinja (>=1.1,<2.0)", "sphinx-rtd-theme (>=0.1.6)", "sphinxcontrib-httpdomain (>=1.7.0)", "sphinx (==1.8.5)", "sphinx (>=2.1.2)", "sphinx-copybutton"]
 docker = ["docker (>=3.0,<4.0)"]
 druid = ["pydruid (>=0.4.1,<=0.5.8)"]
 elasticsearch = ["elasticsearch (>=5.0.0,<6.0.0)", "elasticsearch-dsl (>=5.0.0,<6.0.0)"]
 emr = ["boto3 (>=1.10,<2.0)"]
-gcp = ["pyopenssl", "google-api-python-client (>=1.6.0,<2.0.0dev)", "google-auth (>=1.0.0,<2.0.0dev)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0)", "google-cloud-container (>=0.1.1)", "google-cloud-dlp (>=0.11.0)", "google-cloud-language (>=1.1.1)", "google-cloud-secret-manager (>=0.2.0)", "google-cloud-spanner (>=1.10.0)", "google-cloud-speech (>=0.36.3)", "google-cloud-storage (>=1.16)", "google-cloud-texttospeech (>=0.4.0)", "google-cloud-translate (>=1.3.3)", "google-cloud-videointelligence (>=1.7.0)", "google-cloud-vision (>=0.35.2)", "grpcio-gcp (>=0.2.2)", "httplib2 (>=0.15,<1.0)", "pandas-gbq"]
-gcp_api = ["pyopenssl", "google-api-python-client (>=1.6.0,<2.0.0dev)", "google-auth (>=1.0.0,<2.0.0dev)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0)", "google-cloud-container (>=0.1.1)", "google-cloud-dlp (>=0.11.0)", "google-cloud-language (>=1.1.1)", "google-cloud-secret-manager (>=0.2.0)", "google-cloud-spanner (>=1.10.0)", "google-cloud-speech (>=0.36.3)", "google-cloud-storage (>=1.16)", "google-cloud-texttospeech (>=0.4.0)", "google-cloud-translate (>=1.3.3)", "google-cloud-videointelligence (>=1.7.0)", "google-cloud-vision (>=0.35.2)", "grpcio-gcp (>=0.2.2)", "httplib2 (>=0.15,<1.0)", "pandas-gbq"]
-github_enterprise = ["Flask-OAuthlib (>=0.9.1)", "oauthlib (>=1.1.2,!=2.0.3,!=2.0.4,!=2.0.5,<3.0.0)", "requests-oauthlib (==1.1.0)"]
-google_auth = ["Flask-OAuthlib (>=0.9.1)", "oauthlib (>=1.1.2,!=2.0.3,!=2.0.4,!=2.0.5,<3.0.0)", "requests-oauthlib (==1.1.0)"]
+gcp = ["google-api-python-client (>=1.6.0,<2.0.0)", "google-auth (>=1.0.0,<2.0.0)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0,<2.0.0)", "google-cloud-container (>=0.1.1,<2.0.0)", "google-cloud-dlp (>=0.11.0,<2.0.0)", "google-cloud-language (>=1.1.1,<2.0.0)", "google-cloud-secret-manager (>=0.2.0,<2.0.0)", "google-cloud-spanner (>=1.10.0,<2.0.0)", "google-cloud-speech (>=0.36.3,<2.0.0)", "google-cloud-storage (>=1.16,<2.0.0)", "google-cloud-texttospeech (>=0.4.0,<2)", "google-cloud-translate (>=1.3.3,<2.0.0)", "google-cloud-videointelligence (>=1.7.0,<2.0.0)", "google-cloud-vision (>=0.35.2,<2.0.0)", "grpcio-gcp (>=0.2.2)", "pandas-gbq", "PyOpenSSL (<20.0.0)", "pyopenssl"]
+gcp_api = ["google-api-python-client (>=1.6.0,<2.0.0)", "google-auth (>=1.0.0,<2.0.0)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0,<2.0.0)", "google-cloud-container (>=0.1.1,<2.0.0)", "google-cloud-dlp (>=0.11.0,<2.0.0)", "google-cloud-language (>=1.1.1,<2.0.0)", "google-cloud-secret-manager (>=0.2.0,<2.0.0)", "google-cloud-spanner (>=1.10.0,<2.0.0)", "google-cloud-speech (>=0.36.3,<2.0.0)", "google-cloud-storage (>=1.16,<2.0.0)", "google-cloud-texttospeech (>=0.4.0,<2)", "google-cloud-translate (>=1.3.3,<2.0.0)", "google-cloud-videointelligence (>=1.7.0,<2.0.0)", "google-cloud-vision (>=0.35.2,<2.0.0)", "grpcio-gcp (>=0.2.2)", "pandas-gbq", "PyOpenSSL (<20.0.0)", "pyopenssl"]
+github_enterprise = ["Flask-OAuthlib (>=0.9.1,<0.9.6)", "oauthlib (>=1.1.2,!=2.0.3,!=2.0.4,!=2.0.5,<3.0.0)", "requests-oauthlib (==1.1.0)"]
+google = ["google-api-python-client (>=1.6.0,<2.0.0)", "google-auth (>=1.0.0,<2.0.0)", "google-auth-httplib2 (>=0.0.1)", "google-cloud-bigtable (>=1.0.0,<2.0.0)", "google-cloud-container (>=0.1.1,<2.0.0)", "google-cloud-dlp (>=0.11.0,<2.0.0)", "google-cloud-language (>=1.1.1,<2.0.0)", "google-cloud-secret-manager (>=0.2.0,<2.0.0)", "google-cloud-spanner (>=1.10.0,<2.0.0)", "google-cloud-speech (>=0.36.3,<2.0.0)", "google-cloud-storage (>=1.16,<2.0.0)", "google-cloud-texttospeech (>=0.4.0,<2)", "google-cloud-translate (>=1.3.3,<2.0.0)", "google-cloud-videointelligence (>=1.7.0,<2.0.0)", "google-cloud-vision (>=0.35.2,<2.0.0)", "grpcio-gcp (>=0.2.2)", "pandas-gbq", "PyOpenSSL (<20.0.0)", "pyopenssl"]
+google_auth = ["Flask-OAuthlib (>=0.9.1,<0.9.6)", "oauthlib (>=1.1.2,!=2.0.3,!=2.0.4,!=2.0.5,<3.0.0)", "requests-oauthlib (==1.1.0)"]
 grpc = ["grpcio (>=1.15.0)"]
 hashicorp = ["hvac (>=0.10,<1.0)"]
-hdfs = ["snakebite (>=2.7.8)"]
-hive = ["hmsclient (>=0.1.0)", "pyhive (>=0.6.0)"]
+hdfs = ["snakebite (>=2.7.8)", "snakebite-py3"]
+hive = ["hmsclient (>=0.1.0)", "pyhive[hive] (>=0.6.0)"]
 jdbc = ["JPype1 (==0.7.1)", "jaydebeapi (>=1.1.1)"]
 jira = ["JIRA (>1.0.7)"]
-kerberos = ["pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "snakebite[kerberos] (>=2.7.8)", "thrift-sasl (>=0.2.0)"]
-kubernetes = ["cryptography (>=2.0.0)", "kubernetes (>=3.0.0)"]
+kerberos = ["pykerberos (>=1.1.13)", "requests-kerberos (>=0.10.0)", "thrift-sasl (>=0.2.0,<0.4.1)", "thrift-sasl (>=0.2.0)"]
+kubernetes = ["cryptography (>=2.0.0)", "kubernetes (>=3.0.0,<12.0.0)"]
 ldap = ["ldap3 (>=2.5.1)"]
-mongo = ["dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0)"]
+"microsoft.azure" = ["azure-storage (>=0.34.0,<0.37.0)", "azure-storage-common", "azure-mgmt-containerinstance (>=1.5.0,<2)", "azure-cosmos (>=3.0.1,<4)", "azure-datalake-store (>=0.0.45)", "azure-mgmt-datalake-store (>=0.5.0)", "azure-mgmt-resource (>=2.2.0)", "azure-identity (>=1.3.1)", "azure-keyvault (>=4.1.0)", "cffi (<1.14.0)", "azure-storage-blob (<12.0.0)", "azure-storage-blob"]
+"microsoft.mssql" = ["pymssql (>=2.1.1,<2.2.0)"]
+"microsoft.winrm" = ["pywinrm (>=0.4,<1.0)"]
+mongo = ["dnspython (>=1.13.0,<2.0.0)", "pymongo (>=3.6.0,<3.11.0)"]
 mssql = ["pymssql (>=2.1.1,<2.2.0)"]
 mysql = ["mysqlclient (>=1.3.6,<1.4)"]
-oracle = ["cx-Oracle (>=5.1.2)"]
-papermill = ["papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)"]
+oracle = ["cx-Oracle (>=5.1.2,<8.0)", "cx-Oracle (>=5.1.2)"]
+papermill = ["papermill[all] (>=1.0.0)", "nteract-scrapbook[all] (>=0.2.1)", "pyarrow (<1.0.0)", "fsspec (<0.8.0)", "black (==20.8b0)"]
 password = ["bcrypt (>=2.0.0)", "flask-bcrypt (>=0.7.1)"]
 pinot = ["pinotdb (==0.1.1)"]
 postgres = ["psycopg2-binary (>=2.7.4)"]
 presto = ["presto-python-client (>=0.7.0,<0.8)"]
 qds = ["qds-sdk (>=1.10.4)"]
-rabbitmq = ["librabbitmq (>=1.6.1)"]
+rabbitmq = ["amqp (<5.0.0)"]
 redis = ["redis (>=3.2,<4.0)"]
 s3 = ["boto3 (>=1.10,<2.0)"]
 salesforce = ["simple-salesforce (>=0.72,<1.0.0)"]
@@ -157,13 +179,13 @@ samba = ["pysmbclient (>=0.1.3)"]
 segment = ["analytics-python (>=1.2.9)"]
 sendgrid = ["sendgrid (>=5.2.0,<6)"]
 sentry = ["blinker (>=1.1)", "sentry-sdk (>=0.8.0)"]
-slack = ["slackclient (>=1.0.0,<2.0.0)"]
-snowflake = ["snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)"]
+slack = ["slackclient (>=1.0.0,<2.0.0)", "websocket-client (<0.55.0)"]
+snowflake = ["boto3 (<1.11)", "snowflake-connector-python (>=1.5.2)", "snowflake-sqlalchemy (>=1.1.0)"]
 ssh = ["paramiko (>=2.1.1)", "pysftp (>=0.2.9)", "sshtunnel (>=0.1.4,<0.2)"]
 statsd = ["statsd (>=3.3.0,<4.0)"]
 vertica = ["vertica-python (>=0.5.1)"]
 virtualenv = ["virtualenv"]
-webhdfs = ["hdfs[kerberos,avro,dataframe] (>=2.0.4)"]
+webhdfs = ["hdfs[dataframe,avro,kerberos] (>=2.0.4)"]
 winrm = ["pywinrm (>=0.4,<1.0)"]
 
 [[package]]
@@ -195,14 +217,14 @@ python-versions = "*"
 
 [[package]]
 name = "argcomplete"
-version = "1.11.1"
+version = "1.12.3"
 description = "Bash tab completion for argparse"
 category = "main"
 optional = false
 python-versions = "*"
 
 [package.dependencies]
-importlib-metadata = {version = ">=0.23,<2", markers = "python_version == \"3.7\""}
+importlib-metadata = {version = ">=0.23,<5", markers = "python_version == \"3.7\""}
 
 [package.extras]
 test = ["coverage", "flake8", "pexpect", "wheel"]
@@ -225,17 +247,17 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "attrs"
-version = "19.3.0"
+version = "20.3.0"
 description = "Classes Without Boilerplate"
 category = "main"
 optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [package.extras]
-azure-pipelines = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "pytest-azurepipelines"]
-dev = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "sphinx", "pre-commit"]
-docs = ["sphinx", "zope.interface"]
-tests = ["coverage", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
+dev = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface", "furo", "sphinx", "pre-commit"]
+docs = ["furo", "sphinx", "zope.interface"]
+tests = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six", "zope.interface"]
+tests_no_zope = ["coverage[toml] (>=5.0.2)", "hypothesis", "pympler", "pytest (>=4.3.0)", "six"]
 
 [[package]]
 name = "autopep8"
@@ -263,34 +285,6 @@ pytz = ">=2015.7"
 name = "backcall"
 version = "0.1.0"
 description = "Specifications for callback functions passed in to an API"
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "backports-abc"
-version = "0.5"
-description = "A backport of recent additions to the 'collections.abc' module."
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
-name = "backports.functools-lru-cache"
-version = "1.5"
-description = "backports.functools_lru_cache"
-category = "main"
-optional = false
-python-versions = ">=2.6"
-
-[package.extras]
-docs = ["sphinx", "jaraco.packaging (>=3.2)", "rst.linker (>=1.9)"]
-testing = ["pytest (>=2.8)", "collective.checkdocs"]
-
-[[package]]
-name = "backports.shutil-get-terminal-size"
-version = "1.0.0"
-description = "A backport of the get_terminal_size function from Python 3.3's shutil."
 category = "main"
 optional = false
 python-versions = "*"
@@ -376,17 +370,14 @@ python-versions = "~=3.5"
 
 [[package]]
 name = "cattrs"
-version = "0.9.2"
-description = "Composable complex class support for attrs."
+version = "1.8.0"
+description = "Composable complex class support for attrs and dataclasses."
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=3.7,<4.0"
 
 [package.dependencies]
-attrs = ">=17.3"
-
-[package.extras]
-dev = ["sphinx", "bumpversion", "coverage", "flake8", "hypothesis", "pendulum", "pytest", "tox", "watchdog", "wheel"]
+attrs = ">=20"
 
 [[package]]
 name = "celery"
@@ -613,6 +604,14 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 [package.extras]
 DNSSEC = ["pycryptodome", "ecdsa (>=0.13)"]
 IDNA = ["idna (>=2.1)"]
+
+[[package]]
+name = "docopt"
+version = "0.6.2"
+description = "Pythonic argument parser, that will make you smile"
+category = "main"
+optional = false
+python-versions = "*"
 
 [[package]]
 name = "docutils"
@@ -1058,7 +1057,7 @@ python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*"
 
 [[package]]
 name = "importlib-metadata"
-version = "1.6.0"
+version = "2.1.1"
 description = "Read metadata from Python packages"
 category = "main"
 optional = false
@@ -1069,7 +1068,22 @@ zipp = ">=0.5"
 
 [package.extras]
 docs = ["sphinx", "rst.linker"]
-testing = ["packaging", "importlib-resources"]
+testing = ["packaging", "pep517", "unittest2", "importlib-resources (>=1.3)"]
+
+[[package]]
+name = "importlib-resources"
+version = "1.5.0"
+description = "Read resources from Python packages"
+category = "main"
+optional = false
+python-versions = "!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*,!=3.4.*,>=2.7"
+
+[package.dependencies]
+importlib-metadata = {version = "*", markers = "python_version < \"3.8\""}
+zipp = {version = ">=0.4", markers = "python_version < \"3.8\""}
+
+[package.extras]
+docs = ["sphinx", "rst.linker", "jaraco.packaging"]
 
 [[package]]
 name = "ipaddress"
@@ -1732,6 +1746,29 @@ optional = false
 python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [[package]]
+name = "pipdeptree"
+version = "2.1.0"
+description = "Command line utility to show dependency tree of packages"
+category = "main"
+optional = false
+python-versions = ">=2.7,!=3.0.*,!=3.1.*,!=3.2.*,!=3.3.*"
+
+[package.extras]
+graphviz = ["graphviz"]
+
+[[package]]
+name = "pipreqs"
+version = "0.4.10"
+description = "Pip requirements.txt generator based on imports in project"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+docopt = "*"
+yarg = "*"
+
+[[package]]
 name = "plac"
 version = "0.9.6"
 description = "The smartest command line arguments parser in the world"
@@ -2061,6 +2098,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
+name = "python-nvd3"
+version = "0.15.0"
+description = "Python NVD3 - Chart Library for d3.js"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+Jinja2 = ">=2.8"
+python-slugify = ">=1.2.5"
+
+[[package]]
 name = "python-openid"
 version = "2.2.5"
 description = "OpenID support for servers and consumers."
@@ -2069,15 +2118,18 @@ optional = false
 python-versions = "*"
 
 [[package]]
-name = "python3-openid"
-version = "3.1.0"
-description = "OpenID support for modern servers and consumers."
+name = "python-slugify"
+version = "4.0.1"
+description = "A Python Slugify application that handles Unicode"
 category = "main"
 optional = false
-python-versions = "*"
+python-versions = ">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*, !=3.4.*"
 
 [package.dependencies]
-defusedxml = "*"
+text-unidecode = ">=1.3"
+
+[package.extras]
+unidecode = ["Unidecode (>=1.1.1)"]
 
 [[package]]
 name = "pytz"
@@ -2473,14 +2525,6 @@ python-versions = "*"
 six = ">=1.9.0"
 
 [[package]]
-name = "termcolor"
-version = "1.1.0"
-description = "ANSII Color formatting for output in terminal."
-category = "main"
-optional = false
-python-versions = "*"
-
-[[package]]
 name = "terminado"
 version = "0.12.1"
 description = "Tornado websocket backend for the Xterm.js Javascript terminal emulator library."
@@ -2509,7 +2553,7 @@ test = ["pytest", "pathlib2"]
 
 [[package]]
 name = "text-unidecode"
-version = "1.2"
+version = "1.3"
 description = "The most basic Text::Unidecode port"
 category = "main"
 optional = false
@@ -2764,6 +2808,17 @@ ipaddress = ["ipaddress"]
 locale = ["Babel (>=1.3)"]
 
 [[package]]
+name = "yarg"
+version = "0.1.9"
+description = "A semi hard Cornish cheese, also queries PyPI (PyPI client)"
+category = "main"
+optional = false
+python-versions = "*"
+
+[package.dependencies]
+requests = "*"
+
+[[package]]
 name = "zipp"
 version = "3.5.0"
 description = "Backport of pathlib-compatible object wrapper for zip files"
@@ -2790,7 +2845,7 @@ test = ["zope.testrunner"]
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.7"
-content-hash = "764d61db8d507a451015164574c1691c53233e414800c97e215cca34f72d446f"
+content-hash = "ba88996e1983a5427bb6e30db9bd21a3e27c723cb6980295a56831828b1eba03"
 
 [metadata.files]
 alembic = [
@@ -2805,8 +2860,8 @@ amqp = [
     {file = "amqp-2.5.2.tar.gz", hash = "sha256:77f1aef9410698d20eaeac5b73a87817365f457a507d82edf292e12cbb83b08d"},
 ]
 apache-airflow = [
-    {file = "apache-airflow-1.10.10.tar.gz", hash = "sha256:046e16266e30a78c848f0fd53a910203bf141d9357e3179854a75909a1824a66"},
-    {file = "apache_airflow-1.10.10-py2.py3-none-any.whl", hash = "sha256:95ba96ef7e7a5547105b5a256ed4bf51cea0901daf3ec19235bd28eb2bec5bb1"},
+    {file = "apache-airflow-1.10.15.tar.gz", hash = "sha256:7df77ab7b05a768fe5b49483b990f023abcdd8f031a469003f733f308d5a67ab"},
+    {file = "apache_airflow-1.10.15-py2.py3-none-any.whl", hash = "sha256:25ac3988e1f2ca20c14b397fdb21ac6b160d868ff319c474af944b4b2b46db63"},
 ]
 apispec = [
     {file = "apispec-1.3.3-py2.py3-none-any.whl", hash = "sha256:13088129b657789671d18e5022f4f9e6ec9ec38742d301285232f11d1d35976c"},
@@ -2817,8 +2872,8 @@ appnope = [
     {file = "appnope-0.1.0.tar.gz", hash = "sha256:8b995ffe925347a2138d7ac0fe77155e4311a0ea6d6da4f5128fe4b3cbe5ed71"},
 ]
 argcomplete = [
-    {file = "argcomplete-1.11.1-py2.py3-none-any.whl", hash = "sha256:890bdd1fcbb973ed73db241763e78b6d958580e588c2910b508c770a59ef37d7"},
-    {file = "argcomplete-1.11.1.tar.gz", hash = "sha256:5ae7b601be17bf38a749ec06aa07fb04e7b6b5fc17906948dc1866e7facf3740"},
+    {file = "argcomplete-1.12.3-py2.py3-none-any.whl", hash = "sha256:291f0beca7fd49ce285d2f10e4c1c77e9460cf823eef2de54df0c0fec88b0d81"},
+    {file = "argcomplete-1.12.3.tar.gz", hash = "sha256:2c7dbffd8c045ea534921e63b0be6fe65e88599990d8dc408ac8c542b72a5445"},
 ]
 astor = [
     {file = "astor-0.8.1-py2.py3-none-any.whl", hash = "sha256:070a54e890cefb5b3739d19f30f5a5ec840ffc9c50ffa7d23cc9fc1a38ebbfc5"},
@@ -2829,8 +2884,8 @@ atomicwrites = [
     {file = "atomicwrites-1.3.0.tar.gz", hash = "sha256:75a9445bac02d8d058d5e1fe689654ba5a6556a1dfd8ce6ec55a0ed79866cfa6"},
 ]
 attrs = [
-    {file = "attrs-19.3.0-py2.py3-none-any.whl", hash = "sha256:08a96c641c3a74e44eb59afb61a24f2cb9f4d7188748e76ba4bb5edfa3cb7d1c"},
-    {file = "attrs-19.3.0.tar.gz", hash = "sha256:f7b7ce16570fe9965acd6d30101a28f62fb4a7f9e926b3bbc9b61f8b04247e72"},
+    {file = "attrs-20.3.0-py2.py3-none-any.whl", hash = "sha256:31b2eced602aa8423c2aea9c76a724617ed67cf9513173fd3a4f03e3a929c7e6"},
+    {file = "attrs-20.3.0.tar.gz", hash = "sha256:832aa3cde19744e49938b91fea06d69ecb9e649c93ba974535d08ad92164f700"},
 ]
 autopep8 = [
     {file = "autopep8-1.4.4.tar.gz", hash = "sha256:4d8eec30cc81bc5617dbf1218201d770dc35629363547f17577c61683ccfb3ee"},
@@ -2842,18 +2897,6 @@ babel = [
 backcall = [
     {file = "backcall-0.1.0.tar.gz", hash = "sha256:38ecd85be2c1e78f77fd91700c76e14667dc21e2713b63876c0eb901196e01e4"},
     {file = "backcall-0.1.0.zip", hash = "sha256:bbbf4b1e5cd2bdb08f915895b51081c041bac22394fdfcfdfbe9f14b77c08bf2"},
-]
-backports-abc = [
-    {file = "backports_abc-0.5-py2.py3-none-any.whl", hash = "sha256:52089f97fe7a9aa0d3277b220c1d730a85aefd64e1b2664696fe35317c5470a7"},
-    {file = "backports_abc-0.5.tar.gz", hash = "sha256:033be54514a03e255df75c5aee8f9e672f663f93abb723444caec8fe43437bde"},
-]
-"backports.functools-lru-cache" = [
-    {file = "backports.functools_lru_cache-1.5-py2.py3-none-any.whl", hash = "sha256:f0b0e4eba956de51238e17573b7087e852dfe9854afd2e9c873f73fc0ca0a6dd"},
-    {file = "backports.functools_lru_cache-1.5.tar.gz", hash = "sha256:9d98697f088eb1b0fa451391f91afb5e3ebde16bbdb272819fd091151fda4f1a"},
-]
-"backports.shutil-get-terminal-size" = [
-    {file = "backports.shutil_get_terminal_size-1.0.0-py2.py3-none-any.whl", hash = "sha256:0975ba55054c15e346944b38956a4c9cbee9009391e41b86c68990effb8c1f64"},
-    {file = "backports.shutil_get_terminal_size-1.0.0.tar.gz", hash = "sha256:713e7a8228ae80341c70586d1cc0a8caa5207346927e23d09dcbcaf18eadec80"},
 ]
 base58 = [
     {file = "base58-2.0.0-py3-none-any.whl", hash = "sha256:4c7f5687da771b519cf86b3236250e7c3543368c576404c9fe2d992a287666e0"},
@@ -2899,8 +2942,8 @@ cachetools = [
     {file = "cachetools-4.1.0.tar.gz", hash = "sha256:1d057645db16ca7fe1f3bd953558897603d6f0b9c51ed9d11eb4d071ec4e2aab"},
 ]
 cattrs = [
-    {file = "cattrs-0.9.2-py2.py3-none-any.whl", hash = "sha256:43cff719f5af6b8a7e1a8d67656ffbf5c5ca2b0469fe9b6adcb2e3a104f16460"},
-    {file = "cattrs-0.9.2.tar.gz", hash = "sha256:68fab4822f15354ea63ddbde13bcbc32c9d13ed6cb6e700106fb5a5f2dfa37ed"},
+    {file = "cattrs-1.8.0-py3-none-any.whl", hash = "sha256:901fb2040529ae8fc9d93f48a2cdf7de3e983312ffb2a164ffa4e9847f253af1"},
+    {file = "cattrs-1.8.0.tar.gz", hash = "sha256:5c121ab06a7cac494813c228721a7feb5a6423b17316eeaebf13f5a03e5b0d53"},
 ]
 celery = [
     {file = "celery-4.4.2-py2.py3-none-any.whl", hash = "sha256:5b4b37e276033fe47575107a2775469f0b721646a08c96ec2c61531e4fe45f2a"},
@@ -3038,6 +3081,9 @@ dill = [
 dnspython = [
     {file = "dnspython-1.16.0-py2.py3-none-any.whl", hash = "sha256:f69c21288a962f4da86e56c4905b49d11aba7938d3d740e80d9e366ee4f1632d"},
     {file = "dnspython-1.16.0.zip", hash = "sha256:36c5e8e38d4369a08b6780b7f27d790a292b2b08eea01607865bf0936c558e01"},
+]
+docopt = [
+    {file = "docopt-0.6.2.tar.gz", hash = "sha256:49b3a825280bd66b3aa83585ef59c4a8c82f2c8a522dbe754a8bc8d08c85c491"},
 ]
 docutils = [
     {file = "docutils-0.14-py2-none-any.whl", hash = "sha256:7a4bd47eaf6596e1295ecb11361139febe29b084a87bf005bf899f9a42edc3c6"},
@@ -3243,8 +3289,12 @@ idna = [
     {file = "idna-2.8.tar.gz", hash = "sha256:c357b3f628cf53ae2c4c05627ecc484553142ca23264e593d327bcde5e9c3407"},
 ]
 importlib-metadata = [
-    {file = "importlib_metadata-1.6.0-py2.py3-none-any.whl", hash = "sha256:2a688cbaa90e0cc587f1df48bdc97a6eadccdcd9c35fb3f976a09e3b5016d90f"},
-    {file = "importlib_metadata-1.6.0.tar.gz", hash = "sha256:34513a8a0c4962bc66d35b359558fd8a5e10cd472d37aec5f66858addef32c1e"},
+    {file = "importlib_metadata-2.1.1-py2.py3-none-any.whl", hash = "sha256:c2d6341ff566f609e89a2acb2db190e5e1d23d5409d6cc8d2fe34d72443876d4"},
+    {file = "importlib_metadata-2.1.1.tar.gz", hash = "sha256:b8de9eff2b35fb037368f28a7df1df4e6436f578fa74423505b6c6a778d5b5dd"},
+]
+importlib-resources = [
+    {file = "importlib_resources-1.5.0-py2.py3-none-any.whl", hash = "sha256:85dc0b9b325ff78c8bef2e4ff42616094e16b98ebd5e3b50fe7e2f0bbcdcde49"},
+    {file = "importlib_resources-1.5.0.tar.gz", hash = "sha256:6f87df66833e1942667108628ec48900e02a4ab4ad850e25fbf07cb17cf734ca"},
 ]
 ipaddress = [
     {file = "ipaddress-1.0.22-py2.py3-none-any.whl", hash = "sha256:64b28eec5e78e7510698f6d4da08800a5c575caa4a286c93d651c5d3ff7b6794"},
@@ -3672,6 +3722,15 @@ pillow = [
     {file = "Pillow-6.2.0-pp371-pp371-win32.whl", hash = "sha256:5090857876c58885cfa388dc649e5db30aae98a068c26f3fd0ac9d7d9a4d9572"},
     {file = "Pillow-6.2.0.tar.gz", hash = "sha256:4548236844327a718ce3bb182ab32a16fa2050c61e334e959f554cac052fb0df"},
 ]
+pipdeptree = [
+    {file = "pipdeptree-2.1.0-py2-none-any.whl", hash = "sha256:e75b0595b0473177c08e6cde7ad2bd41b4a4b97cb86ccbdcd96a62ca0b4dcac8"},
+    {file = "pipdeptree-2.1.0-py3-none-any.whl", hash = "sha256:763bc2b706ba0bbbebf9277e824cf405ff57cb897cac9eb86990deff1f1d1f33"},
+    {file = "pipdeptree-2.1.0.tar.gz", hash = "sha256:0edf5e0d11d26c3960884839ac6fbe72eabf6f3bf3c76e495414d3aae693f9a2"},
+]
+pipreqs = [
+    {file = "pipreqs-0.4.10-py2.py3-none-any.whl", hash = "sha256:cafe42ab70628d408c147fb8944bc303355ea8f91fddca4a98d273e572e39905"},
+    {file = "pipreqs-0.4.10.tar.gz", hash = "sha256:9e351d644b28b98d7386b046a73806cbb3bb66b23a30e74feeb95ed9571db939"},
+]
 plac = [
     {file = "plac-0.9.6-py2.py3-none-any.whl", hash = "sha256:854693ad90367e8267112ffbb8955f57d6fdeac3191791dc9ffce80f87fd2370"},
     {file = "plac-0.9.6.tar.gz", hash = "sha256:ba3f719a018175f0a15a6b04e6cc79c25fd563d348aacd320c3644d2a9baf89b"},
@@ -3938,13 +3997,15 @@ python-editor = [
     {file = "python_editor-1.0.4-py3-none-any.whl", hash = "sha256:1bf6e860a8ad52a14c3ee1252d5dc25b2030618ed80c022598f00176adc8367d"},
     {file = "python_editor-1.0.4-py3.5.egg", hash = "sha256:c3da2053dbab6b29c94e43c486ff67206eafbe7eb52dbec7390b5e2fb05aac77"},
 ]
+python-nvd3 = [
+    {file = "python-nvd3-0.15.0.tar.gz", hash = "sha256:fbd75ff47e0ef255b4aa4f3a8b10dc8b4024aa5a9a7abed5b2406bd3cb817715"},
+]
 python-openid = [
     {file = "python-openid-2.2.5.tar.gz", hash = "sha256:92c51c3ecec846cbec4aeff11f9ff47303d4a63f93b0e6ac0ec02a091fed70ef"},
     {file = "python-openid-2.2.5.zip", hash = "sha256:c2d133e47e0a7705c9272eef00d7a09c174f5bf17a127fed8e2c6499556cc782"},
 ]
-python3-openid = [
-    {file = "python3-openid-3.1.0.tar.gz", hash = "sha256:628d365d687e12da12d02c6691170f4451db28d6d68d050007e4a40065868502"},
-    {file = "python3_openid-3.1.0-py3-none-any.whl", hash = "sha256:0086da6b6ef3161cfe50fb1ee5cceaf2cda1700019fda03c2c5c440ca6abe4fa"},
+python-slugify = [
+    {file = "python-slugify-4.0.1.tar.gz", hash = "sha256:69a517766e00c1268e5bbfc0d010a0a8508de0b18d30ad5a1ff357f8ae724270"},
 ]
 pytz = [
     {file = "pytz-2019.1-py2.py3-none-any.whl", hash = "sha256:303879e36b721603cc54604edcac9d20401bdbe31e1e4fdee5b9f98d5d31dfda"},
@@ -4200,9 +4261,6 @@ tenacity = [
     {file = "tenacity-4.12.0-py2.py3-none-any.whl", hash = "sha256:0dff43d3faa411ebb8506b6adc174ef725df18322eef8437aabf4f63e478ec11"},
     {file = "tenacity-4.12.0.tar.gz", hash = "sha256:dcd7646fe731b21b73870ead85a965a4202abeaf56e0588e6a8b38375110098f"},
 ]
-termcolor = [
-    {file = "termcolor-1.1.0.tar.gz", hash = "sha256:1d6d69ce66211143803fbc56652b41d73b4a400a2891d7bf7a1cdf4c02de613b"},
-]
 terminado = [
     {file = "terminado-0.12.1-py3-none-any.whl", hash = "sha256:09fdde344324a1c9c6e610ee4ca165c4bb7f5bbf982fceeeb38998a988ef8452"},
     {file = "terminado-0.12.1.tar.gz", hash = "sha256:b20fd93cc57c1678c799799d117874367cc07a3d2d55be95205b1a88fa08393f"},
@@ -4212,8 +4270,8 @@ testpath = [
     {file = "testpath-0.5.0.tar.gz", hash = "sha256:1acf7a0bcd3004ae8357409fc33751e16d37ccc650921da1094a86581ad1e417"},
 ]
 text-unidecode = [
-    {file = "text-unidecode-1.2.tar.gz", hash = "sha256:5a1375bb2ba7968740508ae38d92e1f889a0832913cb1c447d5e2046061a396d"},
-    {file = "text_unidecode-1.2-py2.py3-none-any.whl", hash = "sha256:801e38bd550b943563660a91de8d4b6fa5df60a542be9093f7abf819f86050cc"},
+    {file = "text-unidecode-1.3.tar.gz", hash = "sha256:bad6603bb14d279193107714b288be206cac565dfa49aa5b105294dd5c4aab93"},
+    {file = "text_unidecode-1.3-py2.py3-none-any.whl", hash = "sha256:1311f10e8b895935241623731c2ba64f4c455287888b18189350b67134a822e8"},
 ]
 thinc = [
     {file = "thinc-7.0.8-cp27-cp27m-macosx_10_6_intel.macosx_10_9_intel.macosx_10_9_x86_64.macosx_10_10_intel.macosx_10_10_x86_64.whl", hash = "sha256:6ebf3519383b8c7ee64d0f7041818486e4f4c6119c55f1a39412e005893da11a"},
@@ -4380,6 +4438,10 @@ wordcloud = [
 wtforms = [
     {file = "WTForms-2.3.3-py2.py3-none-any.whl", hash = "sha256:7b504fc724d0d1d4d5d5c114e778ec88c37ea53144683e084215eed5155ada4c"},
     {file = "WTForms-2.3.3.tar.gz", hash = "sha256:81195de0ac94fbc8368abbaf9197b88c4f3ffd6c2719b5bf5fc9da744f3d829c"},
+]
+yarg = [
+    {file = "yarg-0.1.9-py2.py3-none-any.whl", hash = "sha256:4f9cebdc00fac946c9bf2783d634e538a71c7d280a4d806d45fd4dc0ef441492"},
+    {file = "yarg-0.1.9.tar.gz", hash = "sha256:55695bf4d1e3e7f756496c36a69ba32c40d18f821e38f61d028f6049e5e15911"},
 ]
 zipp = [
     {file = "zipp-3.5.0-py3-none-any.whl", hash = "sha256:957cfda87797e389580cb8b9e3870841ca991e2125350677b2ca83a0e99390a3"},

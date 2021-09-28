@@ -5,7 +5,8 @@ description = "This is a project that pull twiiter data and use topic modeling t
 authors = ["espoir murhabazi <espoir.mur on gmail com "]
 
 [tool.poetry.dependencies]
-apache-airflow = "1.10.10"
+python = "^3.7"
+apache-airflow = "1.10.15"
 autopep8 = "1.4.4"
 cryptography = "2.9.2"
 enum-compat = "0.0.3"
