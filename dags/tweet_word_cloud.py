@@ -23,7 +23,7 @@ def tweet_image(**context):
 tweet_word_cloud_dag = DAG(
     dag_id='tweet_word_cloud',
     default_args=default_args,
-    schedule_interval='00 18 * * *',  # every  day at 6Pm
+    schedule_interval='20 21 * * *',  # every  day at 6Pm
     catchup=False)
 
 
