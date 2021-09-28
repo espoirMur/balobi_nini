@@ -2,7 +2,7 @@
 
 name: Continuous Integration and Delivery
 # Only trigger, when the build workflow succeeded
-needs: Build and Publish new Docker image
+needs: [build-docker-image]
 jobs:
   deploy:
     runs-on: ubuntu-latest

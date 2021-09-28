@@ -15,7 +15,7 @@ on:
 env:
   IMAGE_NAME: airflow-for-tweets
 jobs:
-  docker:
+  build-docker-image:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
