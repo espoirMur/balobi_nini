@@ -61,7 +61,7 @@ services:
       - AIRFLOW_HOME=/home/es.py/
     env_file:
       - ./.env
-    command: airflow worker
+    command: airflow celery worker
     network_mode: host
   streamlit-instance:
     image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
