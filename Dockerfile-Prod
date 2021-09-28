@@ -60,6 +60,9 @@ RUN mkdir /home/es.py/balobi_nini
 ENV WORKING_DIR=/home/es.py/balobi_nini
 COPY . ${WORKING_DIR}
 WORKDIR ${WORKING_DIR}
+RUN mkdir ${WORKING_DIR}/logs
+RUN chown -R es.py:es.py ${WORKING_DIR}/logs
+RUN chmod 755 ${WORKING_DIR}/logs
 USER es.py
 EXPOSE 8080 5555 8793
 
