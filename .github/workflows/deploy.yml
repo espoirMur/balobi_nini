@@ -1,6 +1,6 @@
 # an improvement to this workflow could be to deploy the container to the registry and then pull the image in the registry from the vps
 
-name: Continuous Integration and Delivery
+name: Deploy the image to the new VPS
 # Only trigger, when the build workflow succeeded
 on:
   workflow_run:
