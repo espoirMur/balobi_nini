@@ -62,6 +62,20 @@ Clone the project to have a local copy in your machine.
 
 We have decided to use docker to build and have the project running...
 
+### Install Redis
+
+The project use redis as broker, install it and get it running using this [link](https://www.ubuntupit.com/how-to-install-and-configure-redis-on-linux-system/)
+
+### Install Postgres
+
+The project also use postgres as database , install it and create a database for the project. Keep it's name somewhere for future use.
+
+### Generate the .env file
+
+`cp .env.sample .env`
+
+### Run Docker
+
 Make sure you have docker installed and running and docker-compose and then go inside the project directory and run :
 
 `docker-compose up -d --build`

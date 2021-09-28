@@ -1,13 +1,9 @@
 version: "3"
 
 services:
-  redis:
-    image: "redis:5.0.5"
   webserver:
     image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
-    depends_on:
-      - redis
     env_file:
       - ./.env
     volumes:
@@ -26,8 +22,6 @@ services:
   flower:
     image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
-    depends_on:
-      - redis
     environment:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
