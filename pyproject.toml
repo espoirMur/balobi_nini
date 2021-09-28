@@ -2,14 +2,11 @@
 name = "balobi_nini"
 version = "0.1.0"
 description = "This is a project that pull twiiter data and use topic modeling to find what people are talking about on twitter related to Congo CD"
-authors = ["espoir murhabazi <espoir.mur@gmail.com>"]
+authors = ["espoir murhabazi <espoir.mur on gmail com "]
 
 [tool.poetry.dependencies]
 apache-airflow = "1.10.10"
 autopep8 = "1.4.4"
-backports-abc = "0.5"
-backports.functools-lru-cache = "1.5"
-backports.shutil-get-terminal-size = "1.0.0"
 cryptography = "2.9.2"
 enum-compat = "0.0.3"
 enum34 = "1.1.6"
