@@ -24,6 +24,14 @@ jobs:
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
+      - name: Cache Docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          # Key is named differently to avoid collision
+          key: ${{ runner.os }}-multi-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-multi-buildx
       - name: Login to DockerHub
         uses: docker/login-action@v1
         with:
@@ -57,7 +65,11 @@ jobs:
           context: .
           file: Dockerfile-Prod
           push: true
-          cache-from: type=registry,ref=${{ steps.generate-image-tag.outputs.image-tag }}
-          cache-to: type=inline
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,mode=max,dest=/tmp/.buildx-cache-new
           tags: |
             ${{ steps.generate-image-tag.outputs.image-tag }}
+      - name: Move cache
+        run: |
+          rm -rf /tmp/.buildx-cache
+          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
