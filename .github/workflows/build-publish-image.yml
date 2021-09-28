@@ -1,4 +1,4 @@
-name: Demo Push
+name: Build and Publish new Docker image
 
 on:
   push:
@@ -44,7 +44,14 @@ jobs:
 
       - name: Build image
         run: |
-          docker build . --file Dockerfile-Prod --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
+          docker buildx build \
+           --file Dockerfile-Prod \
+           --progress=plain \
+           --cache-from "type=local,src=$GITHUB_WORKSPACE/cache" \
+           --cache-to "type=local,dest=$GITHUB_WORKSPACE/cache" \
+           --tag $IMAGE_NAME \
+           --label "runnumber=${GITHUB_RUN_ID}"\
+           --output "type=image, name=$IMAGE_NAME,push=false" .
 
       - name: Log in to registry
         # This is where you will update the PAT to GITHUB_TOKEN
