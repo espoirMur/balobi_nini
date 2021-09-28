@@ -1,30 +1,19 @@
 version: "3"
+
 services:
   redis:
     image: "redis:5.0.5"
-  postgres:
-    image: postgres:12.1-alpine
-    volumes:
-      - ./data/postgres:/var/lib/postgresql/data
-    env_file:
-      - ./.env
-    ports:
-      - 5436:5432
   webserver:
-    image: BASE-IMAGE-NAME
-    build:
-      context: .
-      dockerfile: Dockerfile-Prod
+    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
     depends_on:
-      - postgres
       - redis
     env_file:
       - ./.env
     volumes:
       - ./dags:/usr/local/airflow/dags
     ports:
-      - "8081:8080"
+      - "8083:8080"
     command: airflow webserver
     healthcheck:
       test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
@@ -36,7 +25,7 @@ services:
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/
   flower:
-    image: BASE-IMAGE-NAME
+    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
     depends_on:
       - redis
@@ -51,7 +40,7 @@ services:
       - ./.env
     command: flower
   scheduler:
-    image: BASE-IMAGE-NAME
+    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
     depends_on:
       - webserver
@@ -66,7 +55,7 @@ services:
       - ./.env
     command: airflow scheduler
   worker:
-    image: BASE-IMAGE-NAME
+    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
     depends_on:
       - scheduler
@@ -81,7 +70,7 @@ services:
       - ./.env
     command: airflow worker
   streamlit-instance:
-    image: BASE-IMAGE-NAME
+    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
     restart: always
     depends_on:
       - worker
