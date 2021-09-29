@@ -24,6 +24,8 @@ TO DO LIST :
 - [] Improve the processing by removing Congolese names from stematization
 - [x] Add a job that tweet the word count everyday after getting it
 - [] Create a job that goes to every tweet and collect all the replies about it
+- [] Get all the data for year 2020 and save it in a raw json file without cleaning
+- [] Save the data to json file without cleaning
 
 ### DRC Coordinates
 
