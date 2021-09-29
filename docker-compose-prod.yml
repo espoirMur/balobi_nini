@@ -2,7 +2,7 @@ version: "3"
 
 services:
   webserver:
-    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     env_file:
       - ./.env
@@ -20,7 +20,7 @@ services:
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini
   flower:
-    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     environment:
       - EXECUTOR=Celery
@@ -32,7 +32,7 @@ services:
     command: flower
     network_mode: host
   scheduler:
-    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     depends_on:
       - webserver
@@ -48,7 +48,7 @@ services:
     command: airflow scheduler
     network_mode: host
   worker:
-    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     depends_on:
       - scheduler
@@ -64,7 +64,7 @@ services:
     command: airflow celery worker
     network_mode: host
   streamlit-instance:
-    image: ghcr.io/espoirmur/airflow-for-tweets:deploy-to-new-server
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     depends_on:
       - worker
