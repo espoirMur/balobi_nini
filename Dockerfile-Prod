@@ -42,9 +42,7 @@ RUN poetry install --no-dev  # respects
 RUN poetry add SQLAlchemy@1.3.23
 
 ## downolods nltk data
-RUN python -m spacy download fr_core_news_sm -d ${NLTK_DATA}
-RUN python -m spacy download fr
-RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords
+RUN python -m nltk.downloader  stopwords -d ${NLTK_DATA}
 
 
 

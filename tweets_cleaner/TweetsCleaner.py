@@ -6,10 +6,9 @@ import preprocessor as tweet_preprocessor
 from utils.functions import process_text, get_words_to_remove, read_tweets_file
 from utils.emoticons import emoticons
 from datetime import datetime
-from app.model import CleannedTweet
-import fr_core_news_md
 
-french_lematizer = fr_core_news_md.load()
+
+french_lematizer = spacy.load("fr_core_news_md")
 
 tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
                                tweet_preprocessor.OPT.EMOJI,
