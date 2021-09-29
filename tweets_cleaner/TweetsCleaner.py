@@ -8,8 +8,7 @@ from utils.emoticons import emoticons
 from datetime import datetime
 from app.model import CleannedTweet
 
-
-french_lematizer = spacy.load('fr_core_news_md')
+french_lematizer = spacy.load("fr_core_news_sm")
 
 tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
                                tweet_preprocessor.OPT.EMOJI,
@@ -117,5 +116,6 @@ class TweetsCleaner:
             cleaned_tweet_model = CleannedTweet(
                 id=tweet.get('id'),
                 text=" ".join(cleaned_tweet),
-                created_at=tweet_date)
+                created_at=tweet_date,
+                raw_json=tweet)
             cleaned_tweet_model.save_to_database()

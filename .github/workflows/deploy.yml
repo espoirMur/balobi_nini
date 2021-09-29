@@ -1,0 +1,46 @@
+# an improvement to this workflow could be to deploy the container to the registry and then pull the image in the registry from the vps
+
+name: Deploy the image to the new VPS
+# Only trigger, when the build workflow succeeded
+on:
+  workflow_run:
+    workflows: ["Build and Publish new Docker image"]
+    types: [completed] #requested
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: Deploy to Personal host
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Checkout master
+        uses: actions/checkout@v1
+      - name: Add environment variables to .env
+        run: |
+          echo '''${{ secrets.DOT_ENV_FILE }}''' >> .env
+      - name: Copy repository contents via scp
+        uses: appleboy/scp-action@master
+        env:
+          HOST: ${{ secrets.HOST_IP_ADDRESS }}
+          USERNAME: ${{ secrets.HOST_USERNAME }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.PRIVATE_KEY }}
+        with:
+          source: "."
+          target: "/Projects/balobi_nini"
+      - name: Executing remote command
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP_ADDRESS  }}
+          USERNAME: ${{ secrets.HOST_USERNAME  }}
+          PORT: ${{ secrets.PORT }}
+          KEY: ${{ secrets.PRIVATE_KEY }}
+          TIMEOUT: 5m
+          COMMAND_TIMEOUT: 5m
+          script: |
+            cd /Projects/balobi_nini
+            export DOCKER_BUILDKIT=1
+            export COMPOSE_DOCKER_CLI_BUILD=1
+            docker-compose -f docker-compose-prod.yml pull
+            docker-compose -f docker-compose-prod.yml up -d
+            docker-compose -f docker-compose-prod.yml exec -T worker airflow initdb

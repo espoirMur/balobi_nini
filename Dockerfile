@@ -1,66 +1,57 @@
-# syntax = docker/dockerfile:experimental
-FROM python:3.6
-LABEL maintainer="es.py"
+FROM python:3.6 as base
+LABEL maintainer="Espoir Murhabazi<espoir.mur [] gmail>"
 
 
 # Never prompt the user for choices on installation/configuration of packages
 ENV DEBIAN_FRONTEND noninteractive
-ENV TERM linux
+ENV PYTHONUNBUFFERED=1 \
+    PORT=8080 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on \
+    PIP_DEFAULT_TIMEOUT=100 \
+    POETRY_HOME="/opt/poetry" \
+    POETRY_VIRTUALENVS_IN_PROJECT=true \
+    POETRY_NO_INTERACTION=1 \
+    PYSETUP_PATH="/opt/pysetup" \
+    VENV_PATH="/opt/pysetup/.venv"\
+    PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH" \
+    NLTK_DATA=/usr/share/nltk_data
 
-# Define en_US.
-ENV LANGUAGE en_US.UTF-8
-ENV LANG en_US.UTF-8
-ENV LC_ALL en_US.UTF-8
-ENV LC_CTYPE en_US.UTF-8
-ENV LC_MESSAGES en_US.UTF-8
-ENV PATH="/home/es.py/.local/bin:${PATH}"
 
-RUN set -ex \
-    && buildDeps=' \
-        freetds-dev \
-        libkrb5-dev \
-        libsasl2-dev \
-        libssl-dev \
-        libffi-dev \
-        libpq-dev \
-        git \
-    ' \
-    && apt-get update -yqq \
-    && apt-get upgrade -yqq \
-    && apt-get install -yqq --no-install-recommends \
-        $buildDeps \
-        freetds-bin \
-        build-essential \
-        default-libmysqlclient-dev \
-        apt-utils \
+FROM base AS python-deps
+RUN apt-get update \
+    && apt-get install --no-install-recommends -y \
         curl \
-        rsync \
-        netcat \
-        locales \
-    && sed -i 's/^# en_US.UTF-8 UTF-8$/en_US.UTF-8 UTF-8/g' /etc/locale.gen \
-    && locale-gen \
-    && update-locale LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
+        build-essential
 
-RUN useradd --create-home es.py
-ENV WORKING_DIR=/home/es.py/
-COPY . ${WORKING_DIR}
-RUN chown -R es.py: -- ${WORKING_DIR}
-RUN chmod 755 ${WORKING_DIR}/logs
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-ENV PYTHONPATH /usr/bin/python
-ENV AIRFLOW_HOME=${WORKING_DIR}}
-ENV PYTHONPATH="${PYTHONPATH}:${AIRFLOW_HOME}"
-ENV PYTHONPATH "${PYTHONPATH}:${WORKING_DIR}"
-ENV NLTK_DATA ${WORKING_DIR}nltk_data
-COPY requirements.txt /
-RUN pip install --upgrade pip
-RUN --mount=type=cache,mode=0777,target=/root/.cache/pip pip install -r /requirements.txt
-RUN python -m spacy download fr_core_news_sm
+# Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
+ENV POETRY_VERSION=1.1.7
+RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+
+# We copy our Python requirements here to cache them
+# and install only runtime deps using poetry
+WORKDIR $PYSETUP_PATH
+COPY ./poetry.lock ./pyproject.toml ./
+RUN poetry install --no-dev  # respects
+
+## downolods nltk data
+RUN python -m spacy download fr_core_news_sm -d ${NLTK_DATA}
 RUN python -m spacy download fr
 RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords
 
 
+
+FROM base AS runtime
+# copy nltk data
+COPY --from=python-deps  ${NLTK_DATA}  ${NLTK_DATA}
+COPY --from=python-deps $POETRY_HOME $POETRY_HOME
+COPY --from=python-deps $PYSETUP_PATH $PYSETUP_PATH
+
+
+RUN useradd --create-home es.py
+ENV WORKING_DIR=/home/es.py
+COPY . ${WORKING_DIR}
 WORKDIR ${WORKING_DIR}
 USER es.py
 EXPOSE 8080 5555 8793
