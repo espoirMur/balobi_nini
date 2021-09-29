@@ -8,7 +8,7 @@ from utils.emoticons import emoticons
 from datetime import datetime
 
 
-french_lematizer = spacy.load("fr_core_news_md")
+french_lematizer = spacy.load("fr_core_news_sm")
 
 tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
                                tweet_preprocessor.OPT.EMOJI,
