@@ -56,6 +56,8 @@ COPY --from=python-deps $PYSETUP_PATH $PYSETUP_PATH
 RUN useradd --create-home es.py
 RUN mkdir /home/es.py/balobi_nini
 ENV WORKING_DIR=/home/es.py/balobi_nini
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:${WORKING_DIR}:$PATH"
+ENV PYTHONPATH="${PYTHONPATH}:${WORKING_DIR}"
 COPY . ${WORKING_DIR}
 WORKDIR ${WORKING_DIR}
 RUN mkdir ${WORKING_DIR}/logs
