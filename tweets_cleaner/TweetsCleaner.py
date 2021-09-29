@@ -6,7 +6,7 @@ import preprocessor as tweet_preprocessor
 from utils.functions import process_text, get_words_to_remove, read_tweets_file
 from utils.emoticons import emoticons
 from datetime import datetime
-
+from app.model import CleannedTweet
 
 french_lematizer = spacy.load("fr_core_news_sm")
 
@@ -116,5 +116,6 @@ class TweetsCleaner:
             cleaned_tweet_model = CleannedTweet(
                 id=tweet.get('id'),
                 text=" ".join(cleaned_tweet),
-                created_at=tweet_date)
+                created_at=tweet_date,
+                raw_json=tweet)
             cleaned_tweet_model.save_to_database()

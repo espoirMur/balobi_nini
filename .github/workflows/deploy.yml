@@ -35,13 +35,12 @@ jobs:
           USERNAME: ${{ secrets.HOST_USERNAME  }}
           PORT: ${{ secrets.PORT }}
           KEY: ${{ secrets.PRIVATE_KEY }}
-          TIMEOUT: 10m
-          COMMAND_TIMEOUT: 30m
+          TIMEOUT: 5m
+          COMMAND_TIMEOUT: 5m
           script: |
             cd /Projects/balobi_nini
             export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
             docker-compose -f docker-compose-prod.yml pull
             docker-compose -f docker-compose-prod.yml up -d
-            docker-compose -f docker-compose-prod.yml exec -T worker python manage.py db migrate
             docker-compose -f docker-compose-prod.yml exec -T worker airflow initdb
