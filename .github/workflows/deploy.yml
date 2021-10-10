@@ -6,13 +6,16 @@ name: Deploy the image to the new VPS
 #  workflow_run:
 #    workflows: ["Build and Publish new Docker image"]
 #    types: [completed] #requested
-branches:
-  - deploy-to-new-server
+on:
+  push:
+    # Publish `master` as Docker `latest` image. this is the alternative to explore the next time
+    branches:
+      - setup-memories-issues
 jobs:
   deploy:
     runs-on: ubuntu-latest
     name: Deploy to Personal host
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # if: ${{ github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout master
         uses: actions/checkout@v1
