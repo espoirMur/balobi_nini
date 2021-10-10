@@ -84,9 +84,21 @@ Make sure you have docker installed and running and docker-compose and then go i
 
 Then chill until I get motivation to finish this readme
 
+# Tweeking DB migration
+
 Update the database using this command :
 
 `docker-compose exec streamlit-instance python manage.py db upgrade`
+
+To create the table for tweets analysis
+
+PS : connect to the database you are using and delete the alembic version to avoid conflict :
+
+`delete * from alembic_version`
+
+Once you have created the tables you can now run the following command to update the database for airflow
+
+- `docker-compose -f docker-compose-prod.yml exec -T worker airflow initdb`
 
 <!-- road map -->
 
