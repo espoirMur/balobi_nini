@@ -1,41 +1,26 @@
 version: "3"
-
 services:
   webserver:
-    image: airflow-for-tweets
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
-    env_file:
-      - ./.env
+    env_file: ./.env.dev
     volumes:
       - ./dags:/usr/local/airflow/dags
-    network_mode: host
     command: airflow webserver
     healthcheck:
       test: ["CMD-SHELL", "[ -f /usr/local/airflow/airflow-webserver.pid ]"]
       interval: 30s
       timeout: 30s
       retries: 3
+    ports:
+      - "8080:8080"
     environment:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-  flower:
-    image: airflow-for-tweets
-    restart: always
-    environment:
-      - EXECUTOR=Celery
-      - LC_ALL="en_US.UTF-8"
-      - LC_CTYPE="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/balobi_nini
-    env_file:
-      - ./.env
-    command: flower
-    network_mode: host
+    mem_limit: 768m
   scheduler:
-    image: airflow-for-tweets
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     depends_on:
       - webserver
@@ -46,12 +31,11 @@ services:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini/
-    env_file:
-      - ./.env
+    mem_limit: 256m
+    env_file: ./.env.dev
     command: airflow scheduler
-    network_mode: host
   worker:
-    image: airflow-for-tweets
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     depends_on:
       - scheduler
@@ -62,12 +46,11 @@ services:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-    env_file:
-      - ./.env
+    env_file: ./.env.dev
     command: airflow celery worker
-    network_mode: host
+    mem_limit: 768m
   streamlit-instance:
-    image: airflow-for-tweets
+    image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
     depends_on:
       - worker
@@ -75,7 +58,8 @@ services:
       - ./dags:/usr/local/airflow/dags
     environment:
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-    env_file:
-      - ./.env
+    env_file: ./.env.dev
     command: streamlit run stream_it.py
-    network_mode: host
+    mem_limit: 256m
+    ports:
+      - "8501:8501"

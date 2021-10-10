@@ -19,18 +19,7 @@ services:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-  flower:
-    image: ghcr.io/espoirmur/airflow-for-tweets:latest
-    restart: always
-    environment:
-      - EXECUTOR=Celery
-      - LC_ALL="en_US.UTF-8"
-      - LC_CTYPE="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/balobi_nini
-    env_file:
-      - ./.env
-    command: flower
-    network_mode: host
+    mem_limit: 768m
   scheduler:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
@@ -47,6 +36,7 @@ services:
       - ./.env
     command: airflow scheduler
     network_mode: host
+    mem_limit: 256m
   worker:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
@@ -63,6 +53,7 @@ services:
       - ./.env
     command: airflow celery worker
     network_mode: host
+    mem_limit: 768m
   streamlit-instance:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
@@ -76,3 +67,4 @@ services:
       - ./.env
     command: streamlit run stream_it.py
     network_mode: host
+    mem_limit: 256m
