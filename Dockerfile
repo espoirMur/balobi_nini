@@ -1,4 +1,4 @@
-FROM python:3.6 as base
+FROM python:3.7 as base
 LABEL maintainer="Espoir Murhabazi<espoir.mur [] gmail>"
 
 
@@ -18,15 +18,17 @@ ENV PYTHONUNBUFFERED=1 \
     PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH" \
     NLTK_DATA=/usr/share/nltk_data
 
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
 
 FROM base AS python-deps
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
         curl \
-        build-essential
+        build-essential\
+        software-properties-common
 
 # Install Poetry - respects $POETRY_VERSION & $POETRY_HOME
-ENV POETRY_VERSION=1.1.7
+ENV POETRY_VERSION=1.1.8
 RUN curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 
 # We copy our Python requirements here to cache them
@@ -35,10 +37,12 @@ WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
 RUN poetry install --no-dev  # respects
 
+# Downgrade SQL Alchemy to fix an issue we are having with airflow compatibility
+
+RUN poetry add SQLAlchemy@1.3.23
+
 ## downolods nltk data
-RUN python -m spacy download fr_core_news_sm -d ${NLTK_DATA}
-RUN python -m spacy download fr
-RUN python -m nltk.downloader -d ${NLTK_DATA} stopwords
+RUN python -m nltk.downloader  stopwords -d ${NLTK_DATA}
 
 
 
@@ -50,10 +54,14 @@ COPY --from=python-deps $PYSETUP_PATH $PYSETUP_PATH
 
 
 RUN useradd --create-home es.py
-ENV WORKING_DIR=/home/es.py
+RUN mkdir /home/es.py/balobi_nini
+ENV WORKING_DIR=/home/es.py/balobi_nini
+ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:${WORKING_DIR}:$PATH"
+ENV PYTHONPATH="${PYTHONPATH}:${WORKING_DIR}"
 COPY . ${WORKING_DIR}
 WORKDIR ${WORKING_DIR}
+RUN mkdir ${WORKING_DIR}/logs
+RUN chown -R es.py:es.py ${WORKING_DIR}
+RUN chmod -R 755 ${WORKING_DIR}
 USER es.py
 EXPOSE 8080 5555 8793
-
-
