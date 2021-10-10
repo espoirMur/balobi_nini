@@ -3,7 +3,7 @@ services:
   webserver:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
-    env_file: -./.env.dev
+    env_file: ./.env.dev
     volumes:
       - ./dags:/usr/local/airflow/dags
     command: airflow webserver
@@ -18,19 +18,7 @@ services:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-  flower:
-    image: ghcr.io/espoirmur/airflow-for-tweets:latest
-    restart: always
-    environment:
-      - EXECUTOR=Celery
-      - LC_ALL="en_US.UTF-8"
-      - LC_CTYPE="en_US.UTF-8"
-      - AIRFLOW_HOME=/home/es.py/balobi_nini
-
-    env_file: -./.env.dev
-    ports:
-      - "5555:5555"
-    command: flower
+    mem_limit: 768m
   scheduler:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
@@ -43,8 +31,8 @@ services:
       - EXECUTOR=Celery
       - LC_ALL="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini/
-
-    env_file: -./.env.dev
+    mem_limit: 256m
+    env_file: ./.env.dev
     command: airflow scheduler
   worker:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
@@ -58,8 +46,9 @@ services:
       - LC_ALL="en_US.UTF-8"
       - LC_CTYPE="en_US.UTF-8"
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-    env_file: -./.env.dev
+    env_file: ./.env.dev
     command: airflow celery worker
+    mem_limit: 768m
   streamlit-instance:
     image: ghcr.io/espoirmur/airflow-for-tweets:latest
     restart: always
@@ -69,7 +58,8 @@ services:
       - ./dags:/usr/local/airflow/dags
     environment:
       - AIRFLOW_HOME=/home/es.py/balobi_nini
-    env_file: -./.env.dev
+    env_file: ./.env.dev
     command: streamlit run stream_it.py
+    mem_limit: 256m
     ports:
       - "8501:8501"

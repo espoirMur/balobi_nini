@@ -70,6 +70,8 @@ The project use redis as broker, install it and get it running using this [link]
 
 The project also use postgres as database , install it and create a database for the project. Keep it's name somewhere for future use.
 
+Follow this [URL](https://medium.com/coding-blocks/creating-user-database-and-adding-access-on-postgresql-8bfcd2f4a91e) to create a user and a database
+
 ### Generate the .env file
 
 `cp .env.sample .env`
