@@ -33,7 +33,6 @@ pymongo = "3.8.0"
 pyshp = "2.1.0"
 PySocks = "1.7.0"
 python-dotenv = "0.13.0"
-python-openid = "2.2.5"
 redis = "3.5.2"
 requests-oauthlib = "1.2.0"
 Rx = "1.6.1"
@@ -46,6 +45,7 @@ fr-core-news-sm = {url = "https://github.com/explosion/spacy-models/releases/dow
 tweepy = "3.7.0"
 tweet-preprocessor = "^0.6.0"
 Flask-Bcrypt = "^0.7.1"
+python3-openid = "^3.2.0"
 
 [tool.poetry.dev-dependencies]
 
