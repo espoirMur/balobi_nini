@@ -45,6 +45,7 @@ wordcloud = "1.8.1"
 fr-core-news-sm = {url = "https://github.com/explosion/spacy-models/releases/download/fr_core_news_sm-2.1.0/fr_core_news_sm-2.1.0.tar.gz"}
 tweepy = "3.7.0"
 tweet-preprocessor = "^0.6.0"
+Flask-Bcrypt = "^0.7.1"
 
 [tool.poetry.dev-dependencies]
 
