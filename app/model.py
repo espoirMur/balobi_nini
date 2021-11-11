@@ -12,9 +12,20 @@ class CleannedTweet(db.Model):
 
     def __repr__(self):
         return '<id {} {}>'.format(self.id, self.text)
+    
+    def _to_dictionary(self):
+        """
+        convert the instance to a dictionary
+        """
+        return {
+            'id': self.id,
+            'text': self.text,
+            'created_at': self.created_at,
+            'raw_json': self.raw_json
+        }
 
     def save_to_database(self):
         """
         save the instance to the database
         """
-        db.session.execute(insert(CleannedTweet).values(self).on_conflict_do_nothing())
+        db.session.execute(insert(CleannedTweet).values([self._to_dictionary()]).on_conflict_do_nothing())
