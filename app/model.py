@@ -1,5 +1,5 @@
 from app import db
-from sqlalchemy.dialects.postgresql import JSON
+from sqlalchemy.dialects.postgresql import JSON, insert
 
 
 class CleannedTweet(db.Model):
@@ -17,5 +17,4 @@ class CleannedTweet(db.Model):
         """
         save the instance to the database
         """
-        db.session.add(self)
-        db.session.commit()
+        db.session.execute(insert(CleannedTweet).values(self).on_conflict_do_nothing())

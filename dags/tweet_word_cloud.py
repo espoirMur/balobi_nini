@@ -17,7 +17,10 @@ def tweet_image(**context):
     client = get_twitter_client()
     image_path = context['task_instance'].xcom_pull(
         task_ids='generate_image', key='word_cloud_path')
-    tweet_words_count(client, image_path)
+    if image_path:
+        tweet_words_count(client, image_path)
+    else:
+        print('No image generated')
 
 
 tweet_word_cloud_dag = DAG(
