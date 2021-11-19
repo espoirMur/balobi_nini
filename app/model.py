@@ -30,3 +30,4 @@ class CleannedTweet(db.Model):
         """
         db.session.execute(insert(CleannedTweet).values([self._to_dictionary()]).on_conflict_do_nothing())
         db.session.commit()
+        print("I am done saving the tweet in the database ")
