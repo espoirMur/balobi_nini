@@ -29,3 +29,4 @@ class CleannedTweet(db.Model):
         save the instance to the database
         """
         db.session.execute(insert(CleannedTweet).values([self._to_dictionary()]).on_conflict_do_nothing())
+        db.session.commit()
