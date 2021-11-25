@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - master
+name: Generate release notes
+jobs:
+  create-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Bump version and push tag
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v5.6
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          release_branches: master, develop
+          append_to_pre_release_tag: ""
+      - name: "generate changelog"
+        id: generate_changelog
+        uses: mikepenz/release-changelog-builder-action@v2.6.0
+        with:
+          configuration: ".github/release-notes-configurations.json"
+          ignorePreReleases: "false"
+          fromTag: ${{steps.tag_version.outputs.previous_tag}}
+          toTag: ${{steps.tag_version.outputs.new_tag}}
+          commitMode: "true"
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: create release notes from changelog
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: espoirMur/balobi_nini
+        with:
+          body: ${{steps.generate_changelog.outputs.changelog}}
+          draft: false
+          prerelease: false
+          tag_name: ${{ steps.tag_version.outputs.new_tag }}

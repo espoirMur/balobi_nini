@@ -3,7 +3,6 @@ from airflow.operators.python_operator import PythonOperator
 from tweets_queries.twitter_query_data import query_tweets
 from tweets_queries.twitter_client import get_twitter_client
 from tweets_cleaner.TweetsCleaner import TweetsCleaner
-from datetime import timedelta, datetime
 from dags import default_args
 
 
@@ -20,7 +19,7 @@ def get_tweets(**context):
 def clean_save_to_db(**context):
     tweets = context['task_instance'].xcom_pull(
         task_ids='get_tweets', key='tweets')
-    cleaner = TweetsCleaner('.')
+    cleaner = TweetsCleaner()
     cleaner.save_clean_tweets(tweets)
 
 
