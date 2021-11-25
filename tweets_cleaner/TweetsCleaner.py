@@ -21,8 +21,7 @@ tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
 
 class TweetsCleaner:
 
-    def __init__(self, path):
-        self.TWEETS_PATH = path
+    def __init__(self):
         self.words_to_remove = get_words_to_remove().union(emoticons)
         self.emoji_patterns = re.compile("["
                                          u"\U0001F600-\U0001F64F"  # emoticons
@@ -34,19 +33,14 @@ class TweetsCleaner:
                                          u"\U000024C2-\U0001F251"
                                          "]+", flags=re.UNICODE)
 
-    def remove_nonlatin(self, s):
+    def remove_accents(self, input_str):
         """
-        remove non ascii character but keep accent
-
-        Args:
-            s (string): text
-
-        Returns:
-            string: text without non ascii char
+        remove accent from the text, please refer to this code for more info, thanks for the author
+        :https://stackoverflow.com/a/517974/4683950
         """
-        s = (ch for ch in s
-             if unicodedata.name(ch).startswith(('LATIN', 'DIGIT', 'SPACE')))
-        return ''.join(s)
+        nfkd_form = unicodedata.normalize('NFKD', input_str)
+        only_ascii = nfkd_form.encode('ASCII', 'ignore')
+        return only_ascii.decode('utf-8')
 
     def remove_emoji(self, text):
         """
@@ -81,7 +75,7 @@ class TweetsCleaner:
         doc = french_lematizer(' '.join(tokens))
         return [token.lemma_ for token in doc]
 
-    def prepocess_tweet(self, tweet_text):
+    def prepocess_tweet(self, tweet_text, remove_emojis=True, remove_accents=True):
         """
         Apply all the preprocessing process on a tweet and return the tweet as a text and tweet as list of tokens
 
@@ -91,7 +85,9 @@ class TweetsCleaner:
         Returns:
             list : list of tokens from the tweet_text
         """
-        text = tweet_preprocessor.clean(tweet_text)
+        if remove_accents:
+            text = self.remove_accents(tweet_text)
+        text = tweet_preprocessor.clean(text)
         text = text.replace('#', '')
         text = text.replace('-', '')
         text = text.replace("«", "")
@@ -99,7 +95,8 @@ class TweetsCleaner:
         text = text.replace("_", "")
         text = re.sub(r"\b\w{1}\b", "", text)
         text = re.sub(r"\b\w{2}\b", "", text)
-        text = self.remove_emoji(text)
+        if remove_emojis:
+            text = self.remove_emoji(text)
         tokens = process_text(text=text, words_to_remove=self.words_to_remove)
         tokens = self.lematize_token(tokens)
         return tokens
