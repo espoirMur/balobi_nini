@@ -19,7 +19,6 @@ jobs:
         id: generate_changelog
         uses: mikepenz/release-changelog-builder-action@v2.6.0
         with:
-          configuration: ".github/release-notes-configurations.json"
           ignorePreReleases: "false"
           fromTag: ${{steps.tag_version.outputs.previous_tag}}
           toTag: ${{steps.tag_version.outputs.new_tag}}
