@@ -32,6 +32,6 @@ jobs:
           GITHUB_REPOSITORY: espoirMur/balobi_nini
         with:
           body: ${{steps.generate_changelog.outputs.changelog}}
-          draft: false
-          prerelease: false
+          draft: true
+          prerelease: true
           tag_name: ${{ steps.tag_version.outputs.new_tag }}
