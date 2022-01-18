@@ -134,7 +134,7 @@ Distributed under my personal open source licence. See [`LICENSE`](./LICENSE.md)
 
 ## Contact
 
-Espoir Murhabazi - [@olobi_nini](https://twitter.com/olobi_nini) - espoir.mur on gmail
+Espoir Murhabazi - [@olobi_nini](https://twitter.com/esp_py) - espoir.mur on gmail
 
 Project Link: [https://github.com/espoirMur/balobi_nini](https://github.com/espoirMur/balobi_nini)
 
