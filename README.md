@@ -24,7 +24,7 @@ _What did they say? or What are they talking about in Lingala_
 
 Finally this project is taking shape , I finally found what I am building....
 
-Among multiple concepts I am testing on this project!
+Among multiple concepts I am testing on this project.
 
 Here are some feature that are working in this repository:
 
