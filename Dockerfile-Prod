@@ -35,9 +35,6 @@ RUN curl -sSL https://install.python-poetry.org | python3 -
 # and install only runtime deps using poetry
 WORKDIR $PYSETUP_PATH
 COPY ./poetry.lock ./pyproject.toml ./
-# update the version of setup tools
-
-RUN pip3 install $PIP_OPTION "setuptools<=57.*"
 
 RUN poetry install --no-dev  # respects
 
