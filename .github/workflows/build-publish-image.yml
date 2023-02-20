@@ -62,7 +62,3 @@ jobs:
           cache-to: type=local,mode=max,dest=${GITHUB_WORKSPACE}/.buildx-cache-new
           tags: |
             ${{ steps.generate-image-tag.outputs.image-tag }}
-      - name: Move cache
-        run: |
-          rm -rf ${GITHUB_WORKSPACE}/.buildx-cache
-          mv ${GITHUB_WORKSPACE}/.buildx-cache-new ${GITHUB_WORKSPACE}/.buildx-cache
