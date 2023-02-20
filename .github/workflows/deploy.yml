@@ -41,5 +41,5 @@ jobs:
             cd ~/Projects/balobi_nini
             export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
-            docker-compose -f docker-compose-prod.yml pull
+            docker-compose -f docker-compose-prod.yml  pull
             docker-compose -f docker-compose-prod.yml up -d

@@ -47,6 +47,7 @@ COPY --from=python-deps /opt/venv /opt/venv
 RUN useradd --create-home es.py
 RUN mkdir /home/es.py/balobi_nini
 ENV WORKING_DIR=/home/es.py/balobi_nini
+ENV  PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python
 ENV PATH="${WORKING_DIR}:$PATH"
 ENV PATH="/opt/venv/bin:$PATH"
 ENV PYTHONPATH="/opt/venv/bin:$PYTHONPATH"
