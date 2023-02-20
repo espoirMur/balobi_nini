@@ -27,7 +27,7 @@ jobs:
           KEY: ${{ secrets.PRIVATE_KEY }}
         with:
           source: "."
-          target: "/Projects/balobi_nini"
+          target: "~/Projects/balobi_nini"
       - name: Executing remote command
         uses: appleboy/ssh-action@master
         with:
@@ -38,7 +38,7 @@ jobs:
           TIMEOUT: 5m
           COMMAND_TIMEOUT: 5m
           script: |
-            cd /Projects/balobi_nini
+            cd ~/Projects/balobi_nini
             export DOCKER_BUILDKIT=1
             export COMPOSE_DOCKER_CLI_BUILD=1
             docker-compose -f docker-compose-prod.yml pull
