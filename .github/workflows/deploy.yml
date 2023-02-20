@@ -3,9 +3,10 @@
 name: Deploy the image to the new VPS
 # Only trigger, when the build workflow succeeded
 on:
-  workflow_run:
-    workflows: ["Build and Publish new Docker image"]
-    types: [completed] #requested
+  push:
+    # Publish `master` as Docker `latest` image. this is the alternative to explore the next time
+    branches:
+      - master
 
 jobs:
   deploy:
