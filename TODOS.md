@@ -27,6 +27,8 @@ TO DO LIST :
 - [] Get all the data for year 2020 and save it in a raw json file without cleaning
 - [] Save the data to json file without cleaning
 - [] https://dagshub.com/ investigate the usage of this
+- [] Move the project from Airflow to Prefect or Any other workflow manager
+- [] get all the tweets from my timeline
 
 ### DRC Coordinates
 
