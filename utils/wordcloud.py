@@ -18,4 +18,5 @@ def generate_today_word_cloud(path='images/'):
             path, 'word_cloud', datetime.today().strftime('%m-%d-%Y'))
         word_cloud_path = "{}.png".format(word_cloud.__str__)
         word_cloud.to_file(word_cloud_path)
+        # Todo: should put on s3 adn return the s3 path
         return word_cloud_path
