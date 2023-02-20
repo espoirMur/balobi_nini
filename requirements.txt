@@ -37,3 +37,4 @@ tweepy==3.7.0
 tweet-preprocessor==0.6.0
 Flask-Bcrypt==0.7.1
 python3-openid==3.2.0
+Flask-Script==2.0.6

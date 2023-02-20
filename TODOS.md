@@ -29,6 +29,7 @@ TO DO LIST :
 - [] https://dagshub.com/ investigate the usage of this
 - [] Move the project from Airflow to Prefect or Any other workflow manager
 - [] get all the tweets from my timeline
+- [] Add a script to intialize the database migration
 
 ### DRC Coordinates
 

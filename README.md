@@ -88,7 +88,7 @@ Then chill until I get motivation to finish this readme
 
 Update the database using this command :
 
-`docker-compose exec streamlit-instance python manage.py db upgrade`
+`docker-compose -f docker-compose-prod.yml exec worker python manage.py db upgrade`
 
 To create the table for tweets analysis
 
