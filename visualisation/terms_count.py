@@ -1,7 +1,9 @@
-from app.model import CleannedTweet
 from collections import Counter
-from datetime import date, timedelta
+from datetime import date
+
 from sqlalchemy import Date
+
+from model import CleannedTweet
 
 
 def get_term_count():
@@ -12,10 +14,9 @@ def get_term_count():
     return a dictionary of term and the count of they occurrences
     """
     term_counts = Counter()
-    cleaned_tweets = CleannedTweet.query.filter(
-        CleannedTweet.created_at.cast(Date) == date.today())
+    cleaned_tweets = CleannedTweet.query.filter(CleannedTweet.created_at.cast(Date) == date.today())
     for tweet in cleaned_tweets:
         text = tweet.text
-        tokens = text.split(' ')
+        tokens = text.split(" ")
         term_counts.update(tokens)
     return term_counts

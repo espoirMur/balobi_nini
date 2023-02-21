@@ -1,17 +1,12 @@
-import os
-
-from sqlalchemy import BigInteger, Column, DateTime, Text, create_engine
+from sqlalchemy import BigInteger, Column, DateTime, Text
 from sqlalchemy.dialects.postgresql import JSON, insert
+from sqlalchemy.engine import Engine
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.declarative import declarative_base
 
-from config import app_config as app_configs
 from logger_config import logger
 
-app_config = app_configs.get(os.getenv("APP_SETTINGS"))
 Base = declarative_base()
-DATABASE_URI = app_config.SQLALCHEMY_DATABASE_URI
-engine = create_engine(DATABASE_URI, echo=True)
 
 
 class CleanedTweet(Base):
@@ -31,7 +26,7 @@ class CleanedTweet(Base):
         """
         return {"id": self.id, "text": self.text, "created_at": self.created_at, "raw_json": self.raw_json}
 
-    def save_to_database(self):
+    def save_to_database(self, engine: Engine):
         """
         save the instance to the database
         """
