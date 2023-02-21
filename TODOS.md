@@ -35,3 +35,17 @@ TO DO LIST :
 
 The whole country
 [11.94,-13.64,30.54,5.19]
+
+## PostModern Feb 2023
+
+I finally get time to touch on this project after around 6 month of it being down.
+It took me around a day to setup a new server and to get the project running again.
+The github action are back working but there have been a lot of learning since the last time I worked on this project.
+
+I would like to improve it by adding new tools.
+
+HEre is the next road map.
+
+Before adding new features to the project I would like to replace Airflow with Perfect as workflow manager.
+Replace Docker with Kubernetes as container manager.
+Then add more feature and improve the modelling aspect of the project.
