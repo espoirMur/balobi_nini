@@ -1,3 +1,5 @@
+spacy==2.3.2
+
 wtforms==2.3.3 
 celery==4.4.7
 markupsafe==2.0.1
@@ -34,7 +36,6 @@ scandir==1.10.0
 sklearn==0.0
 streamlit==0.89.0
 wordcloud==1.8.1
-spacy==2.1.0
 tweepy==3.7.0
 tweet-preprocessor==0.6.0
 Flask-Bcrypt==0.7.1
