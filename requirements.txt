@@ -1,4 +1,5 @@
 wtforms==2.3.3 
+celery==4.4.7
 markupsafe==2.0.1
 Flask-OpenID==1.3.0
 apache-airflow==1.10.15
