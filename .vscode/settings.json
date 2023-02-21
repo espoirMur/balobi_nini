@@ -1,7 +1,5 @@
 {
   "editor.formatOnSave": true,
-  "editor.formatOnSaveTimeout": 300000,
-  "python.pythonPath": "../nlp_course_coursera_russia_uni/.venv/bin/python3.6",
   "python.formatting.provider": "autopep8",
   "python.linting.pylintEnabled": false,
   "python.linting.pycodestyleEnabled": true,

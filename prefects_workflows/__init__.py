@@ -1,5 +1,6 @@
+from datetime import datetime, timedelta
+
 from dotenv import load_dotenv
-from datetime import timedelta, datetime
 
 load_dotenv()
 
@@ -11,5 +12,5 @@ default_args = {
     "email_on_failure": False,
     "wait_for_downstream": False,
     "retries": 1,
-    "retry_delay": timedelta(minutes=5)
+    "retry_delay": timedelta(minutes=5),
 }

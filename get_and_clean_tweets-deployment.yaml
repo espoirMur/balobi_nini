@@ -1,0 +1,51 @@
+###
+### A complete description of a Prefect Deployment for flow 'Get and clean tweets'
+###
+name: tweet-cleaner
+description: null
+version: 6d51ec0d98f8a0841b572753a0de494d
+# The work queue that will handle this deployment's runs
+work_queue_name: test
+work_pool_name: null
+tags: []
+parameters: {}
+schedule: null
+is_schedule_active: null
+infra_overrides: {}
+infrastructure:
+  type: process
+  env: {}
+  labels: {}
+  name: null
+  command: null
+  stream_output: true
+  working_dir: null
+  block_type_slug: process
+  _block_type_slug: process
+
+###
+### DO NOT EDIT BELOW THIS LINE
+###
+flow_name: Get and clean tweets
+manifest_path: null
+storage: null
+path: /Users/es.py/Projects/Personal/balobi_nini
+entrypoint: prefects_workflows/get_and_clean_tweets.py:get_and_clean_tweets
+parameter_openapi_schema:
+  title: Parameters
+  type: object
+  properties:
+    keywords:
+      title: keywords
+      position: 0
+      type: array
+      items:
+        type: string
+    max_tweets:
+      title: max_tweets
+      position: 1
+  required:
+  - keywords
+  - max_tweets
+  definitions: null
+timestamp: '2023-02-21T17:44:03.268382+00:00'

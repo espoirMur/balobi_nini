@@ -1,0 +1,2 @@
+KEYWORD_LIST = ["RDC", "RDCongo", "DRC", "DRCongo"]
+MAX_TWEETS = 2000

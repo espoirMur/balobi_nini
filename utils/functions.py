@@ -1,24 +1,12 @@
-import sys
-import string
-import pickle
 import json
-import matplotlib.dates as mdates
-import pandas as pd
-import numpy as np
+import string
+from collections import Counter
+
 import many_stop_words
-import matplotlib.pyplot as plt
-import matplotlib.dates as mdates
-from collections import Counter, defaultdict
-from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
+from nltk.tokenize import TweetTokenizer
 
-from datetime import datetime
-
-
-from datetime import datetime
-
-
-TWEETS_PATH = '../data/query_drc_by_hashtags__03-06-2019-12-53.jsonl'
+TWEETS_PATH = "../data/query_drc_by_hashtags__03-06-2019-12-53.jsonl"
 
 
 def get_text(tag):
@@ -30,7 +18,7 @@ def get_text(tag):
     Returns:
         string: the text from a hashtag
     """
-    return tag.get('text').lower()
+    return tag.get("text").lower()
 
 
 def get_hashtags(tweet):
@@ -42,14 +30,13 @@ def get_hashtags(tweet):
     Returns:
         list: list of hastags in a tweet
     """
-    entities = tweet.get('entities', {})
-    hashtags = entities.get('hashtags', [])
-    return [get_text(tag) for tag in hashtags if get_text(
-        tag) not in ['rdc', 'drc', 'rdcongo', 'drcongo']]
+    entities = tweet.get("entities", {})
+    hashtags = entities.get("hashtags", [])
+    return [get_text(tag) for tag in hashtags if get_text(tag) not in ["rdc", "drc", "rdcongo", "drcongo"]]
 
 
 def read_tweets_file(path):
-    """ function which read a file with tweets
+    """function which read a file with tweets
 
     Args:
         path (string): path for the file of tweets
@@ -57,7 +44,7 @@ def read_tweets_file(path):
     Returns:
         iterator: an iterator of tweets obejcts
     """
-    with open(path, 'r') as f:
+    with open(path, "r") as f:
         for line in f:
             tweet = json.loads(line)
             yield tweet
@@ -95,8 +82,7 @@ def process_text(text, tokenizer=TweetTokenizer(), words_to_remove=[]):
     """
     text = text.lower()
     tokens = tokenizer.tokenize(text)
-    return [
-        token for token in tokens if token not in words_to_remove and not token.isdigit()]
+    return [token for token in tokens if token not in words_to_remove and not token.isdigit()]
 
 
 def get_words_to_remove():
@@ -106,24 +92,33 @@ def get_words_to_remove():
         set : an array of words to remove
     """
     punctuation = list(string.punctuation)
-    stop_word_list_english = stopwords.words('english')
-    stop_word_list_french = stopwords.words('french')
-    others_words = ['rt', 'via', '...', '…', '»:', '«:', '’:', 'les', '-', ]
-    words_to_remove = punctuation + stop_word_list_english + \
-        stop_word_list_french + others_words
+    stop_word_list_english = stopwords.words("english")
+    stop_word_list_french = stopwords.words("french")
+    others_words = [
+        "rt",
+        "via",
+        "...",
+        "…",
+        "»:",
+        "«:",
+        "’:",
+        "les",
+        "-",
+    ]
+    words_to_remove = punctuation + stop_word_list_english + stop_word_list_french + others_words
     congo_words = {
-        'congo',
-        'congolais',
-        'rdc',
-        'drc',
-        '-',
-        'https',
-        'rdcongo',
-        'drc',
-        'drcongo', }
+        "congo",
+        "congolais",
+        "rdc",
+        "drc",
+        "-",
+        "https",
+        "rdcongo",
+        "drc",
+        "drcongo",
+    }
     words_to_remove = set(words_to_remove).union(congo_words)
-    words_to_remove = words_to_remove.union(
-        set(many_stop_words.get_stop_words('fr')))
+    words_to_remove = words_to_remove.union(set(many_stop_words.get_stop_words("fr")))
     return words_to_remove
 
 
@@ -139,9 +134,7 @@ def get_most_common_words(number, words_to_remove, path=TWEETS_PATH):
     """
     term_counts = Counter()
     for tweet in read_tweets_file(TWEETS_PATH):
-        tokens = process_text(
-            text=tweet.get('text'),
-            words_to_remove=words_to_remove)
+        tokens = process_text(text=tweet.get("text"), words_to_remove=words_to_remove)
         term_counts.update(tokens)
     for tag, count in term_counts.most_common(number):
         yield tag, count
