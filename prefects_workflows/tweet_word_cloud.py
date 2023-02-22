@@ -1,47 +1,46 @@
-from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
+from datetime import date
+from typing import List
 
-from dags import default_args
+from prefect import flow, task
+from sqlalchemy import Date, select
+from sqlalchemy.orm import Session
+
+from logger_config import logger
+from model import CleanedTweet
+from prefects_workflows.data_collectors.sql_flows import connect_to_db
 from tweets_queries.tweets_actions import tweet_words_count
 from tweets_queries.twitter_client import get_twitter_client
 from utils.wordcloud import generate_today_word_cloud
 
 
-def generate_image(**context):
+@task(name="retrieve today cleaned tweets", description="retrieve today cleaned tweets")
+def retrieve_today_cleaned_tweets(engine) -> List[str]:
+    """retrieve today cleaned tweets"""
+    with Session(engine) as session:
+        statement = select(CleanedTweet.text).filter(CleanedTweet.created_at.cast(Date) == date.today())
+        cleaned_tweets = session.execute(statement).all()
+        return cleaned_tweets
+
+
+@task(name="generate world cloud", description="generate world cloud for today terms")
+def generate_image(cleaned_tweets: List[str]):
     # Pull
-    image_path = generate_today_word_cloud()
-    context["task_instance"].xcom_push(key="word_cloud_path", value=image_path)
+    world_cloud = generate_today_word_cloud(cleaned_tweets)
+    return world_cloud
 
 
-def tweet_image(**context):
+@task(name="tweet worldcloud image", description="tweet worldcloud image")
+def tweet_image(image_path):
     client = get_twitter_client()
-    image_path = context["task_instance"].xcom_pull(task_ids="generate_image", key="word_cloud_path")
     if image_path:
         tweet_words_count(client, image_path)
     else:
-        print("No image generated")
+        logger.warning("No image generated")
 
 
-tweet_word_cloud_dag = DAG(
-    dag_id="tweet_word_cloud",
-    default_args=default_args,
-    schedule_interval="00 18 * * *",  # every  day at 22:00Pm need to bring back to 18pmUTC
-    catchup=False,
-)
-
-
-generate_image_operator = PythonOperator(
-    task_id="generate_image",
-    python_callable=generate_image,
-    provide_context=True,
-    dag=tweet_word_cloud_dag,
-)
-
-tweet_image_operator = PythonOperator(
-    task_id="tweet_image_operator",
-    python_callable=tweet_image,
-    provide_context=True,
-    dag=tweet_word_cloud_dag,
-)
-
-generate_image_operator >> tweet_image_operator
+@flow(name="Tweet word cloud", description="Tweet word cloud")
+def tweet_word_cloud():
+    engine = connect_to_db()
+    cleaned_tweets = retrieve_today_cleaned_tweets(engine)
+    world_cloud_path = generate_image(cleaned_tweets)
+    tweet_image(world_cloud_path)

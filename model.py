@@ -1,8 +1,11 @@
 from sqlalchemy import BigInteger, Column, DateTime, Text
 from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.engine import Engine
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
+
+from logger_config import logger
 
 Base = declarative_base()
 
@@ -32,6 +35,8 @@ class CleanedTweet(Base):
             session.begin()
             try:
                 session.merge(self)
+            except IntegrityError:
+                logger.info("Tweet already exists")
             except Exception:
                 session.rollback()
                 raise
