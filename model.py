@@ -1,10 +1,8 @@
 from sqlalchemy import BigInteger, Column, DateTime, Text
-from sqlalchemy.dialects.postgresql import JSON, insert
+from sqlalchemy.dialects.postgresql import JSON
 from sqlalchemy.engine import Engine
-from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.declarative import declarative_base
-
-from logger_config import logger
+from sqlalchemy.orm import Session
 
 Base = declarative_base()
 
@@ -30,9 +28,12 @@ class CleanedTweet(Base):
         """
         save the instance to the database
         """
-        try:
-            engine.execute(insert(CleanedTweet).values([self._to_dictionary()]).on_conflict_do_nothing())
-            engine.commit()
-            logger.info("I am done saving the tweet in the database ")
-        except SQLAlchemyError as e:
-            logger.error("Error while saving the tweet to the database: {}".format(e))
+        with Session(engine) as session:
+            session.begin()
+            try:
+                session.merge(self)
+            except Exception:
+                session.rollback()
+                raise
+            else:
+                session.commit()

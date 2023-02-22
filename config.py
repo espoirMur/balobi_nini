@@ -1,5 +1,6 @@
 import os
 from pathlib import Path
+from urllib.parse import quote
 
 from dotenv import load_dotenv
 
@@ -14,7 +15,7 @@ class Config(object):
         self.SECRET_KEY = os.environ.get("SECRET_KEY")
         self.SQLALCHEMY_DATABASE_URI = "postgresql+psycopg2://{user}:{password}@{host}/{database}".format(
             user=os.environ.get("POSTGRES_USER"),
-            password=os.environ.get("POSTGRES_PASSWORD"),
+            password=quote(os.environ.get("POSTGRES_PASSWORD")),
             host=os.environ.get("POSTGRES_HOST"),
             database=os.environ.get("POSTGRES_DB"),
         )
