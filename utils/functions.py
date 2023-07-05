@@ -11,14 +11,9 @@ import matplotlib.dates as mdates
 from collections import Counter, defaultdict
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
-
+from utils.words_to_remove import OTHERS_WORDS, CONGO_WORDS
 from datetime import datetime
 
-
-from datetime import datetime
-
-
-TWEETS_PATH = '../data/query_drc_by_hashtags__03-06-2019-12-53.jsonl'
 
 
 def get_text(tag):
@@ -63,24 +58,6 @@ def read_tweets_file(path):
             yield tweet
 
 
-def get_most_common_hashtags(path, number):
-    """
-    find the most common hash tags in a corpus of tweets
-
-    Args:
-        path (string): path of the tweet files
-        number (int): number of most frequent hashtags to return
-    Returns :
-        an iterator of most tags and their count
-    """
-    hastags = Counter()
-    for tweet in read_tweets_file(TWEETS_PATH):
-        hashtags_in_tweet = get_hashtags(tweet)
-        hastags.update(hashtags_in_tweet)
-    for tag, count in hastags.most_common(number):
-        yield tag, count
-
-
 def process_text(text, tokenizer=TweetTokenizer(), words_to_remove=[]):
     """
     clean a tweet text
@@ -108,20 +85,9 @@ def get_words_to_remove():
     punctuation = list(string.punctuation)
     stop_word_list_english = stopwords.words('english')
     stop_word_list_french = stopwords.words('french')
-    others_words = ['rt', 'via', '...', '…', '»:', '«:', '’:', 'les', '-', ]
     words_to_remove = punctuation + stop_word_list_english + \
-        stop_word_list_french + others_words
-    congo_words = {
-        'congo',
-        'congolais',
-        'rdc',
-        'drc',
-        '-',
-        'https',
-        'rdcongo',
-        'drc',
-        'drcongo', }
-    words_to_remove = set(words_to_remove).union(congo_words)
+        stop_word_list_french + OTHERS_WORDS
+    words_to_remove = set(words_to_remove).union(CONGO_WORDS)
     words_to_remove = words_to_remove.union(
         set(many_stop_words.get_stop_words('fr')))
     return words_to_remove

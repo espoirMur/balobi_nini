@@ -7,6 +7,7 @@ from utils.functions import process_text, get_words_to_remove
 from utils.emoticons import emoticons
 from datetime import datetime
 from app.model import CleannedTweet
+from utils.words_to_remove import OTHERS_WORDS, CONGO_WORDS
 
 french_lematizer = spacy.load("fr_core_news_sm")
 
@@ -22,7 +23,7 @@ tweet_preprocessor.set_options(tweet_preprocessor.OPT.URL,
 class TweetsCleaner:
 
     def __init__(self):
-        self.words_to_remove = get_words_to_remove().union(emoticons)
+        self.words_to_remove = OTHERS_WORDS.union(CONGO_WORDS).union(emoticons)
         self.emoji_patterns = re.compile("["
                                          u"\U0001F600-\U0001F64F"  # emoticons
                                          u"\U0001F300-\U0001F5FF"  # symbols & pictographs
@@ -65,7 +66,7 @@ class TweetsCleaner:
         text = self.emoji_patterns.sub(r'', text)
         return text
 
-    def lematize_token(self, tokens):
+    def lemmatize_token(self, tokens):
         """
         replace word in token list  with his lemma:
         example : appelais  will become appele,
@@ -74,8 +75,23 @@ class TweetsCleaner:
 
         doc = french_lematizer(' '.join(tokens))
         return [token.lemma_ for token in doc]
+    
+    def replace_special_characters(self, text):
+        """replace specials characters in the tweet text
 
-    def prepocess_tweet(self, tweet_text, remove_emojis=True, remove_accents=True):
+        Args:
+            text (_type_): _description_
+        """
+        text = text.replace('#', '')
+        text = text.replace('-', '')
+        text = text.replace("«", "")
+        text = text.replace("»", "")
+        text = text.replace("_", "")
+        text = re.sub(r"\b\w{1}\b", "", text)
+        text = re.sub(r"\b\w{2}\b", "", text)
+        return text
+
+    def prepocess_tweet(self, tweet_text, remove_emojis=True, remove_accents=True, lemmatize=True):
         """
         Apply all the preprocessing process on a tweet and return the tweet as a text and tweet as list of tokens
 
@@ -88,17 +104,11 @@ class TweetsCleaner:
         if remove_accents:
             text = self.remove_accents(tweet_text)
         text = tweet_preprocessor.clean(text)
-        text = text.replace('#', '')
-        text = text.replace('-', '')
-        text = text.replace("«", "")
-        text = text.replace("»", "")
-        text = text.replace("_", "")
-        text = re.sub(r"\b\w{1}\b", "", text)
-        text = re.sub(r"\b\w{2}\b", "", text)
         if remove_emojis:
             text = self.remove_emoji(text)
         tokens = process_text(text=text, words_to_remove=self.words_to_remove)
-        tokens = self.lematize_token(tokens)
+        if lemmatize:
+            tokens = self.lematize_token(tokens)
         return tokens
 
     def save_clean_tweets(self, tweets):
