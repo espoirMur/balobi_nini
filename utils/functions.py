@@ -91,23 +91,3 @@ def get_words_to_remove():
     words_to_remove = words_to_remove.union(
         set(many_stop_words.get_stop_words('fr')))
     return words_to_remove
-
-
-def get_most_common_words(number, words_to_remove, path=TWEETS_PATH):
-    """
-    find the most common words in a corpus of tweets
-    Args:
-        path (string): path of the tweet files
-        number (int): number of most frequent hashtags to return
-        word_to_remove: list of words to remove
-    Returns :
-        an iterator most frequent words  and their count
-    """
-    term_counts = Counter()
-    for tweet in read_tweets_file(TWEETS_PATH):
-        tokens = process_text(
-            text=tweet.get('text'),
-            words_to_remove=words_to_remove)
-        term_counts.update(tokens)
-    for tag, count in term_counts.most_common(number):
-        yield tag, count
