@@ -12,3 +12,4 @@ airflow-webserver*
 data/**
 tweets_analysis.dump
 models/
+trained_models/

@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 datasets = "*"
+numpy = "==1.24"
 
 [dev-packages]
 
