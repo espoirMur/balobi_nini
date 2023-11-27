@@ -49,3 +49,9 @@ HEre is the next road map.
 Before adding new features to the project I would like to replace Airflow with Perfect as workflow manager.
 Replace Docker with Kubernetes as container manager.
 Then add more feature and improve the modelling aspect of the project.
+
+## Update November 2023
+
+A lot happens since I touch on this project, the DRC election are approaching and I was thinking to use it again, but unfortunately the twitter api is no longer free and they are requesting to 100 USD. Should I pay 100 USD for a research project, nannnnnnn! Elon will not take my money.
+
+I searched and I found this cool tool: https://github.com/vladkens/twscrape/?tab=readme-ov-file and one of those days I would like to try it to scrape twiter data without using the API.
